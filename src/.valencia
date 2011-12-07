@@ -1,0 +1,3 @@
+version = 1
+build_command = make spritehut
+clean_command = make clean

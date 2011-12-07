@@ -1,0 +1,6 @@
+[encoding: UTF-8]
+data/spritehut.desktop.in.in
+src/spritehut.vala
+src/spritehut-app.vala
+[type: gettext/glade]data/ui/mainwindow.ui
+[type: gettext/glade]data/ui/aboutdialog.ui

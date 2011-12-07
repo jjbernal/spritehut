@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+_Name=Sprite Hut
+_GenericName=Sprite Editor
+_Comment=A sprite editor with a twist
+Exec=spritehut
+Icon=spritehut
+Terminal=false
+Categories=Graphics
+StartupNotify=true
