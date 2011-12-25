@@ -3,32 +3,16 @@
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkActionGroup" id="edit-actiongroup">
     <child>
-      <object class="GtkAction" id="cut-action">
-        <property name="stock_id">gtk-cut</property>
-      </object>
-      <accelerator key="x" modifiers="GDK_CONTROL_MASK"/>
-    </child>
-    <child>
-      <object class="GtkAction" id="copy-action">
-        <property name="stock_id">gtk-copy</property>
-      </object>
-      <accelerator key="c" modifiers="GDK_CONTROL_MASK"/>
-    </child>
-    <child>
-      <object class="GtkAction" id="paste-action">
-        <property name="stock_id">gtk-paste</property>
-      </object>
-      <accelerator key="v" modifiers="GDK_CONTROL_MASK"/>
-    </child>
-    <child>
       <object class="GtkAction" id="undo-action">
         <property name="stock_id">gtk-undo</property>
+        <signal name="activate" handler="controllers_main_on_undo" swapped="no"/>
       </object>
       <accelerator key="z" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="redo-action">
         <property name="stock_id">gtk-redo</property>
+        <signal name="activate" handler="controllers_main_on_redo" swapped="no"/>
       </object>
       <accelerator key="z" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
     </child>
@@ -40,7 +24,29 @@
     <child>
       <object class="GtkAction" id="preferences-action">
         <property name="stock_id">gtk-preferences</property>
+        <signal name="activate" handler="controllers_main_on_preferences" swapped="no"/>
       </object>
+    </child>
+    <child>
+      <object class="GtkAction" id="cut-action">
+        <property name="stock_id">gtk-cut</property>
+        <signal name="activate" handler="controllers_main_on_cut" swapped="no"/>
+      </object>
+      <accelerator key="x" modifiers="GDK_CONTROL_MASK"/>
+    </child>
+    <child>
+      <object class="GtkAction" id="copy-action">
+        <property name="stock_id">gtk-copy</property>
+        <signal name="activate" handler="controllers_main_on_copy" swapped="no"/>
+      </object>
+      <accelerator key="c" modifiers="GDK_CONTROL_MASK"/>
+    </child>
+    <child>
+      <object class="GtkAction" id="paste-action">
+        <property name="stock_id">gtk-paste</property>
+        <signal name="activate" handler="controllers_main_on_paste" swapped="no"/>
+      </object>
+      <accelerator key="v" modifiers="GDK_CONTROL_MASK"/>
     </child>
   </object>
   <object class="GtkActionGroup" id="file-actiongroup">
@@ -81,13 +87,13 @@
     <child>
       <object class="GtkAction" id="save-as-action">
         <property name="stock_id">gtk-save-as</property>
+        <signal name="activate" handler="controllers_main_on_save_as" swapped="no"/>
       </object>
     </child>
   </object>
   <object class="GtkActionGroup" id="help-actiongroup">
     <child>
       <object class="GtkAction" id="about-action">
-        <property name="tooltip" translatable="yes">Show information about this application</property>
         <property name="stock_id">gtk-about</property>
         <signal name="activate" handler="controllers_main_on_about" swapped="no"/>
       </object>
@@ -98,7 +104,72 @@
       </object>
     </child>
     <child>
-      <object class="GtkAction" id="show-help-action"/>
+      <object class="GtkAction" id="help-contents-action">
+        <property name="label" translatable="yes">_Contents</property>
+        <property name="stock_id">help-contents</property>
+        <signal name="activate" handler="controllers_main_on_help_contents" swapped="no"/>
+      </object>
+      <accelerator key="F1"/>
+    </child>
+  </object>
+  <object class="GtkActionGroup" id="paint-actiongroup">
+    <child>
+      <object class="GtkRadioAction" id="pencil-action">
+        <property name="label" translatable="yes">Pencil(_p)</property>
+        <property name="tooltip" translatable="yes">Draw pixels freehand</property>
+        <property name="icon_name">draw-freehand</property>
+        <property name="active">True</property>
+        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+      </object>
+      <accelerator key="p"/>
+    </child>
+    <child>
+      <object class="GtkRadioAction" id="eraser-action">
+        <property name="short_label" translatable="yes">Eraser(e)</property>
+        <property name="tooltip" translatable="yes">Erase pixels back to transparent</property>
+        <property name="icon_name">draw-eraser</property>
+        <property name="value">1</property>
+        <property name="group">pencil-action</property>
+        <property name="current_value">1</property>
+        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+      </object>
+      <accelerator key="e"/>
+    </child>
+    <child>
+      <object class="GtkRadioAction" id="fill-action">
+        <property name="label" translatable="yes">Bucket Fill(f)</property>
+        <property name="tooltip" translatable="yes">Fill closed areas with color</property>
+        <property name="icon_name">color-fill</property>
+        <property name="value">2</property>
+        <property name="group">pencil-action</property>
+        <property name="current_value">2</property>
+        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+      </object>
+      <accelerator key="f"/>
+    </child>
+    <child>
+      <object class="GtkRadioAction" id="color-pick-action">
+        <property name="label" translatable="yes">Color Picker(c)</property>
+        <property name="tooltip" translatable="yes">Pick a color from the image</property>
+        <property name="icon_name">color-picker</property>
+        <property name="value">3</property>
+        <property name="group">pencil-action</property>
+        <property name="current_value">3</property>
+        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+      </object>
+      <accelerator key="c"/>
+    </child>
+  </object>
+  <object class="GtkActionGroup" id="select-actiongroup">
+    <child>
+      <object class="GtkRadioAction" id="select-rectangle-action">
+        <property name="label" translatable="yes">Rectangular Selection(Shift+R)</property>
+        <property name="tooltip" translatable="yes">Select a rectangular region</property>
+        <property name="icon_name">select-rectangular</property>
+        <property name="group">pencil-action</property>
+        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+      </object>
+      <accelerator key="r" modifiers="GDK_SHIFT_MASK"/>
     </child>
   </object>
   <object class="GtkActionGroup" id="view-actiongroup">
@@ -108,8 +179,17 @@
       </object>
     </child>
     <child>
-      <object class="GtkAction" id="toolbar-action">
-        <property name="label" translatable="yes">Toolbar</property>
+      <object class="GtkToggleAction" id="toolbar-action">
+        <property name="label" translatable="yes">_Toolbar</property>
+        <property name="active">True</property>
+        <signal name="toggled" handler="controllers_main_on_toolbar_toggle" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleAction" id="statusbar-action">
+        <property name="label" translatable="yes">_Status Bar</property>
+        <property name="active">True</property>
+        <signal name="toggled" handler="controllers_main_on_statusbar_toggle" swapped="no"/>
       </object>
     </child>
   </object>
@@ -133,7 +213,7 @@
           <placeholder/>
         </child>
         <child>
-          <object class="GtkStatusbar" id="statusbar1">
+          <object class="GtkStatusbar" id="main-statusbar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
@@ -156,40 +236,53 @@
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkToolItemGroup" id="paint_toolitemgroup">
+                  <object class="GtkToolItemGroup" id="paint-toolitemgroup">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Painting tools</property>
                     <property name="label" translatable="yes">Paint tools</property>
                     <child>
-                      <object class="GtkRadioToolButton" id="pencil_radiotoolbutton">
+                      <object class="GtkRadioToolButton" id="pencil-radiotoolbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Pencil</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="label" translatable="yes">Pencil(P)</property>
+                        <property name="related_action">pencil-action</property>
                         <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-edit</property>
-                        <property name="active">True</property>
-                        <property name="group">eraser_radiotoolbutton</property>
-                        <accelerator key="p" signal="clicked"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioToolButton" id="eraser_radiotoolbutton">
+                      <object class="GtkRadioToolButton" id="eraser-radiotoolbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Eraser(e)</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="label" translatable="yes">Eraser(e)</property>
+                        <property name="related_action">eraser-action</property>
                         <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-close</property>
-                        <property name="active">True</property>
-                        <property name="group">pencil_radiotoolbutton</property>
-                        <accelerator key="e" signal="clicked"/>
+                        <property name="group">pencil-radiotoolbutton</property>
                       </object>
                       <packing>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioToolButton" id="fill-radiotoolbutton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="related_action">fill-action</property>
+                        <property name="use_underline">True</property>
+                        <property name="group">pencil-radiotoolbutton</property>
+                      </object>
+                      <packing>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioToolButton" id="color-picker-radiotoolbutton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="related_action">color-pick-action</property>
+                        <property name="use_underline">True</property>
+                        <property name="group">pencil-radiotoolbutton</property>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                   </object>
@@ -198,7 +291,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolItemGroup" id="selection_toolitemgroup">
+                  <object class="GtkToolItemGroup" id="selection-toolitemgroup">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Tools for selecting sprite elements</property>
@@ -207,12 +300,9 @@
                       <object class="GtkRadioToolButton" id="rectangle_radiotoolbutton">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="label" translatable="yes">radiotoolbutton1</property>
+                        <property name="related_action">select-rectangle-action</property>
                         <property name="use_underline">True</property>
-                        <property name="stock_id">gtk-index</property>
-                        <property name="active">True</property>
-                        <property name="group">pencil_radiotoolbutton</property>
+                        <property name="group">pencil-radiotoolbutton</property>
                       </object>
                     </child>
                   </object>

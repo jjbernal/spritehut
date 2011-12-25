@@ -1,17 +1,18 @@
 # Makefile.am
 
-SUBDIRS = \
-    tools
-    
 themedir = $(datadir)/icons/hicolor
 size = 22x22
-context = apps
+context = actions
 
 iconsdir = $(themedir)/$(size)/$(context)
 
 icons_DATA = \
-	spritehut.png
+	color-fill.png \
+	color-picker.png \
+	draw-freehand.png \
+	draw-eraser.png \
+	select-rectangular.png
 
 EXTRA_DIST = \
-	$(icons_DATA)
+	$(tools_DATA)
 
