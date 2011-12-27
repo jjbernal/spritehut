@@ -18,17 +18,16 @@
 
 using SpriteHut;
 
-int
-main( string[] args )
+int main (string[] args)
 {
-	Intl.bindtextdomain( Config.GETTEXT_PACKAGE, Config.LOCALEDIR );
-	Intl.bind_textdomain_codeset( Config.GETTEXT_PACKAGE, "UTF-8" );
-	Intl.textdomain( Config.GETTEXT_PACKAGE );
-
-	Gtk.init( ref args );
+	Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
+	Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
+	Intl.textdomain(Config.GETTEXT_PACKAGE);
     
-	var test = new App();
+	var app = new App("org.gtk.Spritehut", ApplicationFlags.FLAGS_NONE);
+    app.activate.connect(app.on_app_activate);
+    int status = app.run (args);
 
-	return( 0 );
+    return status;
 }
 

@@ -1,10 +1,12 @@
 bin_PROGRAMS = spritehut
-	
+
 spritehut_SOURCES = \
 	spritehut.vala \
 	spritehut-app.vala \
 	controllers/main.vala \
-	controllers/about.vala
+	controllers/about.vala \
+	widgets/mainwindow.vala \
+	widgets/maindock.vala
 
 INCLUDES = \
 	-include config.h \

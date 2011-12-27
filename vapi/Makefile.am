@@ -1,5 +1,6 @@
 noinst_DATA = \
-	config.vapi
+	config.vapi \
+	gdl-3.0.vapi
 
 EXTRA_DIST = \
 	$(noinst_DATA)

@@ -18,14 +18,21 @@
 
 using Gtk;
 using Cairo;
+using Widgets;
 using Controllers;
 
-public class SpriteHut.App : Object
+public class SpriteHut.App : Gtk.Application
 {
-	public App()
+	public App (string app_id, ApplicationFlags flags)
 	{
-	    Controllers.Main main_controller = new Main();
-	    
+	    GLib.Object (application_id: app_id, flags: flags);
+	}
+	
+	public void on_app_activate()
+	{
+	    var main_window = new Widgets.MainWindow();
+	    Controllers.Main main_controller = new Controllers.Main(main_window);
+	    	    
 	    Gtk.main();
 	}
 }

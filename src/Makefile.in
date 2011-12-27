@@ -36,7 +36,8 @@ bin_PROGRAMS = spritehut$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	controllers/about.c controllers/main.c spritehut-app.c \
-	spritehut.c spritehut_vala.stamp
+	spritehut.c spritehut_vala.stamp widgets/maindock.c \
+	widgets/mainwindow.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -48,7 +49,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_spritehut_OBJECTS = spritehut.$(OBJEXT) spritehut-app.$(OBJEXT) \
-	main.$(OBJEXT) about.$(OBJEXT)
+	main.$(OBJEXT) about.$(OBJEXT) mainwindow.$(OBJEXT) \
+	maindock.$(OBJEXT)
 spritehut_OBJECTS = $(am_spritehut_OBJECTS)
 am__DEPENDENCIES_1 =
 spritehut_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -206,7 +208,9 @@ spritehut_SOURCES = \
 	spritehut.vala \
 	spritehut-app.vala \
 	controllers/main.vala \
-	controllers/about.vala
+	controllers/about.vala \
+	widgets/mainwindow.vala \
+	widgets/maindock.vala
 
 INCLUDES = \
 	-include config.h \
@@ -309,6 +313,8 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/about.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/maindock.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainwindow.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spritehut-app.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spritehut.Po@am__quote@
 
@@ -359,6 +365,38 @@ about.obj: controllers/about.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='controllers/about.c' object='about.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o about.obj `if test -f 'controllers/about.c'; then $(CYGPATH_W) 'controllers/about.c'; else $(CYGPATH_W) '$(srcdir)/controllers/about.c'; fi`
+
+mainwindow.o: widgets/mainwindow.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mainwindow.o -MD -MP -MF $(DEPDIR)/mainwindow.Tpo -c -o mainwindow.o `test -f 'widgets/mainwindow.c' || echo '$(srcdir)/'`widgets/mainwindow.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mainwindow.Tpo $(DEPDIR)/mainwindow.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='widgets/mainwindow.c' object='mainwindow.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mainwindow.o `test -f 'widgets/mainwindow.c' || echo '$(srcdir)/'`widgets/mainwindow.c
+
+mainwindow.obj: widgets/mainwindow.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mainwindow.obj -MD -MP -MF $(DEPDIR)/mainwindow.Tpo -c -o mainwindow.obj `if test -f 'widgets/mainwindow.c'; then $(CYGPATH_W) 'widgets/mainwindow.c'; else $(CYGPATH_W) '$(srcdir)/widgets/mainwindow.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mainwindow.Tpo $(DEPDIR)/mainwindow.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='widgets/mainwindow.c' object='mainwindow.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mainwindow.obj `if test -f 'widgets/mainwindow.c'; then $(CYGPATH_W) 'widgets/mainwindow.c'; else $(CYGPATH_W) '$(srcdir)/widgets/mainwindow.c'; fi`
+
+maindock.o: widgets/maindock.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT maindock.o -MD -MP -MF $(DEPDIR)/maindock.Tpo -c -o maindock.o `test -f 'widgets/maindock.c' || echo '$(srcdir)/'`widgets/maindock.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/maindock.Tpo $(DEPDIR)/maindock.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='widgets/maindock.c' object='maindock.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o maindock.o `test -f 'widgets/maindock.c' || echo '$(srcdir)/'`widgets/maindock.c
+
+maindock.obj: widgets/maindock.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT maindock.obj -MD -MP -MF $(DEPDIR)/maindock.Tpo -c -o maindock.obj `if test -f 'widgets/maindock.c'; then $(CYGPATH_W) 'widgets/maindock.c'; else $(CYGPATH_W) '$(srcdir)/widgets/maindock.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/maindock.Tpo $(DEPDIR)/maindock.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='widgets/maindock.c' object='maindock.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o maindock.obj `if test -f 'widgets/maindock.c'; then $(CYGPATH_W) 'widgets/maindock.c'; else $(CYGPATH_W) '$(srcdir)/widgets/maindock.c'; fi`
 $(srcdir)/spritehut.c: $(srcdir)/spritehut_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/spritehut_vala.stamp; \
@@ -375,6 +413,16 @@ $(srcdir)/controllers/main.c: $(srcdir)/spritehut_vala.stamp
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
 	fi
 $(srcdir)/controllers/about.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/widgets/mainwindow.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/widgets/maindock.c: $(srcdir)/spritehut_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/spritehut_vala.stamp; \
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
@@ -502,6 +550,8 @@ maintainer-clean-generic:
 	-rm -f spritehut-app.c
 	-rm -f spritehut.c
 	-rm -f spritehut_vala.stamp
+	-rm -f widgets/maindock.c
+	-rm -f widgets/mainwindow.c
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
