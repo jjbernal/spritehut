@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sprite Hut 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-07 00:53+0100\n"
+"POT-Creation-Date: 2011-12-27 14:06+0100\n"
 "PO-Revision-Date: 2011-12-04 20:37+0100\n"
 "Last-Translator: Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail."
 "com>\n"
@@ -28,61 +28,100 @@ msgstr ""
 msgid "Sprite Editor"
 msgstr "スプライト·ハット"
 
-#: ../data/spritehut.desktop.in.in.h:3 ../data/ui/mainwindow.ui.h:9
+#: ../data/spritehut.desktop.in.in.h:3 ../data/ui/mainwindow.ui.h:11
 msgid "Sprite Hut"
 msgstr "スプライト·ハット"
 
+#. the canvas dock
+#: ../src/widgets/maindock.vala:44
+msgid "Canvas"
+msgstr "キャンバス"
+
+#. Tool box
+#: ../src/widgets/maindock.vala:53
+msgid "Toolbox"
+msgstr ""
+
+#. the color_picker dock
+#: ../src/widgets/maindock.vala:57
+msgid "Color Picker"
+msgstr ""
+
+#. preview
+#: ../src/widgets/maindock.vala:61
+msgid "Preview"
+msgstr ""
+
+#. Palette
+#: ../src/widgets/maindock.vala:65
+msgid "Palette"
+msgstr ""
+
+#. Animations
+#: ../src/widgets/maindock.vala:69
+msgid "Animations"
+msgstr "アニメーション"
+
+#. Frames
+#: ../src/widgets/maindock.vala:73
+msgid "Frames"
+msgstr ""
+
 #: ../data/ui/mainwindow.ui.h:1
-msgid "Eraser(e)"
+msgid "Bucket Fill(f)"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:2
-msgid "New file"
+msgid "Color Picker(c)"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:3
-msgid "Paint tools"
+msgid "Draw pixels freehand"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:4
-msgid "Painting tools"
+msgid "Erase pixels back to transparent"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:5
-msgid "Pencil"
-msgstr ""
+msgid "Eraser(e)"
+msgstr "消しゴム（_E）"
 
 #: ../data/ui/mainwindow.ui.h:6
-msgid "Pencil(P)"
+msgid "Fill closed areas with color"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:7
-msgid "Selection tools"
-msgstr ""
+msgid "Pencil(_p)"
+msgstr "鉛筆（_P）"
 
 #: ../data/ui/mainwindow.ui.h:8
-msgid "Show information about this application"
+msgid "Pick a color from the image"
+msgstr ""
+
+#: ../data/ui/mainwindow.ui.h:9
+msgid "Rectangular Selection(Shift+R)"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:10
-msgid "Toolbar"
-msgstr ""
-
-#: ../data/ui/mainwindow.ui.h:11
-msgid "Tools for selecting sprite elements"
+msgid "Select a rectangular region"
 msgstr ""
 
 #: ../data/ui/mainwindow.ui.h:12
-msgid "_View"
-msgstr ""
+msgid "_Contents"
+msgstr "目次"
 
 #: ../data/ui/mainwindow.ui.h:13
-msgid "radiotoolbutton1"
-msgstr ""
+msgid "_Status Bar"
+msgstr "ステータスバー"
 
 #: ../data/ui/mainwindow.ui.h:14
-msgid "undo history1"
-msgstr ""
+msgid "_Toolbar"
+msgstr "ツールバー"
+
+#: ../data/ui/mainwindow.ui.h:15
+msgid "_View"
+msgstr "表示"
 
 #: ../data/ui/aboutdialog.ui.h:1
 msgid "A GTK+ sprite editor with a twist"

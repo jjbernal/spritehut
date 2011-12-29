@@ -35,9 +35,10 @@ POST_UNINSTALL = :
 bin_PROGRAMS = spritehut$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	controllers/about.c controllers/main.c spritehut-app.c \
-	spritehut.c spritehut_vala.stamp widgets/maindock.c \
-	widgets/mainwindow.c
+	controllers/about.c controllers/main.c document/animation.c \
+	document/frame.c document/idocumentelement.c document/layer.c \
+	document/sprite.c spritehut-app.c spritehut.c \
+	spritehut_vala.stamp widgets/maindock.c widgets/mainwindow.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -50,7 +51,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_spritehut_OBJECTS = spritehut.$(OBJEXT) spritehut-app.$(OBJEXT) \
 	main.$(OBJEXT) about.$(OBJEXT) mainwindow.$(OBJEXT) \
-	maindock.$(OBJEXT)
+	maindock.$(OBJEXT) idocumentelement.$(OBJEXT) layer.$(OBJEXT) \
+	frame.$(OBJEXT) animation.$(OBJEXT) sprite.$(OBJEXT)
 spritehut_OBJECTS = $(am_spritehut_OBJECTS)
 am__DEPENDENCIES_1 =
 spritehut_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -210,7 +212,12 @@ spritehut_SOURCES = \
 	controllers/main.vala \
 	controllers/about.vala \
 	widgets/mainwindow.vala \
-	widgets/maindock.vala
+	widgets/maindock.vala \
+	document/idocumentelement.vala \
+	document/layer.vala \
+	document/frame.vala \
+	document/animation.vala \
+	document/sprite.vala
 
 INCLUDES = \
 	-include config.h \
@@ -312,9 +319,14 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/about.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/animation.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/frame.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idocumentelement.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/layer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/maindock.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainwindow.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sprite.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spritehut-app.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spritehut.Po@am__quote@
 
@@ -397,6 +409,86 @@ maindock.obj: widgets/maindock.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='widgets/maindock.c' object='maindock.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o maindock.obj `if test -f 'widgets/maindock.c'; then $(CYGPATH_W) 'widgets/maindock.c'; else $(CYGPATH_W) '$(srcdir)/widgets/maindock.c'; fi`
+
+idocumentelement.o: document/idocumentelement.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT idocumentelement.o -MD -MP -MF $(DEPDIR)/idocumentelement.Tpo -c -o idocumentelement.o `test -f 'document/idocumentelement.c' || echo '$(srcdir)/'`document/idocumentelement.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/idocumentelement.Tpo $(DEPDIR)/idocumentelement.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/idocumentelement.c' object='idocumentelement.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o idocumentelement.o `test -f 'document/idocumentelement.c' || echo '$(srcdir)/'`document/idocumentelement.c
+
+idocumentelement.obj: document/idocumentelement.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT idocumentelement.obj -MD -MP -MF $(DEPDIR)/idocumentelement.Tpo -c -o idocumentelement.obj `if test -f 'document/idocumentelement.c'; then $(CYGPATH_W) 'document/idocumentelement.c'; else $(CYGPATH_W) '$(srcdir)/document/idocumentelement.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/idocumentelement.Tpo $(DEPDIR)/idocumentelement.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/idocumentelement.c' object='idocumentelement.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o idocumentelement.obj `if test -f 'document/idocumentelement.c'; then $(CYGPATH_W) 'document/idocumentelement.c'; else $(CYGPATH_W) '$(srcdir)/document/idocumentelement.c'; fi`
+
+layer.o: document/layer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT layer.o -MD -MP -MF $(DEPDIR)/layer.Tpo -c -o layer.o `test -f 'document/layer.c' || echo '$(srcdir)/'`document/layer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/layer.Tpo $(DEPDIR)/layer.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/layer.c' object='layer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o layer.o `test -f 'document/layer.c' || echo '$(srcdir)/'`document/layer.c
+
+layer.obj: document/layer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT layer.obj -MD -MP -MF $(DEPDIR)/layer.Tpo -c -o layer.obj `if test -f 'document/layer.c'; then $(CYGPATH_W) 'document/layer.c'; else $(CYGPATH_W) '$(srcdir)/document/layer.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/layer.Tpo $(DEPDIR)/layer.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/layer.c' object='layer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o layer.obj `if test -f 'document/layer.c'; then $(CYGPATH_W) 'document/layer.c'; else $(CYGPATH_W) '$(srcdir)/document/layer.c'; fi`
+
+frame.o: document/frame.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT frame.o -MD -MP -MF $(DEPDIR)/frame.Tpo -c -o frame.o `test -f 'document/frame.c' || echo '$(srcdir)/'`document/frame.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/frame.Tpo $(DEPDIR)/frame.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/frame.c' object='frame.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o frame.o `test -f 'document/frame.c' || echo '$(srcdir)/'`document/frame.c
+
+frame.obj: document/frame.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT frame.obj -MD -MP -MF $(DEPDIR)/frame.Tpo -c -o frame.obj `if test -f 'document/frame.c'; then $(CYGPATH_W) 'document/frame.c'; else $(CYGPATH_W) '$(srcdir)/document/frame.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/frame.Tpo $(DEPDIR)/frame.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/frame.c' object='frame.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o frame.obj `if test -f 'document/frame.c'; then $(CYGPATH_W) 'document/frame.c'; else $(CYGPATH_W) '$(srcdir)/document/frame.c'; fi`
+
+animation.o: document/animation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT animation.o -MD -MP -MF $(DEPDIR)/animation.Tpo -c -o animation.o `test -f 'document/animation.c' || echo '$(srcdir)/'`document/animation.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/animation.Tpo $(DEPDIR)/animation.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/animation.c' object='animation.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o animation.o `test -f 'document/animation.c' || echo '$(srcdir)/'`document/animation.c
+
+animation.obj: document/animation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT animation.obj -MD -MP -MF $(DEPDIR)/animation.Tpo -c -o animation.obj `if test -f 'document/animation.c'; then $(CYGPATH_W) 'document/animation.c'; else $(CYGPATH_W) '$(srcdir)/document/animation.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/animation.Tpo $(DEPDIR)/animation.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/animation.c' object='animation.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o animation.obj `if test -f 'document/animation.c'; then $(CYGPATH_W) 'document/animation.c'; else $(CYGPATH_W) '$(srcdir)/document/animation.c'; fi`
+
+sprite.o: document/sprite.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sprite.o -MD -MP -MF $(DEPDIR)/sprite.Tpo -c -o sprite.o `test -f 'document/sprite.c' || echo '$(srcdir)/'`document/sprite.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sprite.Tpo $(DEPDIR)/sprite.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/sprite.c' object='sprite.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sprite.o `test -f 'document/sprite.c' || echo '$(srcdir)/'`document/sprite.c
+
+sprite.obj: document/sprite.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sprite.obj -MD -MP -MF $(DEPDIR)/sprite.Tpo -c -o sprite.obj `if test -f 'document/sprite.c'; then $(CYGPATH_W) 'document/sprite.c'; else $(CYGPATH_W) '$(srcdir)/document/sprite.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sprite.Tpo $(DEPDIR)/sprite.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='document/sprite.c' object='sprite.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sprite.obj `if test -f 'document/sprite.c'; then $(CYGPATH_W) 'document/sprite.c'; else $(CYGPATH_W) '$(srcdir)/document/sprite.c'; fi`
 $(srcdir)/spritehut.c: $(srcdir)/spritehut_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/spritehut_vala.stamp; \
@@ -423,6 +515,31 @@ $(srcdir)/widgets/mainwindow.c: $(srcdir)/spritehut_vala.stamp
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
 	fi
 $(srcdir)/widgets/maindock.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/document/idocumentelement.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/document/layer.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/document/frame.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/document/animation.c: $(srcdir)/spritehut_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/spritehut_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
+	fi
+$(srcdir)/document/sprite.c: $(srcdir)/spritehut_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/spritehut_vala.stamp; \
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) spritehut_vala.stamp; \
@@ -547,6 +664,11 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 	-rm -f controllers/about.c
 	-rm -f controllers/main.c
+	-rm -f document/animation.c
+	-rm -f document/frame.c
+	-rm -f document/idocumentelement.c
+	-rm -f document/layer.c
+	-rm -f document/sprite.c
 	-rm -f spritehut-app.c
 	-rm -f spritehut.c
 	-rm -f spritehut_vala.stamp

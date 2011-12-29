@@ -6,7 +6,12 @@ spritehut_SOURCES = \
 	controllers/main.vala \
 	controllers/about.vala \
 	widgets/mainwindow.vala \
-	widgets/maindock.vala
+	widgets/maindock.vala \
+	document/idocumentelement.vala \
+	document/layer.vala \
+	document/frame.vala \
+	document/animation.vala \
+	document/sprite.vala
 
 INCLUDES = \
 	-include config.h \

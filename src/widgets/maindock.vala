@@ -41,7 +41,7 @@ namespace Widgets
             this.pack_start(dock, true, true, 0);
             
             /* the canvas dock */
-            var canvas = new DockItem.with_stock("canvas", "Canvas", Gtk.Stock.STOP, DockItemBehavior.NORMAL |
+            var canvas = new DockItem.with_stock("canvas", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NORMAL |
                                               DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED);
             var widget = new Label ("This is where you would work and swear at, most of the time");
             widget.set_size_request(400,300);
