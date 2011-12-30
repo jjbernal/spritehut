@@ -11,6 +11,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AM_MAINTAINER_MODE
 
+LT_INIT
 AC_PROG_CC
 AC_PROG_CC_STDC
 AM_PROG_VALAC([0.14.0])
@@ -46,6 +47,7 @@ AC_CONFIG_FILES([
 	data/ui/Makefile
 	po/Makefile.in
 	src/Makefile
+	test/Makefile
 	vapi/Makefile
 ])
 AC_OUTPUT

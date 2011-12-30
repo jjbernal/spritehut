@@ -1,2 +1,7 @@
 data/spritehut.desktop.in
 src/spritehut-app.c
+src/document/animation.c
+src/document/layer.c
+src/document/sprite.c
+src/widgets/maindock.c
+

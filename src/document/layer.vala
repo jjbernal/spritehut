@@ -23,22 +23,23 @@ namespace Document
         public string name {get;set;default=_("Layer1");}
         public bool locked {get;set;default=false;}
         public bool visible {get;set;default=true;}
+        private double _opacity;
         //public Image image; TODO create Image class
         public double opacity
         {
             get
             {
-                return opacity;
+                return _opacity;
             }
             
             set
             {
-                opacity = value;
+                _opacity = value;
                 
                 if (value > 1) {
-                    opacity = 1;
+                    _opacity = 1;
                 } else if (value < 0) {
-                    opacity = 0;
+                    _opacity = 0;
                 }
             }
         }

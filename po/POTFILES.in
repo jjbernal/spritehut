@@ -6,10 +6,11 @@ src/controllers/main.vala
 src/controllers/about.vala
 src/widgets/mainwindow.vala
 src/widgets/maindock.vala
-document/idocumentelement.vala
-document/layer.vala
-document/frame.vala
-document/animation.vala
-document/sprite.vala
+src/document/idocumentelement.vala
+src/document/layer.vala
+src/document/frame.vala
+src/document/animation.vala
+src/document/sprite.vala
 [type: gettext/glade]data/ui/mainwindow.ui
 [type: gettext/glade]data/ui/aboutdialog.ui
+[type: gettext/glade]data/ui/toolpalette.ui
