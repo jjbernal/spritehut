@@ -1,10 +1,12 @@
 # configure.ac
 
 AC_INIT([Sprite Hut],[0.1])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([src/spritehut.vala])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([no-dist-gzip dist-bzip2])
+
 
 # Enable silent rules is available
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
@@ -37,14 +39,11 @@ AC_CONFIG_FILES([
 	data/Makefile
 	data/icons/Makefile
 	data/icons/16x16/Makefile
-	data/icons/16x16/tools/Makefile
 	data/icons/22x22/Makefile
-	data/icons/22x22/tools/Makefile
 	data/icons/24x24/Makefile
 	data/icons/32x32/Makefile
 	data/icons/48x48/Makefile
 	data/icons/scalable/Makefile
-	data/ui/Makefile
 	po/Makefile.in
 	src/Makefile
 	test/Makefile

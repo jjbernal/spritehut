@@ -54,7 +54,13 @@ public class TestLayer : Object {
 
     public static void test_opacity_default () {
         var layer = new Document.Layer();
-        assert (layer.opacity == 1);
+        assert (layer.opacity == 1.0);
+    }
+    
+    public static void test_opacity_set () {
+        var layer = new Document.Layer();
+        layer.opacity = 0.5;
+        assert (layer.opacity == 0.5);
     }
     
     public static void test_opacity_equal_or_less_than_one () {
@@ -79,6 +85,7 @@ public class TestLayer : Object {
         Test.add_func ("/document/layer.locked default", test_locked_default);
         Test.add_func ("/document/layer.locked set", test_locked_set);
         Test.add_func ("/document/layer.opacity default", test_opacity_default);
+        Test.add_func ("/document/layer.opacity set", test_opacity_set);
         Test.add_func ("/document/layer.opacity <= 1", test_opacity_equal_or_less_than_one);
         Test.add_func ("/document/layer.opacity >= 0", test_opacity_equal_or_greater_than_zero);
         Test.run ();
