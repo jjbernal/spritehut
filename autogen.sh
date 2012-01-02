@@ -1,3 +1,6 @@
+# test for m4 directory
+test -d m4 || mkdir m4
+
 test -n "$srcdir" || srcdir=$(dirname "$0")
 test -n "$srcdir" || srcdir=.
 (
