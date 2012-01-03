@@ -17,23 +17,28 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Gtk;
-using Cairo;
-using Widgets;
-using Controllers;
+using Document;
 
-public class SpriteHut.App : Gtk.Application
-{
-	public App (string app_id, ApplicationFlags flags)
-	{
-	    GLib.Object (application_id: app_id, flags: flags);
-	}
-	
-	public void on_app_activate()
-	{
-	    var main_window = new Widgets.MainWindow();
-	    Controllers.Main main_controller = new Controllers.Main(main_window);
-	    	    
-	    Gtk.main();
-	}
+public class TestPalette : Object {
+    public static void test_name_default () {
+        var palette = new Document.Palette();
+        assert (palette.name == "Palette1");
+    }
+    
+    public static void test_name_set () {
+        var palette = new Document.Palette();
+        palette.name = "MyPalette";
+        assert (palette.name == "MyPalette");
+    }
+    
+    public static void test_is_gee_list () {
+        var palette = new Document.Palette();
+        assert (palette is Gee.List);
+    }
+
+    public static void add_tests()  {
+        Test.add_func ("/document/palette.name default", test_name_default);
+        Test.add_func ("/document/palette.name set", test_name_set);
+        Test.add_func ("/document/palette is Gee.List", test_is_gee_list);
+    }
 }

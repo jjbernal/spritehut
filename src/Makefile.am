@@ -6,7 +6,8 @@ libdocument_la_SOURCES = \
 	document/layer.vala \
 	document/frame.vala \
 	document/animation.vala \
-	document/sprite.vala
+	document/sprite.vala \
+	document/palette.vala
 
 libdocument_la_VALAFLAGS = --library document -H document.h
 

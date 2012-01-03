@@ -1,19 +1,20 @@
 /*
-** Copyright (C) 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
-** This program is free software; you can redistribute it and/or modify
+** This file is part of Sprite Hut.
+**
+** Sprite Hut is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation; either version 3 of the License, or
+** the Free Software Foundation, either version 3 of the License, or
 ** (at your option) any later version.
 **
-** This program is distributed in the hope that it will be useful,
+** Sprite Hut is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
 ** You should have received a copy of the GNU General Public License
-** along with this program; if not, write to the Free Software
-** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using Document;
@@ -75,9 +76,8 @@ public class TestLayer : Object {
         assert (layer.opacity == 0.0);
     }
     
-    public static void main (string[] args) {
-        Test.init (ref args);
-        
+    public static void add_tests() 
+    {
         Test.add_func ("/document/layer.name default", test_name_default);
         Test.add_func ("/document/layer.name set", test_name_set);
         Test.add_func ("/document/layer.visible default", test_visible_default);
@@ -88,6 +88,5 @@ public class TestLayer : Object {
         Test.add_func ("/document/layer.opacity set", test_opacity_set);
         Test.add_func ("/document/layer.opacity <= 1", test_opacity_equal_or_less_than_one);
         Test.add_func ("/document/layer.opacity >= 0", test_opacity_equal_or_greater_than_zero);
-        Test.run ();
     }
 }

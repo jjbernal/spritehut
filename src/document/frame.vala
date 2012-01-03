@@ -1,26 +1,45 @@
 /*
-** Copyright (C) 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
-** This program is free software; you can redistribute it and/or modify
+** This file is part of Sprite Hut.
+**
+** Sprite Hut is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation; either version 3 of the License, or
+** the Free Software Foundation, either version 3 of the License, or
 ** (at your option) any later version.
 **
-** This program is distributed in the hope that it will be useful,
+** Sprite Hut is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
 **
 ** You should have received a copy of the GNU General Public License
-** along with this program; if not, write to the Free Software
-** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace Document
 {
     public class Frame : GLib.Object, IDocumentElement
     {
-        public uint delay {get;set;}
+        private uint _delay;
+        
+        public uint delay {
+            get
+            {
+                return _delay;
+            }
+            set
+            {
+                if ((int) value >= 0)
+                {
+                    _delay = value;
+                }
+                else
+                {
+                    _delay = 0;
+                }
+            }
+        }
         public int delta_x {get;set;default=0;}
         public int delta_y {get;set;default=0;}
     }

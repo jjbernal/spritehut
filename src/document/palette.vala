@@ -17,23 +17,19 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Gtk;
-using Cairo;
-using Widgets;
-using Controllers;
+using Gee;
+using Gdk;
 
-public class SpriteHut.App : Gtk.Application
+namespace Document
 {
-	public App (string app_id, ApplicationFlags flags)
-	{
-	    GLib.Object (application_id: app_id, flags: flags);
-	}
-	
-	public void on_app_activate()
-	{
-	    var main_window = new Widgets.MainWindow();
-	    Controllers.Main main_controller = new Controllers.Main(main_window);
-	    	    
-	    Gtk.main();
-	}
+    public class Palette : ArrayList<Gdk.RGBA>, IDocumentElement
+    {
+        public string name {get;set;default=_("Palette1");}
+        
+        public Palette ()
+        {
+            base(null);
+        }
+    }
 }
+
