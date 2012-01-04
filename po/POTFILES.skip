@@ -2,6 +2,7 @@ data/spritehut.desktop.in
 src/spritehut-app.c
 src/document/animation.c
 src/document/layer.c
+src/document/frame.c
 src/document/sprite.c
 src/document/palette.c
 src/widgets/maindock.c

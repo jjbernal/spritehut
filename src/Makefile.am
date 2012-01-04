@@ -1,37 +1,58 @@
 bin_PROGRAMS = spritehut
-noinst_LTLIBRARIES = libdocument.la
-
+noinst_LTLIBRARIES = libdocument.la libwidgets.la libcontrollers.la
+common_flags = \
+    --vapidir=$(srcdir)/../vapi --pkg config \
+	@SPRITE_HUT_PACKAGES@
+	
 libdocument_la_SOURCES = \
 	document/idocumentelement.vala \
 	document/layer.vala \
 	document/frame.vala \
 	document/animation.vala \
 	document/sprite.vala \
-	document/palette.vala
+	document/palette.vala \
+	document/document.vala \
+	document/blankdocument.vala
 
-libdocument_la_VALAFLAGS = --library document -H document.h
+libdocument_la_VALAFLAGS = \
+    --library document -H document.h \
+    $(common_flags)
+
+libwidgets_la_SOURCES = \
+    widgets/mainwindow.vala \
+	widgets/maindock.vala \
+	widgets/documentelementcellrenderer.vala
+
+libwidgets_la_VALAFLAGS = \
+    document.vapi --library widgets -H widgets.h \
+    $(common_flags)
+
+libcontrollers_la_SOURCES = \
+    controllers/main.vala \
+    controllers/about.vala
+
+libcontrollers_la_VALAFLAGS = \
+    document.vapi widgets.vapi --library controllers -H controllers.h \
+    $(common_flags)
 
 spritehut_SOURCES = \
 	spritehut.vala \
-	spritehut-app.vala \
-	controllers/main.vala \
-	controllers/about.vala \
-	widgets/mainwindow.vala \
-	widgets/maindock.vala
+	spritehut-app.vala
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-include config.h \
 	$(SPRITE_HUT_CFLAGS) \
 	-DLOCALEDIR=\""$(localedir)"\" \
 	-DPKGDATADIR=\""$(pkgdatadir)"\" \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
 
-VALAFLAGS = \
+spritehut_VALAFLAGS = \
+    document.vapi widgets.vapi controllers.vapi \
 	--vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	libdocument.la $(SPRITE_HUT_LIBS)
+	$(LTLIBRARIES) $(SPRITE_HUT_LIBS)
 
 DIRS = document/*.c controllers/*.c widgets/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp

@@ -52,3 +52,7 @@ test/sprite_test_vala.stamp
 spritehut.desktop
 spritehut.desktop.in
 aclocal.m4
+*.stamp
+src/controllers.vapi
+src/widgets.vapi
+*.h

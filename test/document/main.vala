@@ -25,6 +25,7 @@ public void main (string[] args) {
     TestAnimation.add_tests();
     TestSprite.add_tests();
     TestPalette.add_tests();
+    TestDocument.add_tests();
     
     Test.run ();
 }

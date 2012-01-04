@@ -40,6 +40,7 @@ namespace Document
                 }
             }
         }
+        public string name {get;set;default=_("Frame1");}
         public int delta_x {get;set;default=0;}
         public int delta_y {get;set;default=0;}
     }

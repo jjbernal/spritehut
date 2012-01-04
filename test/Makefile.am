@@ -11,6 +11,7 @@ document_test_SOURCES = \
     document/animation_test.vala \
     document/sprite_test.vala \
     document/palette_test.vala \
+    document/document_test.vala \
     document/main.vala
 
 LDADD = $(top_builddir)/src/libdocument.la $(SPRITE_HUT_LIBS)

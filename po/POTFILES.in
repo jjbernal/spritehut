@@ -2,15 +2,19 @@
 data/spritehut.desktop.in.in
 src/spritehut.vala
 src/spritehut-app.vala
-src/controllers/main.vala
 src/controllers/about.vala
-src/widgets/mainwindow.vala
-src/widgets/maindock.vala
+src/controllers/main.vala
+src/document/blankdocument.vala
+src/document/document.vala
+src/document/frame.vala
 src/document/idocumentelement.vala
 src/document/layer.vala
-src/document/frame.vala
-src/document/animation.vala
+src/document/palette.vala
 src/document/sprite.vala
+src/widgets/documentelementcellrenderer.vala
+src/widgets/maindock.vala
+src/widgets/mainwindow.vala
+src/document/animation.vala
 [type: gettext/glade]data/ui/mainwindow.ui
 [type: gettext/glade]data/ui/aboutdialog.ui
 [type: gettext/glade]data/ui/toolpalette.ui

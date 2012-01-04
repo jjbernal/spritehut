@@ -17,12 +17,25 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Gdk;
+using Gtk;
 
 namespace Document
 {
-    public interface IDocumentElement : GLib.Object
-    {
-        public abstract string name {get;set;}
+    public class BlankDocument : Document
+    {   
+        public BlankDocument ()
+        {
+            base();
+            
+            width = 64;
+            height = 64;
+            
+            TreeIter iter;
+            iter = add((IDocumentElement) new Sprite(), null);
+            iter = add(new Animation(), iter);
+            iter = add(new Frame(), iter);
+            iter = add(new Layer(), iter);
+        }
     }
 }
+
