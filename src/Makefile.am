@@ -21,11 +21,15 @@ libdocument_la_VALAFLAGS = \
 libwidgets_la_SOURCES = \
     widgets/mainwindow.vala \
 	widgets/maindock.vala \
-	widgets/documentelementcellrenderer.vala
+	widgets/documentelementcellrenderer.vala \
+	widgets/documenttree.vala
 
 libwidgets_la_VALAFLAGS = \
     document.vapi --library widgets -H widgets.h \
     $(common_flags)
+    
+libwidgets_la_LIBADD = \
+    @LTLIBOBJS@
 
 libcontrollers_la_SOURCES = \
     controllers/main.vala \
@@ -34,6 +38,9 @@ libcontrollers_la_SOURCES = \
 libcontrollers_la_VALAFLAGS = \
     document.vapi widgets.vapi --library controllers -H controllers.h \
     $(common_flags)
+    
+libcontrollers_la_LIBADD = \
+    @LTLIBOBJS@
 
 spritehut_SOURCES = \
 	spritehut.vala \
@@ -52,7 +59,7 @@ spritehut_VALAFLAGS = \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	$(LTLIBRARIES) $(SPRITE_HUT_LIBS)
+	libwidgets.la libcontrollers.la libdocument.la $(SPRITE_HUT_LIBS)
 
 DIRS = document/*.c controllers/*.c widgets/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp

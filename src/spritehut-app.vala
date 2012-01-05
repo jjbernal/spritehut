@@ -32,8 +32,9 @@ public class SpriteHut.App : Gtk.Application
 	public void on_app_activate()
 	{
 	    var main_window = new Widgets.MainWindow();
+	    main_window.document = new Document.BlankDocument();
 	    Controllers.Main main_controller = new Controllers.Main(main_window);
-	    	    
-	    Gtk.main();
+	    
+	    this.add_window(main_window);
 	}
 }

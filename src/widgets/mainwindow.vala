@@ -26,6 +26,8 @@ namespace Widgets
         public Gtk.Toolbar main_toolbar;
         public Gtk.Statusbar main_statusbar;
         public Gtk.Builder builder;
+        public Document.Document document {get;set;}
+        public Gtk.UIManager ui_manager;
     
         public MainWindow ()
         {
@@ -35,7 +37,7 @@ namespace Widgets
 										     "mainwindow.ui", null );
                 builder = new Builder ();
                 builder.add_from_file (main_window_path);
-                Gtk.UIManager ui_manager = new UIManager();    
+                ui_manager = new UIManager();    
                 
                 window = builder.get_object ("main-window") as Window;
                 window.add_accel_group(ui_manager.get_accel_group());                           
@@ -105,7 +107,7 @@ namespace Widgets
                 
                 box.pack_start(ui_manager.get_widget("/MenuBar"), false, true, 0);
                 box.pack_start(ui_manager.get_widget("/ToolBar"), false, true, 0);
-                MainDock main_dock = new MainDock();
+                MainDock main_dock = new MainDock(this);
                 box.pack_start(main_dock, true, true, 0);
                 
                 window.show_all ();

@@ -25,9 +25,11 @@ namespace Widgets
     public class MainDock : Gtk.Box {
         private DockMaster master;
         private DockLayout layout;
+        private MainWindow window;
         
-        public MainDock()
+        public MainDock(MainWindow main_window)
         {
+            window = main_window;
             Gdl.Dock dock = new Gdl.Dock();
             this.master = dock.master;
 
@@ -45,7 +47,7 @@ namespace Widgets
             var canvas = new DockItem.with_stock("canvas", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NORMAL |
                                               DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED);
             var widget = new Label ("This is where you would work and swear at, most of the time");
-            widget.set_size_request(400,300);
+            widget.set_size_request(300,300);
             canvas.add(widget);
             dock.add_item (canvas, DockPlacement.CENTER);
             canvas.show();
@@ -65,9 +67,12 @@ namespace Widgets
             // Palette
             var palette = add_dock_item(dock, "palette", _("Palette"), new TreeView(), preview,
             DockPlacement.BOTTOM, 100, 100);
-
-            // Animations
-            var animations = add_dock_item(dock, "animations", _("Animations"), new TreeView(), palette,
+            
+            /* log me*/
+            var document_treeview = new DocumentTree (window);
+            
+            // Document Tree
+            var document_tree = add_dock_item(dock, "animations", _("Document Tree"), document_treeview, palette,
             DockPlacement.BOTTOM, 100, 100);
             
             // Frames

@@ -17,20 +17,29 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 using Gtk;
+using Gdk;
 using Cairo;
 using Document;
 
 namespace Widgets {
-    public class DocumentElementCellRenderer : CellRenderer {
+    public class DocumentElementCellRenderer : CellRendererText {
 
         /* element property set by the tree column */
         public IDocumentElement element { get; set;}
 
         public DocumentElementCellRenderer () {
-            GLib.Object ();
+//            GLib.Object ();
+            new CellRendererText();
+
             this.mode = CellRendererMode.EDITABLE;
+            this.editable = true;
+            this.edited.connect(on_edited);
         }
      
+        public void on_edited (string path, string new_text) {
+            element.name = new_text;
+        }
+        
         /* get_size method, always request a 50x50 area */
         public override void get_size (Widget widget, Gdk.Rectangle? cell_area,
                                        out int x_offset, out int y_offset,
@@ -40,7 +49,7 @@ namespace Widgets {
             if (&x_offset != null) x_offset = 0;
             if (&y_offset != null) y_offset = 0;
             if (&width != null) width = 50;
-            if (&height != null) height = 25;
+            if (&height != null) height = 18;
         }
 
     //    public override void get_preferred_size (Widget widget, out Requisition minimum_size, out Requisition natural_size)
@@ -56,27 +65,18 @@ namespace Widgets {
         {
             Gdk.cairo_rectangle (ctx, background_area);
             if (element != null) {
-                
-                uint size = 20;
+                uint size = 14;
                 TextExtents extents;
-    //            ctx.set_source_rgb(1, 1, 1);
+
                 ctx.set_source_rgba (this.cell_background_rgba.red, this.cell_background_rgba.green, this.cell_background_rgba.blue, this.cell_background_rgba.alpha);
                 ctx.fill ();
-                
                 ctx.set_source_rgb(0.1, 0.1, 0.1);
-                
-                ctx.select_font_face("Sans", Cairo.FontSlant.NORMAL, 
+                ctx.select_font_face("ubuntu", Cairo.FontSlant.NORMAL, 
                     Cairo.FontWeight.NORMAL);
                 ctx.set_font_size(size);
-                
                 ctx.text_extents(element.name, out extents);
-                
-    //            stdout.printf("cell_area.x: %f, cell_area.y: %f, width: %f, height: %f, x_bearing: %f, y_bearing: %f\n", cell_area.x, cell_area.y, extents.width, extents.height, extents.x_bearing, extents.y_bearing);
-                ctx.move_to(cell_area.x, cell_area.y+cell_area.height/2-extents.y_bearing/2);//cell_area.y+cell_area.height-(cell_area.height-size)/2);
-                
-                
+                ctx.move_to(cell_area.x, cell_area.y+cell_area.height/2-extents.y_bearing/2);
                 ctx.show_text(element.name);
-    //            ctx.fill ();
             }
         }
     }
