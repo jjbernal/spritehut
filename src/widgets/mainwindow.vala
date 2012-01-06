@@ -22,15 +22,20 @@ using Gtk;
 namespace Widgets
 {
     public class MainWindow : Gtk.Window {
-        private Gtk.Window window;
+        public Gtk.Window window;
         public Gtk.Toolbar main_toolbar;
         public Gtk.Statusbar main_statusbar;
         public Gtk.Builder builder;
         public Document.Document document {get;set;}
         public Gtk.UIManager ui_manager;
+        
+        // custom signal to redirect delete event
+        public signal bool close(Document.Document doc);
     
         public MainWindow ()
         {
+            Object(type: Gtk.WindowType.TOPLEVEL);
+            
             try
             {
                 string main_window_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
@@ -100,7 +105,6 @@ namespace Widgets
                 
                 Box box = builder.get_object("main-box") as Box;
                 main_toolbar = ui_manager.get_widget("/ToolBar") as Toolbar;
-                //main_toolbar = builder.get_object("main-toolbar") as Toolbar;
                 main_toolbar.get_style_context().add_class (STYLE_CLASS_PRIMARY_TOOLBAR);
                 
                 main_statusbar = builder.get_object("main-statusbar") as Statusbar;
@@ -110,6 +114,9 @@ namespace Widgets
                 MainDock main_dock = new MainDock(this);
                 box.pack_start(main_dock, true, true, 0);
                 
+                window.delete_event.connect(() => {
+                    return close(this.document);
+                }); // redirect delete_event to custom close signal hack
                 window.show_all ();
 
 
@@ -117,7 +124,6 @@ namespace Widgets
                 stderr.printf ("Could not load UI: %s\n", e.message);
             } 
         }
-        
     }
 }
 

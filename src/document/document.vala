@@ -53,7 +53,11 @@ namespace Document
         public Document ()
         {
             _treemodel = new TreeStore (1, typeof (IDocumentElement));
-//            this.notify().connect();
+            this.treemodel.row_changed.connect(on_modified);
+            this.treemodel.row_deleted.connect(on_modified);
+            this.treemodel.row_inserted.connect(on_modified);
+            this.treemodel.rows_reordered.connect(on_modified);
+            
         }
         
         public TreeIter add (IDocumentElement elem, TreeIter? parent)
@@ -61,8 +65,14 @@ namespace Document
             TreeIter iter;
             treemodel.append(out iter, parent);
             treemodel.set(iter, 0, elem, -1);
+            elem.notify.connect(on_modified);
             
             return iter;
+        }
+        
+        public void on_modified()
+        {
+            this.modified = true;
         }
     }
 }

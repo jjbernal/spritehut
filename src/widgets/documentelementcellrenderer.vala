@@ -23,21 +23,29 @@ using Document;
 
 namespace Widgets {
     public class DocumentElementCellRenderer : CellRendererText {
-
+        // pango layout
+        private Pango.Layout layout;
         /* element property set by the tree column */
         public IDocumentElement element { get; set;}
 
         public DocumentElementCellRenderer () {
-//            GLib.Object ();
-            new CellRendererText();
+            GLib.Object (size_set: true, family_set: true);
 
             this.mode = CellRendererMode.EDITABLE;
             this.editable = true;
-            this.edited.connect(on_edited);
+            this.font_desc = base.font_desc;
+            this.attributes = base.attributes;
         }
      
-        public void on_edited (string path, string new_text) {
+        public override void edited (string path, string new_text) {
             element.name = new_text;
+        }
+        
+        public override unowned CellEditable start_editing(Event event, Widget widget, string path, Gdk.Rectangle background_area,
+                                        Gdk.Rectangle cell_area, CellRendererState flags)
+        {
+            return base.start_editing(event, widget, path, background_area,
+                                        cell_area, flags);
         }
         
         /* get_size method, always request a 50x50 area */
@@ -48,8 +56,8 @@ namespace Widgets {
             /* Guards needed to check if the 'out' parameters are null */
             if (&x_offset != null) x_offset = 0;
             if (&y_offset != null) y_offset = 0;
-            if (&width != null) width = 50;
-            if (&height != null) height = 18;
+            if (&width != null) width = this.width;
+            if (&height != null) height = this.height;
         }
 
     //    public override void get_preferred_size (Widget widget, out Requisition minimum_size, out Requisition natural_size)
@@ -64,19 +72,26 @@ namespace Widgets {
                                      CellRendererState flags)
         {
             Gdk.cairo_rectangle (ctx, background_area);
+            
             if (element != null) {
-                uint size = 14;
-                TextExtents extents;
-
-                ctx.set_source_rgba (this.cell_background_rgba.red, this.cell_background_rgba.green, this.cell_background_rgba.blue, this.cell_background_rgba.alpha);
+                if (this.layout == null) {
+                    this.layout = Pango.cairo_create_layout(ctx);
+                    layout.set_width(this.width);
+                    layout.set_height(this.height);
+                    layout.set_font_description(font_desc);
+                    layout.set_alignment(alignment);
+                    layout.set_attributes(attributes);
+                    layout.set_ellipsize(ellipsize);
+                }
+                
+                layout.set_text(element.name, element.name.length);
+                ctx.set_source_rgba (this.cell_background_rgba.red, this.cell_background_rgba.green,
+                                     this.cell_background_rgba.blue, this.cell_background_rgba.alpha);
                 ctx.fill ();
-                ctx.set_source_rgb(0.1, 0.1, 0.1);
-                ctx.select_font_face("ubuntu", Cairo.FontSlant.NORMAL, 
-                    Cairo.FontWeight.NORMAL);
-                ctx.set_font_size(size);
-                ctx.text_extents(element.name, out extents);
-                ctx.move_to(cell_area.x, cell_area.y+cell_area.height/2-extents.y_bearing/2);
-                ctx.show_text(element.name);
+                ctx.set_source_rgb(this.foreground_gdk.red, this.foreground_gdk.green, this.foreground_gdk.blue);
+                ctx.move_to(cell_area.x, cell_area.y);
+                Pango.cairo_update_layout (ctx, this.layout);
+                Pango.cairo_show_layout (ctx, this.layout);
             }
         }
     }

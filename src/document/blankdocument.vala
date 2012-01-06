@@ -35,6 +35,8 @@ namespace Document
             iter = add(new Animation(), iter);
             iter = add(new Frame(), iter);
             iter = add(new Layer(), iter);
+            
+            modified = false;
         }
     }
 }

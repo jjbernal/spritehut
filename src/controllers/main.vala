@@ -25,9 +25,11 @@ namespace Controllers
     public class Main : Object {
         
         private Widgets.MainWindow window;
+        private Gtk.Application app;
         
-        public Main(MainWindow win)
+        public Main(Gtk.Application application, MainWindow win)
         {
+            this.app = application;
             this.window = win;
             window.builder.connect_signals(this);
         }
@@ -54,16 +56,24 @@ namespace Controllers
         }
 
         [CCode (instance_pos = -1)]
-        public void on_quit(Object sender) {
+        public bool on_quit(Widget sender, Gdk.EventAny event) {
+	        bool res = false;
+	        
             MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,MessageType.WARNING,ButtonsType.YES_NO, "Are you sure?");
-            md.ref_sink();
+
             int response = md.run();
             if (response == ResponseType.YES) {
                 stdout.printf("Close Stub\n");
-                Gtk.main_quit();
+                md.destroy();
+                this.app.release();
+//                event.window.destroy();
+//                window.window.application = null;
             } else {
                 md.destroy();
+                res = true;
             }
+
+            return res;
         }
         
         // Edit action handlers
