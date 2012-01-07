@@ -30,7 +30,7 @@ namespace Widgets
         public Gtk.UIManager ui_manager;
         
         // custom signal to redirect delete event
-        public signal bool close(Document.Document doc);
+        public signal bool close(MainWindow window, Document.Document doc);
     
         public MainWindow ()
         {
@@ -115,7 +115,7 @@ namespace Widgets
                 box.pack_start(main_dock, true, true, 0);
                 
                 window.delete_event.connect(() => {
-                    return close(this.document);
+                    return close(this, this.document);
                 }); // redirect delete_event to custom close signal hack
                 window.show_all ();
 

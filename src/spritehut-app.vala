@@ -39,7 +39,7 @@ public class SpriteHut.App : Gtk.Application
 	    this.add_window(main_window);
 	}
         
-    public bool on_close(Document.Document doc) {
+    public bool on_close(MainWindow window, Document.Document doc) {
         bool res = false;
 
         if (doc.modified)
@@ -49,7 +49,9 @@ public class SpriteHut.App : Gtk.Application
 
             int response = md.run();
             if (response == ResponseType.YES) {
-                this.release();
+                this.remove_window(window);
+                window.destroy();
+//                this.release();
             } else {
                 res = true;
             }
@@ -57,7 +59,9 @@ public class SpriteHut.App : Gtk.Application
         }
         else
         {
-            this.release();
+            this.remove_window(window);
+            window.destroy();
+//            this.release();
         }
         return res;
     }

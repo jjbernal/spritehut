@@ -1,23 +1,34 @@
 bin_PROGRAMS = spritehut
-noinst_LTLIBRARIES = libdocument.la libwidgets.la libcontrollers.la
+noinst_LTLIBRARIES = libimaging.la libdocument.la libwidgets.la libcontrollers.la
+
 common_flags = \
     --vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
-	
+
+libimaging_la_SOURCES = \
+    imaging/palette.vala \
+	imaging/image.vala
+
+libimaging_la_VALAFLAGS = \
+    --library imaging -H imaging.h \
+    $(common_flags)	
+    
 libdocument_la_SOURCES = \
 	document/idocumentelement.vala \
 	document/layer.vala \
 	document/frame.vala \
 	document/animation.vala \
 	document/sprite.vala \
-	document/palette.vala \
 	document/document.vala \
 	document/blankdocument.vala
 
 libdocument_la_VALAFLAGS = \
-    --library document -H document.h \
+    imaging.vapi --library document -H document.h \
     $(common_flags)
-
+    
+libdocument_la_LIBADD = \
+    @LTLIBOBJS@
+    
 libwidgets_la_SOURCES = \
     widgets/mainwindow.vala \
 	widgets/maindock.vala \
@@ -25,7 +36,7 @@ libwidgets_la_SOURCES = \
 	widgets/documenttree.vala
 
 libwidgets_la_VALAFLAGS = \
-    document.vapi --library widgets -H widgets.h \
+    imaging.vapi document.vapi --library widgets -H widgets.h \
     $(common_flags)
     
 libwidgets_la_LIBADD = \
@@ -36,7 +47,7 @@ libcontrollers_la_SOURCES = \
     controllers/about.vala
 
 libcontrollers_la_VALAFLAGS = \
-    document.vapi widgets.vapi --library controllers -H controllers.h \
+    imaging.vapi document.vapi widgets.vapi --library controllers -H controllers.h \
     $(common_flags)
     
 libcontrollers_la_LIBADD = \
@@ -54,12 +65,12 @@ AM_CPPFLAGS = \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
 
 spritehut_VALAFLAGS = \
-    document.vapi widgets.vapi controllers.vapi \
+    imaging.vapi document.vapi widgets.vapi controllers.vapi \
 	--vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	libwidgets.la libcontrollers.la libdocument.la $(SPRITE_HUT_LIBS)
+	libwidgets.la libcontrollers.la libdocument.la libimaging.la $(SPRITE_HUT_LIBS)
 
 DIRS = document/*.c controllers/*.c widgets/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp

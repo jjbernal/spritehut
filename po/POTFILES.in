@@ -9,12 +9,12 @@ src/document/document.vala
 src/document/frame.vala
 src/document/idocumentelement.vala
 src/document/layer.vala
-src/document/palette.vala
 src/document/sprite.vala
 src/widgets/documentelementcellrenderer.vala
 src/widgets/maindock.vala
 src/widgets/mainwindow.vala
 src/document/animation.vala
+src/imaging/palette.vala
 [type: gettext/glade]data/ui/mainwindow.ui
 [type: gettext/glade]data/ui/aboutdialog.ui
 [type: gettext/glade]data/ui/toolpalette.ui

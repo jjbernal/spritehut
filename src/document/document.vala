@@ -18,6 +18,7 @@
 */
 
 using Gtk;
+using Imaging;
 
 namespace Document
 {
@@ -48,7 +49,7 @@ namespace Document
         public Animation active_animation {get;set;}
         public Frame active_frame {get;set;}
         public Layer active_layer {get;set;}
-        public Palette active_palette {get;set;}
+        public Imaging.Palette active_palette {get;set;}
         
         public Document ()
         {

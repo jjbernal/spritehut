@@ -16,20 +16,21 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-using Gee;
 using Gdk;
+using Cairo;
 
-namespace Document
+namespace Imaging
 {
-    public class Palette : ArrayList<Gdk.RGBA>, IDocumentElement
-    {
-        public string name {get;set;default=_("Palette1");}
-        
-        public Palette ()
-        {
-            base(null);
+    public abstract class Image {
+        public enum Mode {
+            INDEXED,
+            RGBA
         }
+        public uint width {get;set;}
+        public uint height {get;set;}
+        public Pixbuf thumbnail {get;set;}
+        public Mode mode {get;set;}
+        public ImageSurface cairo_surface {get;set;}
+        public Palette palette {get;set;}
     }
 }
-
