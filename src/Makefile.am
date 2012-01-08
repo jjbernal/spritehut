@@ -20,6 +20,7 @@ libdocument_la_SOURCES = \
 	document/animation.vala \
 	document/sprite.vala \
 	document/document.vala \
+	document/undohistory.vala \
 	document/blankdocument.vala
 
 libdocument_la_VALAFLAGS = \

@@ -25,11 +25,12 @@ namespace Imaging
     public class Palette : Object
     {
         public string name {get;set;default=_("Palette1");}
-        public ArrayList<Gdk.RGBA?> color_list {get;set;}
+        public Gee.List<Gdk.RGBA?> color_list {get;set;}
         
         public Palette ()
         {
-            base(null);
+            base();
+            color_list = new ArrayList<Gdk.RGBA?>();
         }
     }
 }

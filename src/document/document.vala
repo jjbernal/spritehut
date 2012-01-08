@@ -25,6 +25,7 @@ namespace Document
     public class Document : GLib.Object
     {
         private TreeStore _treemodel;
+        private UndoHistory _undo_history;
         
         public uint32 last_id {get;set;default=0;}
         public string? filename {get;set;default=null;}
@@ -51,6 +52,10 @@ namespace Document
         public Layer active_layer {get;set;}
         public Imaging.Palette active_palette {get;set;}
         
+        public UndoHistory undo_history {
+            get {return _undo_history;}
+        }
+        
         public Document ()
         {
             _treemodel = new TreeStore (1, typeof (IDocumentElement));
@@ -58,7 +63,7 @@ namespace Document
             this.treemodel.row_deleted.connect(on_modified);
             this.treemodel.row_inserted.connect(on_modified);
             this.treemodel.rows_reordered.connect(on_modified);
-            
+            _undo_history = new UndoHistory ();
         }
         
         public TreeIter add (IDocumentElement elem, TreeIter? parent)

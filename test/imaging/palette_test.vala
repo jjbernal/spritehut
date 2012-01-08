@@ -17,15 +17,28 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-public void main (string[] args) {
-    Test.init (ref args);
+using Imaging;
+
+public class TestPalette : Object {
+    public static void test_name_default () {
+        var palette = new Palette();
+        assert (palette.name == "Palette1");
+    }
     
-    TestLayer.add_tests();
-    TestFrame.add_tests();
-    TestAnimation.add_tests();
-    TestSprite.add_tests();
-    TestDocument.add_tests();
-    TestUndoHistory.add_tests();
+    public static void test_name_set () {
+        var palette = new Palette();
+        palette.name = "MyPalette";
+        assert (palette.name == "MyPalette");
+    }
     
-    Test.run ();
+    public static void test_is_gee_list () {
+        var palette = new Palette();
+        assert (palette.color_list is Gee.List);
+    }
+
+    public static void add_tests()  {
+        Test.add_func ("/imaging/palette.name default", test_name_default);
+        Test.add_func ("/imaging/palette.name set", test_name_set);
+        Test.add_func ("/imaging/palette.color_list is Gee.List", test_is_gee_list);
+    }
 }
