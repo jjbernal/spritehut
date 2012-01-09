@@ -102,6 +102,26 @@ public class TestUndoHistory : Object {
         
         assert (frame.delay == previous_value);
     }
+    
+    public static void test_cant_redo_after_log_change () {
+        var undohist = new UndoHistory();
+        var frame = new Frame();
+        var previous_value = frame.delay;
+
+        for (int i = 0; i < 10; i++) {
+            undohist.log_change(frame, "delay", i);
+        }
+        
+        for (int i = 9; i >= 0; i--) {
+            undohist.undo();
+        }
+        assert (undohist.can_redo() == true);
+        assert (undohist.can_undo() == false);
+        
+        undohist.log_change(frame, "delay", 100);
+        assert (undohist.can_redo() == false);
+        assert (undohist.can_undo() == true);
+    }
 
     public static void add_tests()  {
         Test.add_func ("/document/document.log_change()", test_log_change);
@@ -110,5 +130,6 @@ public class TestUndoHistory : Object {
         Test.add_func ("/document/document.can_undo()", test_can_undo);
         Test.add_func ("/document/document.can_redo()", test_can_redo);
         Test.add_func ("/document/document.undo() multiple", test_undo_multiple);
+        Test.add_func ("/document/document.log_change() Can't redo after log_change (wipes redo history)", test_cant_redo_after_log_change);
     }
 }

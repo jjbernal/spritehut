@@ -23,7 +23,7 @@ namespace Document
 {
     public class UndoHistory : GLib.Object
     {
-        private Gee.List<Change?> _undo_history;
+        private Gee.LinkedList<Change?> _undo_history;
         
         struct Change {
             private Object target;
@@ -52,6 +52,13 @@ namespace Document
             
             _undo_history.add(change);
             _now++;
+            
+            // wipe future redos, if any
+            while (_undo_history.size > _now + 1)
+            {
+                _undo_history.remove_at(_now+1);
+                debug("undo size: %d now:%d /n", _undo_history.size, _now);
+            }
         }
         
         public void undo()
