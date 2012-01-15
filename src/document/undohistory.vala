@@ -57,7 +57,7 @@ namespace Document
             while (_undo_history.size > _now + 1)
             {
                 _undo_history.remove_at(_now+1);
-                debug("undo size: %d now:%d /n", _undo_history.size, _now);
+//                debug("undo size: %d now:%d /n", _undo_history.size, _now);
             }
         }
         

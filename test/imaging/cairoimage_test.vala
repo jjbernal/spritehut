@@ -16,25 +16,29 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
-using Gdk;
-using Cairo;
 
-namespace Imaging
-{
-    public abstract class Image: Object {
-        public enum Mode {
-            INDEXED,
-            RGBA
-        }
-        public int width {get;set;}
-        public int height {get;set;}
-        public Pixbuf thumbnail {get;set;}
-        public Mode mode {get;set;}
-        public ImageSurface cairo_surface {get;set;}
-        public Palette palette {get;set;}
+using Imaging;
+
+public class TestCairoImage : Object {
+    public static void test_get_pixel () {
+        Image image = new CairoImage(16, 16);
+        image.palette = new Palette();
         
-        public abstract RGBA get_pixel(int x, int y);
-        public abstract uint8 get_index(int x, int y);
-        public abstract Image to_rgba();
+        Gdk.RGBA red = image.get_pixel(0,0);
+        Gdk.RGBA green = image.get_pixel(0,15);
+        Gdk.RGBA blue = image.get_pixel(15,0);
+        Gdk.RGBA white = image.get_pixel(15,15);
+        assert (red.to_string() == "#ff0000ff");
+    }
+    
+    public static void test_to_rgba () {
+        Image image = new CairoImage(16, 16);
+        Image rgba_copy = image.to_rgba();
+        assert (image.mode == Image.Mode.RGBA);
+    }
+
+    public static void add_tests()  {
+        Test.add_func ("/imaging/image.get_pixel(x , y)", test_get_pixel);
+        //Test.add_func ("/imaging/image.to_rgba", test_to_rgba);
     }
 }

@@ -21,6 +21,8 @@ public void main (string[] args) {
     Test.init (ref args);
     
     TestPalette.add_tests();
+    TestMagickWand.add_tests();
+    TestCairoImage.add_tests();
     
     Test.run ();
 }

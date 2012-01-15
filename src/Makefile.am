@@ -7,7 +7,8 @@ common_flags = \
 
 libimaging_la_SOURCES = \
     imaging/palette.vala \
-	imaging/image.vala
+	imaging/image.vala \
+	imaging/cairoimage.vala
 
 libimaging_la_VALAFLAGS = \
     --library imaging -H imaging.h \

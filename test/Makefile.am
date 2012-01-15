@@ -25,6 +25,8 @@ document_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
 	
 imaging_test_SOURCES = \
     imaging/palette_test.vala \
+    imaging/cairoimage_test.vala \
+    imaging/magickwand_test.vala \
     imaging/imaging_main.vala
     
 imaging_test_LDADD = $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
