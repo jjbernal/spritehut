@@ -27,7 +27,7 @@ public class TestMagickWand : Object {
         Wand wand = new Wand();
 //        Wand.Genesis();
         ulong width, height, num_colors;
-        assert (wand.read_image("imaging/indexed.png") == true); //loading succesful;
+        assert (wand.read_image("imaging/indexed.gif") == true); //loading succesful;
         wand.display_image("");
         
         width = wand.get_image_width();
@@ -38,7 +38,7 @@ public class TestMagickWand : Object {
         debug("#colors: %lu", num_colors);
         
         PixelWand color = new PixelWand();
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < num_colors; i++) {
             
             wand.get_image_colormap_color(i, color);
 //            debug("Color index %i: (%f, %f, %f, %f)", i, color.get_red(), color.get_green(), color.get_blue(), color.get_alpha() );
@@ -47,13 +47,13 @@ public class TestMagickWand : Object {
         }
         
         // Changing colors
-        PixelWand target = new PixelWand();
-        target.set_blue(1.0);
-        
-        color.set_red(1.0);
-        color.set_green(1.0);
-        color.set_blue(0.0);
-        color.set_alpha(0.5);
+//        PixelWand target = new PixelWand();
+//        target.set_blue(1.0);
+//        
+//        color.set_red(1.0);
+//        color.set_green(1.0);
+//        color.set_blue(0.0);
+//        color.set_alpha(0.5);
         
         wand.get_image_pixel_color(15,15, color);
         debug("Color at 15,15 : %s Index at 15,15: %lu", color.get_color_as_string(), color.get_index());
@@ -65,18 +65,19 @@ public class TestMagickWand : Object {
 //        debug ("color index:%lu", color.get_index());
 //        wand.opaque_paint_image(target, color, 0, false);
 //        wand.clut_image(wand);
+
         wand.separate_image_channel(ChannelType.IndexChannel);
-        wand.display_image("");
+//        wand.display_image("");
         
         ImageType image_type = wand.get_image_type();
         
-        debug("Image type: %s",image_type.to_string());
-        wand.write_image("imaging/indexed.gif");
+//        debug("Image type: %s", image_type);
+        assert(image_type == ImageType.PALETTE);
         
 //        uint8* pixels = new uint8[width*height*4];
-        uint8* pixels = new uint8[width*height];
-//        assert (wand.export_image_pixels(0,0, wand.get_image_width(), wand.get_image_height(), "RGBA", 1/*CharPixel*/, pixels) == true);
-        assert (wand.export_image_pixels(0,0, wand.get_image_width(), wand.get_image_height(), "K", 1/*CharPixel*/, pixels) == true);
+        uint8* pixels = new uint8[width*height*4];
+        assert (wand.export_image_pixels(0,0, wand.get_image_width(), wand.get_image_height(), "RGBA", 1/*CharPixel*/, pixels) == true);
+//        assert (wand.export_image_pixels(0,0, wand.get_image_width(), wand.get_image_height(), "i", 1/*CharPixel*/, pixels) == true);
         
         debug("Before:\n");
 //        debug("pixels.length: %u", len(pixels));
@@ -91,10 +92,10 @@ public class TestMagickWand : Object {
         Wand wand2 = new Wand();
         wand2.new_image(width, height, color);
         
-        for (int i=0; i < num_colors; i++)
-        {
-            pixels[i] = (uint8) i;
-        }
+//        for (int i=0; i < num_colors; i++)
+//        {
+//            pixels[i] = (uint8) i;
+//        }
         
         debug("After:\n");
         for (int i=0; i < height; i++)
@@ -104,11 +105,16 @@ public class TestMagickWand : Object {
             }
             stdout.printf("\n");
         }
-//        assert (wand2.import_image_pixels(0, 0, wand.get_image_width(), wand.get_image_height(), "RGBA", 1, pixels) == true);
-        assert (wand2.import_image_pixels(0, 0, wand.get_image_width(), wand.get_image_height(), "K", 1, pixels) == true);
-        debug("#colors wand2: %lu", wand2.get_image_colors() );
-        wand2.clut_image(wand);
         
+        wand2.set_image_format("GIF");
+        assert (wand2.import_image_pixels(0, 0, wand.get_image_width(), wand.get_image_height(), "RGBA", 1, pixels) == true);
+//        assert (wand2.import_image_pixels(0, 0, wand.get_image_width(), wand.get_image_height(), "i", 1, pixels) == true);
+        debug("#colors wand2: %lu", wand2.get_image_colors() );
+//        wand2.clut_image(wand);
+        
+        wand2.set_image_depth(8);
+        wand2.set_image_type(ImageType.PALETTEMATTE);
+        wand2.write_image("imaging/indexed_mw.png");
         wand2.display_image("");
         delete pixels;
 //        debug("Image type: %s", image_type.to_string());

@@ -27,9 +27,11 @@ imaging_test_SOURCES = \
     imaging/palette_test.vala \
     imaging/cairoimage_test.vala \
     imaging/magickwand_test.vala \
+    imaging/freeimage_test.vala \
     imaging/imaging_main.vala
-    
-imaging_test_LDADD = $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
+
+imaging_test_LDFLAGS = -lfreeimage
+imaging_test_LDADD = $(BUILDDIR)/libimaging.la  $(SPRITE_HUT_LIBS)
 imaging_test_VALAFLAGS = \
     $(BUILDDIR)/imaging.vapi \
     --vapidir=$(srcdir)/../vapi \

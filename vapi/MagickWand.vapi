@@ -134,6 +134,15 @@ namespace ImageMagick {
             
             [CCode (cname="MagickSeparateImageChannel")]
             public bool separate_image_channel(ChannelType channel);
+            
+            [CCode (cname="MagickSetImageFormat")]
+            public bool set_image_format(string format);
+            
+            [CCode (cname="MagickSetImageDepth")]
+            public bool set_image_depth(uint8 depth);
+            
+            [CCode (cname="MagickSetImageType")]
+            public bool set_image_type(ImageType image_type);
         }
         
         [Compact]
