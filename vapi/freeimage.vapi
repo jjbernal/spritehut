@@ -746,7 +746,7 @@ namespace FreeImage {
         public bool paste(Bitmap src, int left, int top, int alpha);
         
         [CCode (cname="FreeImage_Composite")]
-        public Bitmap composite(bool useFileBkg = false, RgbQuad *appBkColor = null, Bitmap bg = null);
+        public Bitmap composite(bool useFileBkg = false, RgbQuad *appBkColor = null, Bitmap? bg = null);
         
         [CCode (cname="FreeImage_PreMultiplyWithAlpha")]
         public bool pre_multiply_with_alpha();

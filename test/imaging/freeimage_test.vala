@@ -91,30 +91,40 @@ public class TestFreeImage : Object {
     
      public static void test_get_bits () {
         Bitmap bitmap = FreeImage.load(Format.PNG, "imaging/indexed_mw.png", 0);
+        bitmap = bitmap.convert_to_8_bits();
         uint8* pixels = bitmap.get_bits();
         
         // loop flipped on y axis because FreeImage loads images vertically inverted
-        for(int y = (int) bitmap.get_height()/2-1; y >= 0; y-- ) {
-            for(int x = 0; x < bitmap.get_width()/2; x++ ) {
-                stdout.printf("%x ", *(pixels+x+y*bitmap.get_width()/2));
-            }
+        for(int y = (int) bitmap.get_height()-1; y >= 0; y-- ) {
             stdout.printf("\n");
+            for(int x = 0; x < bitmap.get_width(); x++ ) {
+                stdout.printf("%x", *(pixels+x+y*bitmap.get_width()));
+            }
         }
+    }
+    
+    public static void test_convert_to_32_bits () {
+        Bitmap bitmap = FreeImage.load(Format.PNG, "imaging/indexed.png", 0);
+        assert (bitmap != null);
+        bitmap = bitmap.convert_to_32_bits();
+        bool saved = FreeImage.save(Format.PNG, bitmap, "imaging/32bpp.png");
+        assert (saved == true);
     }
 
     public static void add_tests()  {
         Test.add_func ("/imaging/FreeImage.Initialise();FreeImage.DeInitialise();", test_init);
         Test.add_func ("/imaging/FreeImage.get_version", test_get_version);
         Test.add_func ("/imaging/FreeImage.get_copyright_message", test_get_copyright);
-        Test.add_func ("/imaging/FreeImage Image.allocate()", test_allocate);
-        Test.add_func ("/imaging/FreeImage Image.load()", test_load);
-        Test.add_func ("/imaging/FreeImage Image.save()", test_save);
-        Test.add_func ("/imaging/FreeImage Image.get_image_type()", test_image_type);
-        Test.add_func ("/imaging/FreeImage Image.get_colors_used()", test_colors_used);
-        Test.add_func ("/imaging/FreeImage Image.get_bpp()", test_get_bpp);
-        Test.add_func ("/imaging/FreeImage Image.get_width()", test_get_width);
-        Test.add_func ("/imaging/FreeImage Image.get_height()", test_get_height);
-        Test.add_func ("/imaging/FreeImage Image.get_palette()", test_get_palette);
-        Test.add_func ("/imaging/FreeImage Image.get_palette()", test_get_bits);
+        Test.add_func ("/imaging/FreeImage Bitmap.allocate()", test_allocate);
+        Test.add_func ("/imaging/FreeImage Bitmap.load()", test_load);
+        Test.add_func ("/imaging/FreeImage Bitmap.save()", test_save);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_image_type()", test_image_type);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_colors_used()", test_colors_used);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_bpp()", test_get_bpp);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_width()", test_get_width);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_height()", test_get_height);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_palette()", test_get_palette);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_bits()", test_get_bits);
+        Test.add_func ("/imaging/FreeImage Bitmap.convert_to_32_bits()", test_convert_to_32_bits);
     }
 }
