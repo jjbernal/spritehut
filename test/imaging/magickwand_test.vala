@@ -122,7 +122,7 @@ public class TestMagickWand : Object {
     }
     
     public static void test_to_rgba () {
-        Image image = new CairoImage(16, 16);
+        Image image = new CairoImage(16, 16, 8);
         Image rgba_copy = image.to_rgba();
         assert (image.mode == Image.Mode.RGBA);
     }

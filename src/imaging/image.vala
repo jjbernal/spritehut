@@ -17,23 +17,44 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 using Gdk;
-using Cairo;
 
 namespace Imaging
 {
+    /**
+    * Abstract image class
+    * 
+    * A simple abstract image class to inherit from
+    *
+    * @since alpha 0.1
+    */
+    
     public abstract class Image: Object {
         public enum Mode {
             INDEXED,
+            RGB,
             RGBA
         }
         public int width {get;set;}
         public int height {get;set;}
-        public Pixbuf thumbnail {get;set;}
-        public Mode mode {get;set;}
-        public ImageSurface cairo_surface {get;set;}
+        public int bpp {get; set;}
+        public bool has_alpha {get; set; default = true;}
+        public Mode mode {
+        get{
+            return (bpp <= 8) ? Image.Mode.INDEXED : (has_alpha) ? Image.Mode.RGBA : Image.Mode.RGB;
+        }
+        
+        }
         public Palette palette {get;set;}
         
-        public abstract RGBA get_pixel(int x, int y);
+        public Image(int width, int height, int bpp)
+        {
+            this.width = width;
+            this.height = height;
+            this.bpp = bpp;
+        }
+        public Image.from_pixel_data(int width, int height, int bpp, uint8* pixel_data);
+        public abstract uint8* get_pixel_data();
+        public abstract RGBA get_pixel_color(int x, int y);
         public abstract uint8 get_index(int x, int y);
         public abstract Image to_rgba();
     }

@@ -82,6 +82,7 @@ public class TestFreeImage : Object {
     
     public static void test_get_palette () {
         Bitmap bitmap = FreeImage.load(Format.GIF, "imaging/indexed.gif", 0);
+        assert (bitmap.get_color_type() == ColorType.PALETTE);
         RgbQuad* palette = bitmap.get_palette();
         
         for(int i = 0; i < bitmap.get_colors_used(); i++ ) {
@@ -89,7 +90,7 @@ public class TestFreeImage : Object {
         }
     }
     
-     public static void test_get_bits () {
+    public static void test_get_bits () {
         Bitmap bitmap = FreeImage.load(Format.PNG, "imaging/indexed_mw.png", 0);
         bitmap = bitmap.convert_to_8_bits();
         uint8* pixels = bitmap.get_bits();
@@ -110,7 +111,12 @@ public class TestFreeImage : Object {
         bool saved = FreeImage.save(Format.PNG, bitmap, "imaging/32bpp.png");
         assert (saved == true);
     }
-
+    
+    public static void test_get_file_type () {
+        Format format = FreeImage.get_file_type("imaging/indexed.png");
+        assert (format == Format.PNG);
+    }
+    
     public static void add_tests()  {
         Test.add_func ("/imaging/FreeImage.Initialise();FreeImage.DeInitialise();", test_init);
         Test.add_func ("/imaging/FreeImage.get_version", test_get_version);
@@ -126,5 +132,6 @@ public class TestFreeImage : Object {
         Test.add_func ("/imaging/FreeImage Bitmap.get_palette()", test_get_palette);
         Test.add_func ("/imaging/FreeImage Bitmap.get_bits()", test_get_bits);
         Test.add_func ("/imaging/FreeImage Bitmap.convert_to_32_bits()", test_convert_to_32_bits);
+        Test.add_func ("/imaging/FreeImage Bitmap.get_file_type()", test_get_file_type);
     }
 }

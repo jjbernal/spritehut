@@ -28,6 +28,7 @@ imaging_test_SOURCES = \
     imaging/cairoimage_test.vala \
     imaging/magickwand_test.vala \
     imaging/freeimage_test.vala \
+    imaging/freeimageimage_test.vala \
     imaging/imaging_main.vala
 
 imaging_test_LDFLAGS = -lfreeimage

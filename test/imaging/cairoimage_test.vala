@@ -20,25 +20,25 @@
 using Imaging;
 
 public class TestCairoImage : Object {
-    public static void test_get_pixel () {
-        Image image = new CairoImage(16, 16);
+    public static void test_get_pixel_color () {
+        Image image = new CairoImage(16, 16, 8);
         image.palette = new Palette();
         
-        Gdk.RGBA red = image.get_pixel(0,0);
-        Gdk.RGBA green = image.get_pixel(0,15);
-        Gdk.RGBA blue = image.get_pixel(15,0);
-        Gdk.RGBA white = image.get_pixel(15,15);
+        Gdk.RGBA red = image.get_pixel_color(0,0);
+        Gdk.RGBA green = image.get_pixel_color(0,15);
+        Gdk.RGBA blue = image.get_pixel_color(15,0);
+        Gdk.RGBA white = image.get_pixel_color(15,15);
         assert (red.to_string() == "#ff0000ff");
     }
     
     public static void test_to_rgba () {
-        Image image = new CairoImage(16, 16);
+        Image image = new CairoImage(16, 16, 8);
         Image rgba_copy = image.to_rgba();
         assert (image.mode == Image.Mode.RGBA);
     }
 
     public static void add_tests()  {
-        Test.add_func ("/imaging/image.get_pixel(x , y)", test_get_pixel);
+        Test.add_func ("/imaging/image.get_pixel_color(x , y)", test_get_pixel_color);
         //Test.add_func ("/imaging/image.to_rgba", test_to_rgba);
     }
 }

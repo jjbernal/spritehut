@@ -60,10 +60,10 @@ namespace ImageMagick {
             [CCode (cname="MagickClearException")]
             public bool clear_exception();
             
-            [CCode (cname="MagickGetException")]
+//            [CCode (cname="MagickGetException")]
 //            public string get_exception(ref ExceptionType severity);
             
-            [CCode (cname="MagickGetExceptionType")]
+//            [CCode (cname="MagickGetExceptionType")]
 //            public ExceptionType get_exception_type();
             
             /* Initialization Methods */

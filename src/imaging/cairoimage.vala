@@ -23,26 +23,22 @@ using Cairo;
 namespace Imaging
 {
     public class CairoImage: Image {
-//        public uint width {get;set;}
-//        public uint height {get;set;}
-//        public Pixbuf thumbnail {get;set;}
-//        public Image.Mode mode {get;set;}
-//        public override ImageSurface cairo_surface {get;set;}
-//        public Palette palette {get;set;}
+        public ImageSurface _cairo_surface;
         
-        public CairoImage(int width, int height)
+        public CairoImage(int width, int height, int bpp)
         {
+            base(width, height, bpp);
             this.width = width;
             this.height = height;
-            palette = new Palette();
-            cairo_surface = new ImageSurface(Format.A8, width, height);
+            this.bpp = bpp;
+            _cairo_surface = new ImageSurface(Format.A8, width, height);
         }
         
         public override Image to_rgba()
         {
             int stride = (int) width*4;
 
-            uint8 *indexed_data = cairo_surface.get_data();
+            uint8 *indexed_data = _cairo_surface.get_data();
             uint8 *colored_data = new uint8[width*height*4];
             
             int i = 0;
@@ -62,13 +58,16 @@ namespace Imaging
 //            debug("Index at the end:%d", i);
 //            debug("Color al final:%d", indexed_data[i]);
             
-            Image rgba32_image = new CairoImage(width, height);
-            rgba32_image.cairo_surface = new ImageSurface.for_data((uchar[]) colored_data, Format.ARGB32, width, height, stride);
+            Image rgba32_image = new CairoImage(width, height, 32);
+//            rgba32_image._cairo_surface = new ImageSurface.for_data((uchar[]) colored_data, Format.ARGB32, width, height, stride);
             
             return rgba32_image;
         }
+        public override uint* get_pixel_data() {
+            return _cairo_surface.get_data();
+        }
         
-        public override RGBA get_pixel(int x, int y)
+        public override RGBA get_pixel_color(int x, int y)
         {   
             uint8 index = get_index(x, y);
             
@@ -77,7 +76,7 @@ namespace Imaging
         
         public override uint8 get_index(int x, int y)
         {
-            uint8 *indexed_data = cairo_surface.get_data();
+            uint8 *indexed_data = _cairo_surface.get_data();
             return *(indexed_data)+(uint8)(x*width)+(uint8)(y*height);
         }
     }

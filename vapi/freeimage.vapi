@@ -342,6 +342,8 @@ namespace FreeImage {
 //    bool FreeImage_IsLittleEndian(void);
 //    bool FreeImage_LookupX11Color(const char *szColor, uint8 *nRed, uint8 *nGreen, uint8 *nBlue);
 //    bool FreeImage_LookupSVGColor(const char *szColor, uint8 *nRed, uint8 *nGreen, uint8 *nBlue);
+    [CCode (cname="FreeImage_ConvertFromRawBits")]
+    public Bitmap convert_from_raw_bits(uint8 *bits, int width, int height, int pitch, uint bpp, uint red_mask, uint green_mask, uint blue_mask, bool topdown = false);
 
 //    // Line conversion routines -------------------------------------------------
 
@@ -621,9 +623,6 @@ namespace FreeImage {
         
         [CCode (cname="FreeImage_Dither")]
         public Bitmap dither(Dither algorithm);
-
-        [CCode (cname="FreeImage_ConvertFromRawBits")]
-        public Bitmap convert_from_raw_bits(uint8 *bits, int width, int height, int pitch, uint bpp, uint red_mask, uint green_mask, uint blue_mask, bool topdown = false);
         
         [CCode (cname="FreeImage_ConvertToRawBits")]
         public void convert_to_raw_bits(uint8 *bits, Bitmap dib, int pitch, uint bpp, uint red_mask, uint green_mask, uint blue_mask, bool topdown = false);
