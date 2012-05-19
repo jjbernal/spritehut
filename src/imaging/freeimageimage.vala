@@ -23,13 +23,13 @@ namespace Imaging
 {
     public class FreeImageImage : Imaging.Image
     {
-        private Bitmap _bitmap;
+        private FreeImage.Bitmap _bitmap;
 
         public FreeImageImage (int width, int height, int bpp)
         {
             base(width, height, bpp);
 //            int bpp = (mode == Mode.INDEXED) ? 8 : 32 ;
-            _bitmap = new Bitmap(width, height, bpp);
+            _bitmap = new FreeImage.Bitmap(width, height, bpp);
         }
         
         public FreeImageImage.from_pixel_data (int width, int height, int bpp, uint8* pixel_data)

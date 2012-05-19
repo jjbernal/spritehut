@@ -22,6 +22,11 @@ using Gdk;
 
 namespace Imaging
 {
+/**
+* Palette class
+* 
+*
+*/
     public class Palette : Object
     {
         public string name {get;set;default=_("Palette1");}

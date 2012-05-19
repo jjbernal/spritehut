@@ -33,6 +33,15 @@ AC_SUBST(GETTEXT_PACKAGE)
 AM_GNU_GETTEXT_VERSION([1.11])
 AM_GLIB_GNU_GETTEXT
 
+AC_ARG_ENABLE(doc, AS_HELP_STRING([--enable-doc], [Enable documentation generation]), enable_doc=$enableval, enable_doc=no)
+AM_CONDITIONAL(ENABLE_DOC, test x$enable_doc = xyes)
+
+AS_IF([test "x$enable_doc" != xno],
+[AC_PATH_PROG(VALADOC, valadoc, :)
+AC_SUBST(VALADOC)
+AS_IF([test "$VALADOC" = :],
+[AC_MSG_ERROR([valadoc not found])])])
+
 AC_CONFIG_FILES([
 	Makefile
 	data/spritehut.desktop.in
@@ -48,5 +57,6 @@ AC_CONFIG_FILES([
 	src/Makefile
 	test/Makefile
 	vapi/Makefile
+	doc/Makefile
 ])
 AC_OUTPUT

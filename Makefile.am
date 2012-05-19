@@ -1,12 +1,18 @@
 # Makefile.am
 ACLOCAL_AMFLAGS = -I m4
 
+if ENABLE_DOC
+    DOC_SUBDIR = \
+    doc
+endif
+
 SUBDIRS = \
 	data \
 	src \
 	vapi \
 	po \
-	test
+	test \
+	$(DOC_SUBDIR)
 
 EXTRA_DIST = \
 	intltool-extract.in \
