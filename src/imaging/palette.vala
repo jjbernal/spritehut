@@ -37,6 +37,24 @@ namespace Imaging
             base();
             color_list = new ArrayList<Gdk.RGBA?>();
         }
+        
+        /**
+         * Helper method to get a Gdk.RGBA from 8bit components
+         *
+         */
+        public static RGBA rgba_from_components(uint8 red, uint8 green, uint8 blue, uint8 alpha)
+        {
+            RGBA rgba = RGBA();
+            
+            uint8 max_per_component = 255;
+            
+            rgba.red = (double) red / max_per_component;;
+            rgba.green = (double) green / max_per_component;
+            rgba.blue = (double) blue / max_per_component;
+            rgba.alpha = (double) alpha / max_per_component;
+            
+            return rgba;
+        }
     }
 }
 

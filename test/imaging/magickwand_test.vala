@@ -121,11 +121,11 @@ public class TestMagickWand : Object {
 //        Wand.Terminus();
     }
     
-    public static void test_to_rgba () {
-        Image image = new CairoImage(16, 16, 8);
-        Image rgba_copy = image.to_rgba();
-        assert (image.mode == Image.Mode.RGBA);
-    }
+//    public static void test_to_rgba () {
+//        Image image = new CairoImage(16, 16, 8);
+//        Image rgba_copy = image.to_rgba();
+//        assert (image.mode == Image.Mode.RGBA);
+//    }
 
     public static void add_tests()  {
         Test.add_func ("/imaging/Wand.get_pixel(x, y)", test_indexed);

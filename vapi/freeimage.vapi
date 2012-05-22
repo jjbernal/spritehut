@@ -39,7 +39,16 @@ namespace FreeImage {
 	   JP2		= 31,
 	   PFM		= 32,
 	   PICT	= 33,
-	    RAW		= 34
+	    RAW		= 34;
+	    
+	    [CCode (cname="FreeImage_FIFSupportsReading")]
+	    public bool supports_reading();
+	    
+//    bool FreeImage_FIFSupportsWriting(FREE_IMAGE_FORMAT fif);
+//    bool FreeImage_FIFSupportsExportBPP(FREE_IMAGE_FORMAT fif, int bpp);
+//    bool FreeImage_FIFSupportsExportType(FREE_IMAGE_FORMAT fif, Type type);
+//    bool FreeImage_FIFSupportsICCProfiles(FREE_IMAGE_FORMAT fif);
+//    bool FreeImage_FIFSupportsNoPixels(FREE_IMAGE_FORMAT fif);
     }
     
     [CCode (cprefix = "FIT_",cname="FREE_IMAGE_TYPE",type_id="FREE_IMAGE_TYPE")]
@@ -303,14 +312,11 @@ namespace FreeImage {
 //    const char *FreeImage_GetFIFDescription(FREE_IMAGE_FORMAT fif);
 //    const char *FreeImage_GetFIFRegExpr(FREE_IMAGE_FORMAT fif);
 //    const char *FreeImage_GetFIFMimeType(FREE_IMAGE_FORMAT fif);
-//    FREE_IMAGE_FORMAT FreeImage_GetFIFFromFilename(const char *filename);
-//    FREE_IMAGE_FORMAT FreeImage_GetFIFFromFilenameU(const wchar_t *filename);
-//    bool FreeImage_FIFSupportsReading(FREE_IMAGE_FORMAT fif);
-//    bool FreeImage_FIFSupportsWriting(FREE_IMAGE_FORMAT fif);
-//    bool FreeImage_FIFSupportsExportBPP(FREE_IMAGE_FORMAT fif, int bpp);
-//    bool FreeImage_FIFSupportsExportType(FREE_IMAGE_FORMAT fif, Type type);
-//    bool FreeImage_FIFSupportsICCProfiles(FREE_IMAGE_FORMAT fif);
-//    bool FreeImage_FIFSupportsNoPixels(FREE_IMAGE_FORMAT fif);
+    [CCode (cname="FreeImage_GetFIFFromFilename")]
+    public Format get_format_from_filename(string filename);
+    
+    [CCode (cname="FreeImage_GetFIFFromFilenameU")]
+    public Format get_format_from_filename_unicode(string filename);
 
 //    // Multipaging interface ----------------------------------------------------
 

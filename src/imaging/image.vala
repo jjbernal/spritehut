@@ -42,9 +42,9 @@ namespace Imaging
         * 
         * The width of the image
         */
-        public int width {get;set;}
-        public int height {get;set;}
-        public int bpp {get; set;}
+        public uint width {get;set;}
+        public uint height {get;set;}
+        public uint bpp {get; set;}
         public bool has_alpha {get; set; default = true;}
         public Mode mode {
         get{
@@ -54,7 +54,7 @@ namespace Imaging
         }
         public Palette palette {get;set;}
         
-        public Image(int width, int height, int bpp)
+        public Image(uint width, uint height, uint bpp)
         {
             this.width = width;
             this.height = height;
@@ -69,10 +69,9 @@ namespace Imaging
         * @param bpp The depth (Bits Per Pixel) of the image
         * @param pixel_data The array pixel data. This will be interpreted according to the bpp parameter
         */
-        public Image.from_pixel_data(int width, int height, int bpp, uint8* pixel_data);
+        public Image.from_pixel_data(uint width, uint height, uint bpp, uint8* pixel_data);
         public abstract uint8* get_pixel_data();
         public abstract RGBA get_pixel_color(int x, int y);
         public abstract uint8 get_index(int x, int y);
-        public abstract Image to_rgba();
     }
 }

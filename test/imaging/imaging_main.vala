@@ -24,7 +24,10 @@ public void main (string[] args) {
 //    TestMagickWand.add_tests();
 //    TestCairoImage.add_tests();
     TestFreeImage.add_tests();
-    TestFreeImageImage.add_tests();
+//    TestFreeImageImage.add_tests();
+    TestIndexedImage.add_tests();
+    TestRGBAImage.add_tests();
+    TestFreeImageReader.add_tests();
     
     Test.run ();
 }

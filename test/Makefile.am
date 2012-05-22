@@ -25,10 +25,11 @@ document_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
 	
 imaging_test_SOURCES = \
     imaging/palette_test.vala \
-    imaging/cairoimage_test.vala \
     imaging/magickwand_test.vala \
     imaging/freeimage_test.vala \
-    imaging/freeimageimage_test.vala \
+    imaging/indexedimage_test.vala \
+    imaging/rgbaimage_test.vala \
+    imaging/freeimagereader_test.vala \
     imaging/imaging_main.vala
 
 imaging_test_LDFLAGS = -lfreeimage
