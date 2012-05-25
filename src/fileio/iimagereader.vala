@@ -16,17 +16,24 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
+using Imaging;
 
-public void main (string[] args) {
-    Test.init (ref args);
-    
-    TestPalette.add_tests();
-//    TestMagickWand.add_tests();
-//    TestCairoImage.add_tests();
-    TestFreeImage.add_tests();
-//    TestFreeImageImage.add_tests();
-    TestIndexedImage.add_tests();
-    TestRGBAImage.add_tests();
-    
-    Test.run ();
+namespace FileIO
+{
+    /**
+    * FreeImage interface for loading image files
+    *
+    * @since 0.1
+    */
+    public interface IImageReader : Object
+    {
+        /**
+         * Loads an image from a file
+         * 
+         * @param filename The file name, including complete path  
+         * @return An Image loaded from the specified file
+         */
+        public abstract Image load (string filename) throws IOError;
+    }
 }
+

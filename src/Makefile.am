@@ -1,5 +1,10 @@
 bin_PROGRAMS = spritehut
-noinst_LTLIBRARIES = libimaging.la libdocument.la libwidgets.la libcontrollers.la
+noinst_LTLIBRARIES = \
+    libimaging.la \
+    libdocument.la \
+    libfileio.la \
+    libwidgets.la \
+    libcontrollers.la
 
 common_flags = \
     --vapidir=$(srcdir)/../vapi --pkg config \
@@ -9,12 +14,11 @@ libimaging_la_SOURCES = \
     imaging/palette.vala \
 	imaging/image.vala \
 	imaging/indexedimage.vala \
-	imaging/rgbaimage.vala \
-	imaging/freeimagereader.vala
+	imaging/rgbaimage.vala
 
 libimaging_la_VALAFLAGS = \
     --library imaging -H imaging.h \
-    $(common_flags)	
+    $(common_flags)
     
 libdocument_la_SOURCES = \
 	document/idocumentelement.vala \
@@ -31,6 +35,20 @@ libdocument_la_VALAFLAGS = \
     $(common_flags)
     
 libdocument_la_LIBADD = \
+    @LTLIBOBJS@
+    
+
+libfileio_la_SOURCES = \
+    fileio/freeimagereader.vala \
+    fileio/iimagereader.vala \
+    fileio/errors.vala
+
+libfileio_la_VALAFLAGS = \
+    imaging.vapi document.vapi --library fileio -H fileio.h \
+    $(common_flags)
+
+libfileio_la_LDFLAGS = -lfreeimage
+libfileio_la_LIBADD = \
     @LTLIBOBJS@
     
 libwidgets_la_SOURCES = \
@@ -56,6 +74,7 @@ libcontrollers_la_VALAFLAGS = \
     
 libcontrollers_la_LIBADD = \
     @LTLIBOBJS@
+    
 
 spritehut_SOURCES = \
 	spritehut.vala \
@@ -69,14 +88,14 @@ AM_CPPFLAGS = \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
 
 spritehut_VALAFLAGS = \
-    imaging.vapi document.vapi widgets.vapi controllers.vapi \
+    imaging.vapi document.vapi fileio.vapi widgets.vapi controllers.vapi \
 	--vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	libwidgets.la libcontrollers.la libdocument.la libimaging.la $(SPRITE_HUT_LIBS)
+	libwidgets.la libcontrollers.la libdocument.la libimaging.la libfileio.la $(SPRITE_HUT_LIBS)
 
-DIRS = document/*.c controllers/*.c widgets/*.c
+DIRS = document/*.c controllers/*.c widgets/*.c imaging/*.c fileio/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp
 
 #valencia options

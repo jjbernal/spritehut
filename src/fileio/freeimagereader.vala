@@ -19,15 +19,16 @@
 
 using Gdk;
 using FreeImage;
+using Imaging;
 
-namespace Imaging
+namespace FileIO
 {
     /**
     * FreeImage implementation of the IImageLoader interface
     *
     * @since 0.1
     */
-    public class FreeImageReader : Object
+    public class FreeImageReader : Object, IImageReader
     {
         /**
          * Loads an image from a file
@@ -35,7 +36,7 @@ namespace Imaging
          * @param filename The file name, including complete path  
          * @return An Image loaded from the specified file
          */
-        public Image load (string filename)
+        public Image load (string filename) throws IOError
         {
             Image? image = null;
             Bitmap? bitmap = generic_load(filename);
@@ -43,6 +44,8 @@ namespace Imaging
             if (bitmap != null) {
                 ColorType color_type = bitmap.get_color_type();
                 switch (color_type) {
+                    case ColorType.MINISBLACK:
+                    case ColorType.MINISWHITE:
                     case ColorType.PALETTE:
                         image = convert_to_indexed(ref bitmap);
                         break;
@@ -51,6 +54,8 @@ namespace Imaging
                         image = convert_to_rgba(ref bitmap);
                         break;
                 }
+            } else {
+                throw new IOError.FILE_NOT_FOUND(_("Requested file could not be found."));
             }
             
             return image;
@@ -104,7 +109,6 @@ namespace Imaging
                 image.palette.color_list.add(rgba);
                 
                 i++;
-//                rgba = convert_rgbquad_to_rgba(pal[i]);
                 rgba = Palette.rgba_from_components(pal[i].rgbRed, pal[i].rgbGreen, pal[i].rgbBlue, 255);
                 
                 last_rgba = image.palette.color_list[i-1];
@@ -119,20 +123,6 @@ namespace Imaging
             
             return image;
         }
-        
-//        private RGBA convert_rgbquad_to_rgba(RgbQuad orig)
-//        {
-//            RGBA dest = RGBA();
-//            
-//            int max_per_component = 255;
-//            dest.red = (double) orig.rgbRed / (double) max_per_component;
-//            dest.green = (double) orig.rgbGreen / max_per_component;
-//            dest.blue = (double) orig.rgbBlue / max_per_component;
-//            // 
-//            dest.alpha = 1;
-//            
-//            return dest;
-//        }
         
         /*
          * Translated from the FreeImage documentation

@@ -17,16 +17,13 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-public void main (string[] args) {
-    Test.init (ref args);
-    
-    TestPalette.add_tests();
-//    TestMagickWand.add_tests();
-//    TestCairoImage.add_tests();
-    TestFreeImage.add_tests();
-//    TestFreeImageImage.add_tests();
-    TestIndexedImage.add_tests();
-    TestRGBAImage.add_tests();
-    
-    Test.run ();
+namespace FileIO
+{
+    /**
+     * File I/O errors
+     */
+    public errordomain IOError {
+        FILE_NOT_FOUND
+    }
 }
+

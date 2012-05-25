@@ -17,15 +17,29 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 using Imaging;
+using FileIO;
 using Gdk;
 using FreeImage;
 
 public class TestFreeImageReader : Object {
+    public static void test_load_indexed_1bit () {
+        FreeImageReader reader = new FreeImageReader();
+        
+        Image image = reader.load("imaging/testimages/1bpp.png");
+        
+        assert(image.palette.color_list != null);
+        
+        Gdk.RGBA white = image.get_pixel_color(0,0);
+        Gdk.RGBA black = image.get_pixel_color(1,0);
+        
+        assert (black.red == 0 && black.green == 0 && black.blue == 0);
+        assert (white.red == 1 && white.green == 1 && white.blue == 1);
+    }
     
     public static void test_load_indexed_4bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/indexed.gif");
+        Image image = reader.load("imaging/testimages/4bpp.png");
         
         assert(image.palette.color_list != null);
         
@@ -51,7 +65,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_indexed_8bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/indexed.png");
+        Image image = reader.load("imaging/testimages/8bpp.png");
         
         assert(image.palette.color_list != null);
         
@@ -77,7 +91,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_rgb_24bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/24bpp.png");
+        Image image = reader.load("imaging/testimages/24bpp.png");
         
         Gdk.RGBA red = image.get_pixel_color(0,0);
         Gdk.RGBA green = image.get_pixel_color(15,0);
@@ -90,13 +104,12 @@ public class TestFreeImageReader : Object {
         assert (blue.red == 0 && blue.green == 0 && blue.blue == 1);
         assert (white.red == 1 && white.green == 1 && white.blue == 1);
         assert (transparent.alpha == 1);
-        
     }
     
     public static void test_load_rgba_32bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/32bpp.png");
+        Image image = reader.load("imaging/testimages/32bpp.png");
         
         Gdk.RGBA red = image.get_pixel_color(0,0);
         Gdk.RGBA green = image.get_pixel_color(15,0);
@@ -109,14 +122,26 @@ public class TestFreeImageReader : Object {
         assert (blue.red == 0 && blue.green == 0 && blue.blue == 1);
         assert (white.red == 1 && white.green == 1 && white.blue == 1);
         assert (transparent.alpha == 0);
+    }
+    
+    public static void test_load_fail (){
+        FreeImageReader reader = new FreeImageReader();
         
+        try {
+            // this image does not actually exist
+            Image image = reader.load("imaging/testimages/nonexistentimage.png");
+        }
+        catch (Error e) {
+            assert(e is FileIO.IOError);
+        }
     }
 
     public static void add_tests() {
-    
-        Test.add_func ("/imaging/FreeImageReader.load() indexed 4-bit", test_load_indexed_4bit);
-        Test.add_func ("/imaging/FreeImageReader.load() indexed 8-bit", test_load_indexed_8bit);
-        Test.add_func ("/imaging/FreeImageReader.load() rgb 24-bit", test_load_rgb_24bit);
-        Test.add_func ("/imaging/FreeImageReader.load() rgba 32-bit", test_load_rgba_32bit);
+        Test.add_func ("/fileio/FreeImageReader.load() indexed 1-bit", test_load_indexed_1bit);
+        Test.add_func ("/fileio/FreeImageReader.load() indexed 4-bit", test_load_indexed_4bit);
+        Test.add_func ("/fileio/FreeImageReader.load() indexed 8-bit", test_load_indexed_8bit);
+        Test.add_func ("/fileio/FreeImageReader.load() rgb 24-bit", test_load_rgb_24bit);
+        Test.add_func ("/fileio/FreeImageReader.load() rgba 32-bit", test_load_rgba_32bit);
+        Test.add_func ("/fileio/FreeImageReader.load() fail", test_load_fail);
     }
 }

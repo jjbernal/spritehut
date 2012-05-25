@@ -20,13 +20,7 @@
 public void main (string[] args) {
     Test.init (ref args);
     
-    TestPalette.add_tests();
-//    TestMagickWand.add_tests();
-//    TestCairoImage.add_tests();
-    TestFreeImage.add_tests();
-//    TestFreeImageImage.add_tests();
-    TestIndexedImage.add_tests();
-    TestRGBAImage.add_tests();
+    TestFreeImageReader.add_tests();
     
     Test.run ();
 }

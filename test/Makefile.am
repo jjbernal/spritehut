@@ -3,7 +3,8 @@ BUILDDIR = $(top_builddir)/src
 
 TESTS = \
 	document-test \
-	imaging-test
+	imaging-test \
+	fileio-test
 
 check_PROGRAMS = $(TESTS)
 
@@ -21,15 +22,26 @@ document_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
     $(BUILDDIR)/imaging.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
-	@SPRITE_HUT_PACKAGES@    
-	
+    @SPRITE_HUT_PACKAGES@
+    
+fileio_test_SOURCES = \
+    fileio/freeimagereader_test.vala \
+    fileio/fileio_main.vala
+    
+fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdocument.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
+fileio_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
+    $(BUILDDIR)/imaging.vapi \
+    $(BUILDDIR)/fileio.vapi \
+    --vapidir=$(srcdir)/../vapi \
+    --pkg config \
+    @SPRITE_HUT_PACKAGES@
+    
 imaging_test_SOURCES = \
     imaging/palette_test.vala \
     imaging/magickwand_test.vala \
     imaging/freeimage_test.vala \
     imaging/indexedimage_test.vala \
     imaging/rgbaimage_test.vala \
-    imaging/freeimagereader_test.vala \
     imaging/imaging_main.vala
 
 imaging_test_LDFLAGS = -lfreeimage
@@ -38,7 +50,7 @@ imaging_test_VALAFLAGS = \
     $(BUILDDIR)/imaging.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
-	@SPRITE_HUT_PACKAGES@
+    @SPRITE_HUT_PACKAGES@
 
 DIRS = document/*.c imaging/*.c
 CLEANFILES = $(DIRS) *.c *.stamp test-report.xml test-report.html
