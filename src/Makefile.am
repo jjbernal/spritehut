@@ -41,7 +41,9 @@ libdocument_la_LIBADD = \
 libfileio_la_SOURCES = \
     fileio/freeimagereader.vala \
     fileio/iimagereader.vala \
-    fileio/errors.vala
+    fileio/errors.vala \
+    fileio/iimagewriter.vala \
+    fileio/freeimagewriter.vala
 
 libfileio_la_VALAFLAGS = \
     imaging.vapi document.vapi --library fileio -H fileio.h \

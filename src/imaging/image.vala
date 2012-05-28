@@ -31,6 +31,7 @@ namespace Imaging
 * @since 0.1
 */
     public abstract class Image: Object {
+        public uint8* pixel_data { get; set; }
         public enum Mode {
             INDEXED,
             RGB,
@@ -46,7 +47,7 @@ namespace Imaging
         public uint height {get;set;}
         public uint bpp {get; set;}
         public bool has_alpha {get; set; default = true;}
-        public Mode mode {
+        public abstract Mode mode {
         get{
             return (bpp <= 8) ? Image.Mode.INDEXED : (has_alpha) ? Image.Mode.RGBA : Image.Mode.RGB;
         }
@@ -70,7 +71,12 @@ namespace Imaging
         * @param pixel_data The array pixel data. This will be interpreted according to the bpp parameter
         */
         public Image.from_pixel_data(uint width, uint height, uint bpp, uint8* pixel_data);
-        public abstract uint8* get_pixel_data();
+        
+//        public uint8* get_pixel_data()
+//        {
+//            return pixel_data;
+//        }
+        
         public abstract RGBA get_pixel_color(int x, int y);
         public abstract uint8 get_index(int x, int y);
     }

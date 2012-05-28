@@ -16,12 +16,22 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
+using Imaging;
 
-public void main (string[] args) {
-    Test.init (ref args);
-    
-    TestFreeImageReader.add_tests();
-    TestFreeImageWriter.add_tests();
-    
-    Test.run ();
+namespace FileIO
+{
+    /**
+    * FreeImage interface for saving image files
+    */
+    public interface IImageWriter : Object
+    {
+        /**
+         * Saves an image to a file. Creates a file if needed.
+         * 
+         * @param image The Image to save to disk
+         * @param filename The file name, including complete path
+         */
+        public abstract void save (Image image, string filename) throws IOError;
+    }
 }
+

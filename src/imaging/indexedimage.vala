@@ -28,9 +28,8 @@ namespace Imaging
 */
     public class IndexedImage : Imaging.Image
     {
-        public uint8* pixel_data { get; set; }
         
-        public Image.Mode mode {
+        public override Image.Mode mode {
             get
             {
                 return Image.Mode.INDEXED;
@@ -53,11 +52,6 @@ namespace Imaging
 //            delete pixel_data;
         }
         
-        public override uint8* get_pixel_data()
-        {
-            return pixel_data;
-        }
-
         public override RGBA get_pixel_color(int x, int y)
         {
             RGBA rgba = RGBA();

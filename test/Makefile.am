@@ -26,6 +26,7 @@ document_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
     
 fileio_test_SOURCES = \
     fileio/freeimagereader_test.vala \
+    fileio/freeimagewriter_test.vala \
     fileio/fileio_main.vala
     
 fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdocument.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)

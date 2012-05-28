@@ -28,22 +28,21 @@ namespace Imaging
 */
     public class RGBAImage : Imaging.Image
     {
-        public uint8* pixel_data { get; set; }
         
-        public Image.Mode mode {
+        public override Image.Mode mode {
             get
             {
-                return Image.Mode.INDEXED;
+                return Image.Mode.RGBA;
             }
         }
         
-        public RGBAImage (uint width, uint height, uint bpp=8)
+        public RGBAImage (uint width, uint height, uint bpp=32)
         {
             base(width, height, bpp);
             pixel_data = new uint8[width*height];
         }
         
-        public RGBAImage.from_pixel_data (uint width, uint height, uint bpp=8, uint8* pixel_data)
+        public RGBAImage.from_pixel_data (uint width, uint height, uint bpp=32, uint8* pixel_data)
         {
             base(width, height, bpp);
             this.pixel_data = pixel_data;
@@ -51,11 +50,6 @@ namespace Imaging
         
         ~RGBAImage () {
 //            delete pixel_data;
-        }
-        
-        public override uint8* get_pixel_data()
-        {
-            return pixel_data;
         }
         
         public override RGBA get_pixel_color(int x, int y)
