@@ -39,7 +39,7 @@ namespace Imaging
         public IndexedImage (uint width, uint height, uint bpp=8)
         {
             base(width, height, bpp);
-            pixel_data = new uint8[width*height];
+            this.pixel_data = new uint8[width*height*bpp/8];
         }
         
         public IndexedImage.from_pixel_data (uint width, uint height, uint bpp=8, uint8* pixel_data)

@@ -39,7 +39,7 @@ namespace Imaging
         public RGBAImage (uint width, uint height, uint bpp=32)
         {
             base(width, height, bpp);
-            pixel_data = new uint8[width*height];
+            this.pixel_data = new uint8[width*height*bpp/8];
         }
         
         public RGBAImage.from_pixel_data (uint width, uint height, uint bpp=32, uint8* pixel_data)

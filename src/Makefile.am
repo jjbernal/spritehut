@@ -14,11 +14,18 @@ libimaging_la_SOURCES = \
     imaging/palette.vala \
 	imaging/image.vala \
 	imaging/indexedimage.vala \
-	imaging/rgbaimage.vala
+	imaging/rgbaimage.vala \
+	imaging/sdldrawing.vala
 
 libimaging_la_VALAFLAGS = \
     --library imaging -H imaging.h \
+    --Xcc=-I/usr/include/SDL \
+    --pkg sdl --pkg sdl-gfx \
     $(common_flags)
+    
+libimaging_la_LDFLAGS = -lfreeimage -lSDLmain -lSDL_gfx
+libimaging_la_LIBADD = \
+    @LTLIBOBJS@
     
 libdocument_la_SOURCES = \
 	document/idocumentelement.vala \

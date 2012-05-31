@@ -43,12 +43,14 @@ imaging_test_SOURCES = \
     imaging/freeimage_test.vala \
     imaging/indexedimage_test.vala \
     imaging/rgbaimage_test.vala \
+    imaging/drawing_test.vala \
     imaging/imaging_main.vala
 
-imaging_test_LDFLAGS = -lfreeimage
-imaging_test_LDADD = $(BUILDDIR)/libimaging.la  $(SPRITE_HUT_LIBS)
+libimaging_la_LDFLAGS = -lfreeimage -lSDLmain -lSDL_gfx
+imaging_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
 imaging_test_VALAFLAGS = \
     $(BUILDDIR)/imaging.vapi \
+    $(BUILDDIR)/fileio.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
     @SPRITE_HUT_PACKAGES@

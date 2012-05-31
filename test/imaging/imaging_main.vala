@@ -27,6 +27,7 @@ public void main (string[] args) {
 //    TestFreeImageImage.add_tests();
     TestIndexedImage.add_tests();
     TestRGBAImage.add_tests();
+    TestSDLDrawing.add_tests();
     
     Test.run ();
 }

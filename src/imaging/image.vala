@@ -47,6 +47,12 @@ namespace Imaging
         public uint height {get;set;}
         public uint bpp {get; set;}
         public bool has_alpha {get; set; default = true;}
+        public uint size {
+            get
+            {
+                return width*height*bpp/8;
+            }
+        }
         public abstract Mode mode {
         get{
             return (bpp <= 8) ? Image.Mode.INDEXED : (has_alpha) ? Image.Mode.RGBA : Image.Mode.RGB;
