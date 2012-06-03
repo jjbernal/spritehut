@@ -6,7 +6,7 @@ TESTS = \
 	imaging-test \
 	fileio-test
 
-check_PROGRAMS = $(TESTS)
+#check_PROGRAMS = $(TESTS)
 
 document_test_SOURCES = \
     document/layer_test.vala \
@@ -27,6 +27,7 @@ document_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
 fileio_test_SOURCES = \
     fileio/freeimagereader_test.vala \
     fileio/freeimagewriter_test.vala \
+    fileio/xmldocumentwriter_test.vala \
     fileio/fileio_main.vala
     
 fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdocument.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
@@ -46,11 +47,15 @@ imaging_test_SOURCES = \
     imaging/drawing_test.vala \
     imaging/imaging_main.vala
 
-libimaging_la_LDFLAGS = -lfreeimage -lSDLmain -lSDL_gfx
-imaging_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
+imaging_test_LDADD = \
+    $(BUILDDIR)/libimaging.la \
+    $(BUILDDIR)/libfileio.la \
+    $(BUILDDIR)/libdocument.la \
+    $(SPRITE_HUT_LIBS)
 imaging_test_VALAFLAGS = \
     $(BUILDDIR)/imaging.vapi \
     $(BUILDDIR)/fileio.vapi \
+    $(BUILDDIR)/document.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
     @SPRITE_HUT_PACKAGES@

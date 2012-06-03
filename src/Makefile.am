@@ -7,7 +7,7 @@ noinst_LTLIBRARIES = \
     libcontrollers.la
 
 common_flags = \
-    --vapidir=$(srcdir)/../vapi --pkg config \
+    -g --vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 libimaging_la_SOURCES = \
@@ -50,10 +50,12 @@ libfileio_la_SOURCES = \
     fileio/iimagereader.vala \
     fileio/errors.vala \
     fileio/iimagewriter.vala \
-    fileio/freeimagewriter.vala
+    fileio/freeimagewriter.vala \
+    fileio/xmldocumentwriter.vala
 
 libfileio_la_VALAFLAGS = \
     imaging.vapi document.vapi --library fileio -H fileio.h \
+    --pkg libxml-2.0 \
     $(common_flags)
 
 libfileio_la_LDFLAGS = -lfreeimage

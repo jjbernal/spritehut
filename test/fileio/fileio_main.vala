@@ -22,6 +22,7 @@ public void main (string[] args) {
     
     TestFreeImageReader.add_tests();
     TestFreeImageWriter.add_tests();
+    TestXmlDocumentWriter.add_tests();
     
     Test.run ();
 }
