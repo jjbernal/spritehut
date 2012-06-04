@@ -57,10 +57,14 @@ namespace FileIO
             
             LinkedList<Node?> stack = new LinkedList<Node?>();
             
-            document.treemodel.get_iter_first(out iter);
-//            do {
+//            document.treemodel.get_iter_first(out iter);
+            // push top nodes in reverse order
+            int n = document.treemodel.iter_n_children(null);
+            while (n > 0) {
+                document.treemodel.iter_nth_child (out iter, null, n-1);
                 stack.offer_head(Node(){tree_iter=iter, visited=false});
-//            }while (document.treemodel.iter_next(ref iter));
+                n--;
+            }
             
             while (stack.size > 0)
             {
@@ -79,8 +83,8 @@ namespace FileIO
                     if (document.treemodel.iter_has_child(node.tree_iter)) {
                         TreeIter child;
                         int n_children = document.treemodel.iter_n_children(node.tree_iter);
-//                        stdout.printf("\n%s %d \n", elem.name, n_children);
-                        while (n_children > 0){ //add children in reverse order
+
+                        while (n_children > 0){ //push children in reverse order
                             document.treemodel.iter_nth_child (out child, node.tree_iter, n_children-1);
                             stack.offer_head(Node(){tree_iter=child, visited=false});
                             n_children--;
