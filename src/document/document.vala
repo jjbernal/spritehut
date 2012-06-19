@@ -22,7 +22,7 @@ using Imaging;
 
 namespace Document
 {
-    public class Document : GLib.Object
+    public class Document : GLib.Object, IDocumentElement
     {
         private TreeStore _treemodel;
         private UndoHistory _undo_history;
@@ -30,6 +30,7 @@ namespace Document
         public uint32 last_id {get;set;default=0;}
         public string? filename {get;set;default=null;}
         public bool modified {get;set;default=false;}
+        public string name {get;set;}
         public Gtk.TreeStore treemodel
         {
             get

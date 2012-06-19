@@ -2,11 +2,11 @@ AM_CPPFLAGS = $(SPRITE_HUT_CFLAGS) -I$(top_srcdir)/src
 BUILDDIR = $(top_builddir)/src
 
 TESTS = \
-	document-test \
-	imaging-test \
-	fileio-test
+	document_test\
+	imaging_test\
+	fileio_test
 
-#check_PROGRAMS = $(TESTS)
+check_PROGRAMS = $(TESTS)
 
 document_test_SOURCES = \
     document/layer_test.vala \

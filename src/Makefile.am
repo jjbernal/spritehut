@@ -7,7 +7,7 @@ noinst_LTLIBRARIES = \
     libcontrollers.la
 
 common_flags = \
-    -g --vapidir=$(srcdir)/../vapi --pkg config \
+    --vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 libimaging_la_SOURCES = \

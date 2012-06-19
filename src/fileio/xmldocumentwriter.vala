@@ -45,13 +45,12 @@ namespace FileIO
 
             writer.start_document ();
             
+            writer.write_comment(" Created with Sprite Hut ");
             writer.start_element ("spritehut");
             writer.write_attribute ("version", "0.1");
-//            writer.start_element(document.get_class().get_type().name()); // class xml element
+            write_element(writer, document);
             
             TreeIter? iter;
-            
-            
             
             IDocumentElement elem = null;
             
