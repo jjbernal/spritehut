@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkAboutDialog" id="about-dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -10,10 +10,10 @@
     <property name="type_hint">normal</property>
     <property name="program_name">Sprite Hut</property>
     <property name="version">0.1 alpha</property>
-    <property name="copyright">Copyright © 2011 Juan José Bernal Rodríguez</property>
+    <property name="copyright">Copyright © 2011-2014 Juan José Bernal Rodríguez</property>
     <property name="comments" translatable="yes">A GTK+ sprite editor with a twist</property>
-    <property name="website">http://forja.rediris.es/projects/cusl5-spritehut</property>
-    <property name="website_label" translatable="yes">Visit the project at the Rediris 'Forja'</property>
+    <property name="website">http://launchpad.net/spritehut</property>
+    <property name="website_label" translatable="yes">Visit the project at Launchpad</property>
     <property name="license" translatable="yes">This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</property>
     <property name="authors">Juan José Bernal Rodríguez&lt;juanjose.bernal.rodriguez@gmail.com&gt;</property>
-    <property name="documenters"></property>
+    <property name="documenters"/>
     <property name="logo_icon_name">spritehut</property>
     <property name="license_type">gpl-3-0</property>
     <child internal-child="vbox">

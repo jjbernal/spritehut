@@ -16,6 +16,7 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
+using Imaging;
 
 namespace Document
 {
@@ -25,7 +26,8 @@ namespace Document
         public bool locked {get;set;default=false;}
         public bool visible {get;set;default=true;}
         private double _opacity;
-        //public Image image; TODO create Image class
+        public Image image; //TODO create Image class
+        
         public double opacity
         {
             get

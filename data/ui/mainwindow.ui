@@ -5,14 +5,14 @@
     <child>
       <object class="GtkAction" id="undo-action">
         <property name="stock_id">gtk-undo</property>
-        <signal name="activate" handler="controllers_main_on_undo" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_undo" swapped="no"/>
       </object>
       <accelerator key="z" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="redo-action">
         <property name="stock_id">gtk-redo</property>
-        <signal name="activate" handler="controllers_main_on_redo" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_redo" swapped="no"/>
       </object>
       <accelerator key="z" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
     </child>
@@ -24,27 +24,27 @@
     <child>
       <object class="GtkAction" id="preferences-action">
         <property name="stock_id">gtk-preferences</property>
-        <signal name="activate" handler="controllers_main_on_preferences" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_preferences" swapped="no"/>
       </object>
     </child>
     <child>
       <object class="GtkAction" id="cut-action">
         <property name="stock_id">gtk-cut</property>
-        <signal name="activate" handler="controllers_main_on_cut" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_cut" swapped="no"/>
       </object>
       <accelerator key="x" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="copy-action">
         <property name="stock_id">gtk-copy</property>
-        <signal name="activate" handler="controllers_main_on_copy" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_copy" swapped="no"/>
       </object>
       <accelerator key="c" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="paste-action">
         <property name="stock_id">gtk-paste</property>
-        <signal name="activate" handler="controllers_main_on_paste" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_paste" swapped="no"/>
       </object>
       <accelerator key="v" modifiers="GDK_CONTROL_MASK"/>
     </child>
@@ -54,28 +54,28 @@
     <child>
       <object class="GtkAction" id="new-action">
         <property name="stock_id">gtk-new</property>
-        <signal name="activate" handler="controllers_main_on_new" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_new" swapped="no"/>
       </object>
       <accelerator key="n" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="open-action">
         <property name="stock_id">gtk-open</property>
-        <signal name="activate" handler="controllers_main_on_open" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_open" swapped="no"/>
       </object>
       <accelerator key="o" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="save-action">
         <property name="stock_id">gtk-save</property>
-        <signal name="activate" handler="controllers_main_on_save" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_save" swapped="no"/>
       </object>
       <accelerator key="s" modifiers="GDK_CONTROL_MASK"/>
     </child>
     <child>
       <object class="GtkAction" id="quit-action">
         <property name="stock_id">gtk-quit</property>
-        <signal name="activate" handler="controllers_main_on_quit" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_quit" swapped="no"/>
       </object>
       <accelerator key="q" modifiers="GDK_CONTROL_MASK"/>
     </child>
@@ -87,7 +87,7 @@
     <child>
       <object class="GtkAction" id="save-as-action">
         <property name="stock_id">gtk-save-as</property>
-        <signal name="activate" handler="controllers_main_on_save_as" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_save_as" swapped="no"/>
       </object>
     </child>
   </object>
@@ -95,7 +95,7 @@
     <child>
       <object class="GtkAction" id="about-action">
         <property name="stock_id">gtk-about</property>
-        <signal name="activate" handler="controllers_main_on_about" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_about" swapped="no"/>
       </object>
     </child>
     <child>
@@ -107,7 +107,7 @@
       <object class="GtkAction" id="help-contents-action">
         <property name="label" translatable="yes">_Contents</property>
         <property name="stock_id">help-contents</property>
-        <signal name="activate" handler="controllers_main_on_help_contents" swapped="no"/>
+        <signal name="activate" handler="widgets_main_window_on_help_contents" swapped="no"/>
       </object>
       <accelerator key="F1"/>
     </child>
@@ -119,7 +119,7 @@
         <property name="tooltip" translatable="yes">Draw pixels freehand</property>
         <property name="icon_name">draw-freehand</property>
         <property name="active">True</property>
-        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+        <signal name="changed" handler="widgets_main_window_on_tool_change" swapped="no"/>
       </object>
       <accelerator key="p"/>
     </child>
@@ -131,7 +131,7 @@
         <property name="value">1</property>
         <property name="group">pencil-action</property>
         <property name="current_value">1</property>
-        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+        <signal name="changed" handler="widgets_main_window_on_tool_change" swapped="no"/>
       </object>
       <accelerator key="e"/>
     </child>
@@ -143,7 +143,7 @@
         <property name="value">2</property>
         <property name="group">pencil-action</property>
         <property name="current_value">2</property>
-        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+        <signal name="changed" handler="widgets_main_window_on_tool_change" swapped="no"/>
       </object>
       <accelerator key="f"/>
     </child>
@@ -155,7 +155,7 @@
         <property name="value">3</property>
         <property name="group">pencil-action</property>
         <property name="current_value">3</property>
-        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+        <signal name="changed" handler="widgets_main_window_on_tool_change" swapped="no"/>
       </object>
       <accelerator key="c"/>
     </child>
@@ -167,7 +167,7 @@
         <property name="tooltip" translatable="yes">Select a rectangular region</property>
         <property name="icon_name">select-rectangular</property>
         <property name="group">pencil-action</property>
-        <signal name="changed" handler="controllers_main_on_tool_change" swapped="no"/>
+        <signal name="changed" handler="widgets_main_window_on_tool_change" swapped="no"/>
       </object>
       <accelerator key="r" modifiers="GDK_SHIFT_MASK"/>
     </child>
@@ -182,14 +182,14 @@
       <object class="GtkToggleAction" id="toolbar-action">
         <property name="label" translatable="yes">_Toolbar</property>
         <property name="active">True</property>
-        <signal name="toggled" handler="controllers_main_on_toolbar_toggle" swapped="no"/>
+        <signal name="toggled" handler="widgets_main_window_on_toolbar_toggle" swapped="no"/>
       </object>
     </child>
     <child>
       <object class="GtkToggleAction" id="statusbar-action">
         <property name="label" translatable="yes">_Status Bar</property>
         <property name="active">True</property>
-        <signal name="toggled" handler="controllers_main_on_statusbar_toggle" swapped="no"/>
+        <signal name="toggled" handler="widgets_main_window_on_statusbar_toggle" swapped="no"/>
       </object>
     </child>
   </object>
@@ -203,7 +203,7 @@
     <property name="icon_name">spritehut</property>
     <property name="has_resize_grip">False</property>
     <property name="startup_id">Sprite Hut</property>
-    <signal name="delete-event" handler="controllers_main_on_quit" swapped="no"/>
+    <signal name="delete-event" handler="widgets_main_window_on_quit" swapped="no"/>
     <child>
       <object class="GtkBox" id="main-box">
         <property name="visible">True</property>

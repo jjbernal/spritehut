@@ -20,8 +20,8 @@ AM_PROG_VALAC([0.14.0])
 AC_PROG_INSTALL
 IT_PROG_INTLTOOL([0.35])
 
-pkg_modules="MagickCore >= 6.0 MagickWand >= 6.0 gee-1.0 >= 0.6.2.1 gtk+-3.0 >= 3.0 gmodule-2.0 >= 2.0 gdl-3.0 >= 2.80 sdl >= 1.2"
-SPRITE_HUT_PACKAGES="--pkg freeimage --pkg MagickWand --pkg gee-1.0 --pkg gtk+-3.0 --pkg gmodule-2.0 --pkg gdl-3.0"
+pkg_modules="MagickCore >= 6.0 MagickWand >= 6.0 gee-0.8 >= 0.10 gtk+-3.0 >= 3.0 gmodule-2.0 >= 2.0 gdl-3.0 >= 2.80 sdl >= 1.2 libxml-2.0 >= 2.6"
+SPRITE_HUT_PACKAGES="--pkg freeimage --pkg MagickWand --pkg gee-0.8 --pkg gtk+-3.0 --pkg gmodule-2.0 --pkg gdl-3.0 --pkg libxml-2.0"
 PKG_CHECK_MODULES(SPRITE_HUT, [$pkg_modules])
 AC_SUBST(SPRITE_HUT_CFLAGS)
 AC_SUBST(SPRITE_HUT_LIBS)

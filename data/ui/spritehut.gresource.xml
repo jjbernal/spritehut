@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gtk/spritehut">
+    <file preprocess="xml-stripblanks">mainwindow.ui</file>
+    <file preprocess="xml-stripblanks">newdocumentdialog.ui</file>
+    <file preprocess="xml-stripblanks">aboutdialog.ui</file>
+  </gresource>
+</gresources>

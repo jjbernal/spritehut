@@ -30,6 +30,7 @@ namespace Widgets
             window = main_window;
             // subscribe to main document changes
             window.notify["document"].connect(update_treemodel);
+            this.destroy.connect(on_destroy);
             
             treeview = new TreeView();
             treeview.headers_visible = false;
@@ -63,6 +64,11 @@ namespace Widgets
         private void update_treemodel(Object sender, ParamSpec pspec)
         {
             treeview.set_model (window.document.treemodel);
+        }
+        
+        private void on_destroy(Object sender)
+        {
+            treeview.set_model (null);
         }
     }
 }

@@ -3,8 +3,7 @@ noinst_LTLIBRARIES = \
     libimaging.la \
     libdocument.la \
     libfileio.la \
-    libwidgets.la \
-    libcontrollers.la
+    libwidgets.la
 
 common_flags = \
     --vapidir=$(srcdir)/../vapi --pkg config \
@@ -51,7 +50,8 @@ libfileio_la_SOURCES = \
     fileio/errors.vala \
     fileio/iimagewriter.vala \
     fileio/freeimagewriter.vala \
-    fileio/xmldocumentwriter.vala
+    fileio/xmldocumentwriter.vala \
+    fileio/imagesequencewriter.vala
 
 libfileio_la_VALAFLAGS = \
     imaging.vapi document.vapi --library fileio -H fileio.h \
@@ -64,26 +64,16 @@ libfileio_la_LIBADD = \
     
 libwidgets_la_SOURCES = \
     widgets/mainwindow.vala \
-	widgets/maindock.vala \
-	widgets/documentelementcellrenderer.vala \
-	widgets/documenttree.vala
+    widgets/maindock.vala \
+    widgets/about.vala \
+    widgets/custom/documentelementcellrenderer.vala \
+    widgets/custom/documenttree.vala
 
 libwidgets_la_VALAFLAGS = \
     imaging.vapi document.vapi --library widgets -H widgets.h \
     $(common_flags)
     
 libwidgets_la_LIBADD = \
-    @LTLIBOBJS@
-
-libcontrollers_la_SOURCES = \
-    controllers/main.vala \
-    controllers/about.vala
-
-libcontrollers_la_VALAFLAGS = \
-    imaging.vapi document.vapi widgets.vapi --library controllers -H controllers.h \
-    $(common_flags)
-    
-libcontrollers_la_LIBADD = \
     @LTLIBOBJS@
     
 
@@ -99,14 +89,14 @@ AM_CPPFLAGS = \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
 
 spritehut_VALAFLAGS = \
-    imaging.vapi document.vapi fileio.vapi widgets.vapi controllers.vapi \
+    imaging.vapi document.vapi fileio.vapi widgets.vapi \
 	--vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	libwidgets.la libcontrollers.la libdocument.la libimaging.la libfileio.la $(SPRITE_HUT_LIBS)
+	libwidgets.la libdocument.la libimaging.la libfileio.la $(SPRITE_HUT_LIBS)
 
-DIRS = document/*.c controllers/*.c widgets/*.c imaging/*.c fileio/*.c
+DIRS = document/*.c widgets/*.c imaging/*.c fileio/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp
 
 #valencia options

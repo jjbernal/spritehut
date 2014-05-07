@@ -28,6 +28,7 @@ fileio_test_SOURCES = \
     fileio/freeimagereader_test.vala \
     fileio/freeimagewriter_test.vala \
     fileio/xmldocumentwriter_test.vala \
+    fileio/imagesequencewriter_test.vala \
     fileio/fileio_main.vala
     
 fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdocument.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)

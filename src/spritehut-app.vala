@@ -20,49 +20,24 @@
 using Gtk;
 using Cairo;
 using Widgets;
-using Controllers;
 
 public class SpriteHut.App : Gtk.Application
 {
-	public App (string app_id, ApplicationFlags flags)
-	{
-	    Object (application_id: app_id, flags: flags);
-	}
-	
-	public void on_app_activate()
-	{
-	    var main_window = new Widgets.MainWindow();
-	    main_window.document = new Document.BlankDocument();
-//	    Controllers.Main main_controller = new Controllers.Main(this, main_window);
-	    
-        main_window.close.connect(this.on_close);
-	    this.add_window(main_window);
-	}
-        
-    public bool on_close(MainWindow window, Document.Document doc) {
-        bool res = false;
-
-        if (doc.modified)
-        {
-            MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,MessageType.WARNING,ButtonsType.YES_NO,
-             _("There are unsaved changes. Close the window anyway?"));
-
-            int response = md.run();
-            if (response == ResponseType.YES) {
-                this.remove_window(window);
-                window.destroy();
-//                this.release();
-            } else {
-                res = true;
-            }
-            md.destroy();
-        }
-        else
-        {
-            this.remove_window(window);
-            window.destroy();
-//            this.release();
-        }
-        return res;
+    public App (string app_id, ApplicationFlags flags)
+    {
+        Object (application_id: app_id, flags: flags);
     }
+    
+    public void on_app_activate()
+    {
+        var main_window = new Widgets.MainWindow(this);
+        main_window.document = new Document.BlankDocument();
+        
+        this.add_window(main_window.window);
+    }
+    
+    public void terminate(Gtk.Window window) {
+        this.remove_window(window);
+    }
+    
 }

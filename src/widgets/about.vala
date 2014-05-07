@@ -19,7 +19,7 @@
 
 using Gtk;
 
-namespace Controllers
+namespace Widgets
 {
     class About : Object
     {
@@ -32,7 +32,7 @@ namespace Controllers
 										     "aboutdialog.ui", null );
 										     
                 var builder = new Builder ();
-                builder.add_from_file (about_window_path);
+//                builder.add_from_file (about_window_path);
                 
                 
 				builder.add_from_file(about_window_path);
