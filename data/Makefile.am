@@ -5,8 +5,10 @@ SUBDIRS = icons
 # ui data
 uidir = $(pkgdatadir)/ui
 ui_DATA = \
-	ui/mainwindow.ui \
-	ui/aboutdialog.ui
+    ui/mainwindow.ui \
+    ui/mainmenubar.ui \
+    ui/aboutdialog.ui \
+    ui/newdocumentdialog.ui
 
 desktopdir = $(datadir)/applications
 desktop_in_files = spritehut.desktop.in

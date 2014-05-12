@@ -46,7 +46,7 @@ namespace Widgets
             
             string ui_info =
                 "<ui>
-                  <toolbar  name='document-tree-toolbar'>
+                  <toolbar name='document-tree-toolbar'>
                     <toolitem action='add-action'/>
                     <toolitem action='remove-action'/>
                     <toolitem action='raise-action'/>
@@ -55,8 +55,8 @@ namespace Widgets
                 </ui>";
             
             
-            window.ui_manager.add_ui_from_string(ui_info, ui_info.length);
-            toolbar = window.ui_manager.get_widget("/document-tree-toolbar") as Toolbar;
+//            window.ui_manager.add_ui_from_string(ui_info, ui_info.length);
+//            toolbar = window.ui_manager.get_widget("/document-tree-toolbar") as Toolbar;
             this.pack_start(treeview, true, true, 0);
             this.pack_end(toolbar, false, true, 0);
         }

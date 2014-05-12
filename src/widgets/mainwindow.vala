@@ -18,216 +18,184 @@
 */
 
 using Gtk;
+using Document;
 
 namespace Widgets
 {
-    public class MainWindow : Object {
-        public Gtk.Window window;
+    public class MainWindow : Gtk.ApplicationWindow {
+        public Gtk.MenuBar main_menubar;
         public Gtk.Toolbar main_toolbar;
         public Gtk.Statusbar main_statusbar;
         public Gtk.Builder builder;
         public Document.Document document {get;set;}
-        public Gtk.UIManager ui_manager;
+
         private Gtk.Application app;
+
+        public const GLib.ActionEntry[] actions = {
+        /*{ "action name", cb to connect to "activate" signal, parameter type,
+         initial state, cb to connect to "change-state" signal } */
+            { "save", on_save },
+            { "save-as", on_save_as },
+            { "close", on_close },
+            { "undo", on_undo },
+            { "redo", on_redo },
+            { "cut", on_cut },
+            { "copy", on_copy },
+            { "paste", on_paste },
+            { "undo", on_undo },
+            { "delete", on_delete },
+            { "toggle-toolbar", on_toggle_toolbar, null, "true" },
+            { "toggle-statusbar", on_toggle_statusbar, null, "true" }
+        };
         
-        public MainWindow (Gtk.Application application)
+        public MainWindow (Gtk.Application app, Document.Document? doc)
         {
-            //Object(type: Gtk.WindowType.TOPLEVEL);
+            Object (application: app, title: _("Sprite Hut"), type: Gtk.WindowType.TOPLEVEL);
+            
+            this.set_default_size (800, 600);
+            this.icon_name = "spritehut";
             
             try
             {
-                app = application;
                 string main_window_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
                                              "mainwindow.ui", null );
                 builder = new Builder ();
                 builder.add_from_file (main_window_path);
-//                builder.add_from_string(main_window_ui, main_window_ui.length);
-                builder.connect_signals(this);
-                window.delete_event.connect(on_quit); // redirect delete_event to custom close signal hack
                 
-                ui_manager = new UIManager();    
-                
-                window = builder.get_object ("main-window") as Window;
-                window.add_accel_group(ui_manager.get_accel_group());
-                
-                Gtk.ActionGroup file_ag = builder.get_object("file-actiongroup") as Gtk.ActionGroup;
-                Gtk.ActionGroup edit_ag = builder.get_object("edit-actiongroup") as Gtk.ActionGroup;
-                Gtk.ActionGroup view_ag = builder.get_object("view-actiongroup") as Gtk.ActionGroup;
-                Gtk.ActionGroup help_ag = builder.get_object("help-actiongroup") as Gtk.ActionGroup;
-                
-                ui_manager.insert_action_group(file_ag, 0);
-                ui_manager.insert_action_group(edit_ag, 1);
-                ui_manager.insert_action_group(view_ag, 2);
-                ui_manager.insert_action_group(help_ag, 3);
-                
-                ui_manager.add_ui_from_string(menubar_ui, menubar_ui.length);
+//                builder.get_object ("main-window") as Gtk.ApplicationWindow;
+                main_menubar = builder.get_object ("main-menubar") as Gtk.MenuBar;
+                this.add_accel_group(builder.get_object ("main-accelgroup") as Gtk.AccelGroup);
+                this.add_action_entries( actions, this);
                 
                 Box box = builder.get_object("main-box") as Box;
-                main_toolbar = ui_manager.get_widget("/ToolBar") as Toolbar;
-                main_toolbar.get_style_context().add_class (STYLE_CLASS_PRIMARY_TOOLBAR);
+                box.reparent(this);
                 
+                main_toolbar = builder.get_object("main-toolbar") as Toolbar;
+//                main_toolbar.get_style_context().add_class (STYLE_CLASS_PRIMARY_TOOLBAR);
                 main_statusbar = builder.get_object("main-statusbar") as Statusbar;
-                
-                box.pack_start(ui_manager.get_widget("/MenuBar"), false, true, 0);
-                box.pack_start(ui_manager.get_widget("/ToolBar"), false, true, 0);
+                main_statusbar.push(0, _("Ready"));
+
                 MainDock main_dock = new MainDock(this);
                 box.pack_start(main_dock, true, true, 0);
                 
-                window.show_all ();
-
+                document = doc;
+                if (document != null)
+                {
+                    document.notify.connect(update_window_status);
+                }
+                
+                this.delete_event.connect(on_window_delete); // redirect delete_event
+                
+                this.show_all ();
 
             } catch (Error e) {
                 stderr.printf ("Could not load UI: %s\n", e.message);
             } 
         }
         
-                // File action handlers
-        [CCode (instance_pos = -1)]
-        public void on_new(Object sender) {
-            stdout.printf("New Stub\n");
+        //Window Statuses
+        public void update_window_status(){
+//        TODO Update window actions depending on document status
+            ((SimpleAction) this.lookup_action("redo")).set_enabled(document.undo_history.can_redo());
+            ((SimpleAction) this.lookup_action("undo")).set_enabled(document.undo_history.can_undo());
         }
 
-        [CCode (instance_pos = -1)]
-        public void on_open(Object sender) {
-            stdout.printf("Open Stub\n");
+        
+        public void set_busy_status(){
+//        TODO disable all actions while doing long tasks e.g. loading or saving and inform the user
         }
-
-        [CCode (instance_pos = -1)]
-        public void on_save(Object sender) {
+//      
+        // File action handlers
+        public void on_save(SimpleAction action, Variant? parameter) {
             stdout.printf("Save Stub\n");
+            set_busy_status();
+            update_window_status();
         }
         
-        [CCode (instance_pos = -1)]
-        public void on_save_as(Object sender) {
-            stdout.printf("Save as Stub\n");
+        public void on_save_as(SimpleAction action, Variant? parameter) {
+            FileChooserDialog fcd = new FileChooserDialog(null, null, FileChooserAction.SAVE, Stock.CANCEL, ResponseType.CANCEL,
+                                      Stock.SAVE_AS, ResponseType.ACCEPT);
+            if (fcd.run () == ResponseType.ACCEPT) {
+//                open_file (file_chooser.get_filename ());
+                stdout.printf("Saving to %s\n", fcd.get_filename ());
+                set_busy_status();
+                update_window_status();
+            }
+            
+            fcd.destroy();
         }
+        
+        public void on_close(SimpleAction action, Variant? parameter) {
 
-        [CCode (instance_pos = -1)]
-        public bool on_quit(Widget sender, Gdk.EventAny event) {
-	        bool res = false;
-            if (document.modified)
+            close_intent();
+        }
+        
+        public bool on_window_delete(Gdk.EventAny? event) {
+            close_intent();
+            
+            return true;
+        }
+        
+        public void close_intent() {
+            if (document != null && document.modified)
             {
                 MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,MessageType.WARNING,ButtonsType.YES_NO,
-                 _("There are unsaved changes. Close the window anyway?"));
-                int response = md.run();
-                if (response == ResponseType.YES) {
-                    app.remove_window(window);
-                } else {
-                    res = true;
+                _("There are unsaved changes in this project. Close the window anyway?"));
+                if (md.run() == ResponseType.YES) {
+                    document.notify.disconnect(update_window_status);   // detach document from window
+                    this.destroy();
                 }
                 md.destroy();
             }
-            
-            return res;
+            else
+            {
+                this.destroy();
+            }
         }
         
         // Edit action handlers
-        [CCode (instance_pos = -1)]
-        public void on_undo(Object sender) {
+        public void on_undo(SimpleAction action, Variant? parameter) {
             stdout.printf("Undo Stub\n");
         }
         
-        [CCode (instance_pos = -1)]
-        public void on_redo(Object sender) {
+        public void on_redo(SimpleAction action, Variant? parameter) {
             stdout.printf("Redo Stub\n");
         }
-
-        [CCode (instance_pos = -1)]
-        public void on_cut(Object sender) {
+        
+        public void on_cut(SimpleAction action, Variant? parameter) {
             stdout.printf("Cut Stub\n");
         }
         
-        [CCode (instance_pos = -1)]
-        public void on_copy(Object sender) {
+        public void on_copy(SimpleAction action, Variant? parameter) {
             stdout.printf("Copy Stub\n");
         }
         
-        [CCode (instance_pos = -1)]
-        public void on_paste(Object sender) {
+        public void on_paste(SimpleAction action, Variant? parameter) {
             stdout.printf("Paste Stub\n");
         }
         
-        [CCode (instance_pos = -1)]
-        public void on_preferences(Object sender) {
+        public void on_delete(SimpleAction action, Variant? parameter) {
+            stdout.printf("Delete Stub\n");
+        }
+        
+        public void on_preferences(SimpleAction action, Variant? parameter) {
             stdout.printf("Preferences Stub\n");
         }
         
         // View action handlers
-        [CCode (instance_pos = -1)]
-        public void on_toolbar_toggle(ToggleAction sender) {
-            main_toolbar.visible = sender.active;
+        public void on_toggle_toolbar(SimpleAction action, Variant? parameter) {
+            var active = action.get_state ().get_boolean ();
+            action.set_state (new Variant.boolean (!active));
+            main_toolbar.visible = !active;
+            print("Toggled toolbar\n");
         }
         
-        [CCode (instance_pos = -1)]
-        public void on_statusbar_toggle(ToggleAction sender) {
-            main_statusbar.visible = sender.active;
+        public void on_toggle_statusbar(SimpleAction action, Variant? parameter) {
+            var active = action.get_state ().get_boolean ();
+            action.set_state (new Variant.boolean (!active));
+            main_statusbar.visible = !active;
+            print("Toggled status bar \n");
         }
-        
-        // Help action handlers
-        [CCode (instance_pos = -1)]
-        public void on_help_contents(Object sender) 
-        {
-            stdout.printf("Help Contents Stub\n");
-        }
-        
-        [CCode (instance_pos = -1)]
-        public void on_about(Object sender) 
-        {
-            // Create the about controller
-            Widgets.About about_controller = new About();
-            about_controller.run();
-        }
-        
-        // Paint tool handlers
-        [CCode (instance_pos = -1)]
-        public void on_tool_change(RadioAction current) {
-            stdout.printf("%s Selected\n", current.get_name());
-        }
-        
-        // NOTE: To be replaced with [GtkTemplate]
-        private string menubar_ui =
-                """<ui>
-                  <menubar name='MenuBar' position='top'>
-                    <menu action='file-action' position='top'>
-                      <menuitem action='new-action'/>
-                      <menuitem action='open-action'/>
-                      <menuitem action='save-action'/>
-                      <menuitem action='save-as-action'/>
-                      <separator/>
-                      <menuitem action='quit-action'/>
-                    </menu>
-                    <menu action='edit-action'>
-                      <menuitem action='undo-action'/>
-                      <menuitem action='redo-action'/>
-                      <separator/>
-                      <menuitem action='cut-action'/>
-                      <menuitem action='copy-action'/>
-                      <menuitem action='paste-action'/>
-                      <separator/>
-                      <menuitem action='preferences-action'/>
-                    </menu>
-                    <menu action='view-action'>
-                      <menuitem action='toolbar-action'/>
-                      <menuitem action='statusbar-action'/>
-                    </menu>
-                    <menu action='help-action'>
-                      <menuitem action='help-contents-action'/>
-                      <menuitem action='about-action'/>
-                    </menu>
-                  </menubar>
-                  <toolbar  name='ToolBar'>
-                    <toolitem action='new-action'/>
-                    <toolitem action='open-action'/>
-                    <toolitem action='save-action'/>
-                    <separator/>
-                    <toolitem action='undo-action'/>
-                    <toolitem action='redo-action'/>
-                    <separator/>
-                    <toolitem action='cut-action'/>
-                    <toolitem action='copy-action'/>
-                    <toolitem action='paste-action'/>
-                  </toolbar>
-                </ui>""";
     }
 }
 

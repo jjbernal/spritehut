@@ -89,7 +89,7 @@
               <object class="GtkAccelLabel" id="template-accellabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Template(_T):</property>
+                <property name="label" translatable="yes">_Template:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">template-combobox</property>
               </object>
@@ -139,7 +139,7 @@
                       <object class="GtkAccelLabel" id="width-accellabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Width(_W):</property>
+                        <property name="label" translatable="yes">_Width:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">width-spinbutton</property>
                       </object>
@@ -171,7 +171,7 @@
                       <object class="GtkAccelLabel" id="height-accellabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Height(_H):</property>
+                        <property name="label" translatable="yes">_Height:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">height-spinbutton</property>
                         <property name="accel_widget">height-spinbutton</property>
@@ -204,7 +204,7 @@
                       <object class="GtkAccelLabel" id="mode-accellabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Mode(_M)</property>
+                        <property name="label" translatable="yes">_Mode:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">mode-combobox</property>
                       </object>
@@ -244,7 +244,7 @@
               <object class="GtkLabel" id="sprite-size-label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;Size&lt;/b&gt;</property>
+                <property name="label" translatable="yes">&lt;b&gt;Base size&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
               </object>
             </child>

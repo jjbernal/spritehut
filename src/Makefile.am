@@ -65,7 +65,8 @@ libfileio_la_LIBADD = \
 libwidgets_la_SOURCES = \
     widgets/mainwindow.vala \
     widgets/maindock.vala \
-    widgets/about.vala \
+    widgets/newdialog.vala \
+    widgets/dialogbuilder.vala \
     widgets/custom/documentelementcellrenderer.vala \
     widgets/custom/documenttree.vala
 

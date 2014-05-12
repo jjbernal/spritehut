@@ -17,7 +17,8 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using SpriteHut;
+//using SpriteHut;
+using Widgets;
 
 int main (string[] args)
 {
@@ -25,8 +26,8 @@ int main (string[] args)
 	Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
 	Intl.textdomain(Config.GETTEXT_PACKAGE);
     
-	var app = new App("org.gtk.Spritehut", ApplicationFlags.FLAGS_NONE);
-    app.activate.connect(app.on_app_activate);
+	var app = new SpriteHutApp("org.gtk.Spritehut", ApplicationFlags.FLAGS_NONE);
+//    app.activate.connect(app.on_app_activate);
     int status = app.run (args);
 
     return status;
