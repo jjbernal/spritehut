@@ -29,7 +29,8 @@ namespace Widgets
         public Gtk.Builder builder;
         public Document.Document document {get;set;}
 
-        private Gtk.Application app;
+        private string default_title = _("Sprite Hut");
+        private InfoBar main_infobar;
 
         public const GLib.ActionEntry[] actions = {
         /*{ "action name", cb to connect to "activate" signal, parameter type,
@@ -50,7 +51,7 @@ namespace Widgets
         
         public MainWindow (Gtk.Application app, Document.Document? doc)
         {
-            Object (application: app, title: _("Sprite Hut"), type: Gtk.WindowType.TOPLEVEL);
+            Object (application: app, title: _("Sprite Hut") , type: Gtk.WindowType.TOPLEVEL);
             
             this.set_default_size (800, 600);
             this.icon_name = "spritehut";
@@ -63,7 +64,7 @@ namespace Widgets
                 builder.add_from_file (main_window_path);
                 
 //                builder.get_object ("main-window") as Gtk.ApplicationWindow;
-                main_menubar = builder.get_object ("main-menubar") as Gtk.MenuBar;
+                main_infobar = builder.get_object ("main-infobar") as Gtk.InfoBar;
                 this.add_accel_group(builder.get_object ("main-accelgroup") as Gtk.AccelGroup);
                 this.add_action_entries( actions, this);
                 
@@ -81,11 +82,12 @@ namespace Widgets
                 document = doc;
                 if (document != null)
                 {
-                    document.notify.connect(update_window_status);
+                    document.notify.connect(update_status);
                 }
                 
                 this.delete_event.connect(on_window_delete); // redirect delete_event
                 
+                update_status();
                 this.show_all ();
 
             } catch (Error e) {
@@ -94,22 +96,64 @@ namespace Widgets
         }
         
         //Window Statuses
-        public void update_window_status(){
-//        TODO Update window actions depending on document status
-            ((SimpleAction) this.lookup_action("redo")).set_enabled(document.undo_history.can_redo());
-            ((SimpleAction) this.lookup_action("undo")).set_enabled(document.undo_history.can_undo());
+        public void update_status(){
+        
+            if (document != null)
+            {
+                this.set_title((document.modified ? "*" : "" ) + document.name + " - " + default_title);
+                ((SimpleAction) this.lookup_action("save")).set_enabled(document.modified);
+                ((SimpleAction) this.lookup_action("save-as")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("redo")).set_enabled(document.undo_history.can_redo());
+                ((SimpleAction) this.lookup_action("undo")).set_enabled(document.undo_history.can_undo());
+//                TODO Update these actions depending on document status
+                ((SimpleAction) this.lookup_action("cut")).set_enabled(false);
+                ((SimpleAction) this.lookup_action("copy")).set_enabled(false);
+                ((SimpleAction) this.lookup_action("paste")).set_enabled(false);
+                ((SimpleAction) this.lookup_action("delete")).set_enabled(false);
+            }
+            else // no document loaded
+            {
+                this.set_title(default_title);
+                disable_all_actions();
+            }
+            
+            //always on
+            ((SimpleAction) this.lookup_action("toggle-toolbar")).set_enabled(true);
+            ((SimpleAction) this.lookup_action("toggle-statusbar")).set_enabled(true);
         }
 
+        private void disable_all_actions() {
+            foreach (string action_name in this.list_actions())
+            {
+                ((SimpleAction) this.lookup_action(action_name)).set_enabled(false);
+            }
+        }
         
         public void set_busy_status(){
 //        TODO disable all actions while doing long tasks e.g. loading or saving and inform the user
+            disable_all_actions();
+            main_infobar.show();
+            
+            //FIXME calling this async method breaks the app on file-quit if there are more than one main window
+            nap.begin(2000);
+        }
+        
+//      copied from  https://wiki.gnome.org/Projects/Vala/AsyncSamples to simulate a long process
+        public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+            GLib.Timeout.add (interval, () => {
+//              nap.callback ();
+                main_infobar.hide ();
+              return false;
+            }, priority);
+            yield;
         }
 //      
         // File action handlers
         public void on_save(SimpleAction action, Variant? parameter) {
             stdout.printf("Save Stub\n");
+            //TODO really save the document
+            document.modified = false;
             set_busy_status();
-            update_window_status();
         }
         
         public void on_save_as(SimpleAction action, Variant? parameter) {
@@ -118,8 +162,9 @@ namespace Widgets
             if (fcd.run () == ResponseType.ACCEPT) {
 //                open_file (file_chooser.get_filename ());
                 stdout.printf("Saving to %s\n", fcd.get_filename ());
-                set_busy_status();
-                update_window_status();
+                
+                //TODO really save the document
+                document.modified = false;
             }
             
             fcd.destroy();
@@ -142,7 +187,7 @@ namespace Widgets
                 MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,MessageType.WARNING,ButtonsType.YES_NO,
                 _("There are unsaved changes in this project. Close the window anyway?"));
                 if (md.run() == ResponseType.YES) {
-                    document.notify.disconnect(update_window_status);   // detach document from window
+                    document.notify.disconnect(update_status);   // detach document from window
                     this.destroy();
                 }
                 md.destroy();

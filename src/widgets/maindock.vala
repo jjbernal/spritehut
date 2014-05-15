@@ -44,29 +44,36 @@ namespace Widgets
             this.pack_start(dock, true, true, 0);
             
             /* the canvas dock */
-            var canvas = new DockItem.with_stock("canvas", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NORMAL |
-                                              DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED);
-            var widget = new Label ("This is where you would work and swear at, most of the time");
-            widget.set_size_request(300,300);
-            canvas.add(widget);
-            dock.add_item (canvas, DockPlacement.CENTER);
-            canvas.show();
-
-            /* Tool box */
-            var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), new TreeView(), canvas,
-            DockPlacement.LEFT, 50, 200);
-
-            /* the color_picker dock */
-            var color_picker = add_dock_item(dock, "color_picker", _("Color Picker"), new HSV(), toolbox,
-            DockPlacement.BOTTOM, 50, 50);
+            var canvas_dockitem = new DockItem.with_stock("canvas-dockitem", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NO_GRIP |
+                                              DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED | DockItemBehavior.CANT_DOCK_CENTER);
+            var canvas = new Canvas();
+//            canvas.set_size_request(1000,800);
+            var canvas_viewport = new Viewport(null, null);
+            var scrolled_window = new ScrolledWindow(null, null);
+//            widget.set_size_request(500,300);
+            scrolled_window.add(canvas_viewport);
+            canvas_viewport.add(canvas);
+            
+            dock.add_item (canvas_dockitem, DockPlacement.TOP);
+            canvas_dockitem.set_size_request(540,300);
+            canvas_dockitem.add(scrolled_window);
+            canvas_dockitem.show();
 
             /* preview */
-            var preview = add_dock_item(dock, "preview", _("Preview"), new TreeView(), canvas,
+            var preview = add_dock_item(dock, "preview", _("Preview"), new TreeView(), canvas_dockitem,
             DockPlacement.RIGHT, 100, 100);
 
             // Palette
             var palette = add_dock_item(dock, "palette", _("Palette"), new TreeView(), preview,
             DockPlacement.BOTTOM, 100, 100);
+            
+            /* Tool box */
+            var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), new TreeView(), canvas_dockitem,
+            DockPlacement.LEFT, 50, 50);
+
+            /* the color_picker dock */
+            var color_picker = add_dock_item(dock, "color_picker", _("Color Picker"), new HSV(), toolbox,
+            DockPlacement.BOTTOM, 50, 50);
             
             /* log me*/
             var document_treeview = new DocumentTree (window);
@@ -76,7 +83,7 @@ namespace Widgets
             DockPlacement.BOTTOM, 100, 100);
             
             // Frames
-            var frames = add_dock_item(dock, "frames", _("Frames"), new TreeView(), canvas,
+            var frames = add_dock_item(dock, "frames", _("Frames"), new TreeView(), canvas_dockitem,
             DockPlacement.BOTTOM, 200, 100);
         }
         
@@ -85,10 +92,10 @@ namespace Widgets
          int req_width=0, int req_height=0, DockItemBehavior behavior=DockItemBehavior.NORMAL)
         {   
             var item = new DockItem(name, id, behavior);
-            var _widget = widget;
-            widget.set_size_request(req_width,req_height);
-            if (_widget != null) {
-                item.add(_widget);
+            
+            if (widget != null) {
+                widget.set_size_request(req_width,req_height);
+                item.add(widget);
             }
             dock.add_item (item, dock_placement);
             item.dock_to(target, dock_placement, -1);

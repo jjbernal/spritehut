@@ -68,7 +68,8 @@ libwidgets_la_SOURCES = \
     widgets/newdialog.vala \
     widgets/dialogbuilder.vala \
     widgets/custom/documentelementcellrenderer.vala \
-    widgets/custom/documenttree.vala
+    widgets/custom/documenttree.vala \
+    widgets/custom/canvas.vala 
 
 libwidgets_la_VALAFLAGS = \
     imaging.vapi document.vapi --library widgets -H widgets.h \
