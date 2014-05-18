@@ -6,5 +6,12 @@ src/document/frame.c
 src/document/sprite.c
 src/document/palette.c
 src/widgets/maindock.c
+src/widgets/mainwindow.c
 src/imaging/palette.c
 src/fileio/freeimagereader.c
+data/ui/mainmenubar.ui
+data/ui/oldaboutdialog.ui
+data/ui/oldmainwindow.ui
+data/ui/mainmenubar.ui
+data/ui/oldaboutdialog.ui
+data/ui/oldmainwindow.ui

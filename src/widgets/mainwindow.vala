@@ -31,6 +31,7 @@ namespace Widgets
 
         private string default_title = _("Sprite Hut");
         private InfoBar main_infobar;
+        private MainDock main_dock;
 
         public const GLib.ActionEntry[] actions = {
         /*{ "action name", cb to connect to "activate" signal, parameter type,
@@ -45,6 +46,9 @@ namespace Widgets
             { "paste", on_paste },
             { "undo", on_undo },
             { "delete", on_delete },
+            { "zoom-in", on_zoom_in},
+            { "zoom-out", on_zoom_out},
+            { "normal-size", on_normal_size},
             { "toggle-toolbar", on_toggle_toolbar, null, "true" },
             { "toggle-statusbar", on_toggle_statusbar, null, "true" }
         };
@@ -76,7 +80,7 @@ namespace Widgets
                 main_statusbar = builder.get_object("main-statusbar") as Statusbar;
                 main_statusbar.push(0, _("Ready"));
 
-                MainDock main_dock = new MainDock(this);
+                main_dock = new MainDock(this);
                 box.pack_start(main_dock, true, true, 0);
                 
                 document = doc;
@@ -110,6 +114,10 @@ namespace Widgets
                 ((SimpleAction) this.lookup_action("copy")).set_enabled(false);
                 ((SimpleAction) this.lookup_action("paste")).set_enabled(false);
                 ((SimpleAction) this.lookup_action("delete")).set_enabled(false);
+//                TODO make these actions depend on current layer
+                ((SimpleAction) this.lookup_action("zoom-in")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("zoom-out")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("normal-size")).set_enabled(true);
             }
             else // no document loaded
             {
@@ -143,6 +151,7 @@ namespace Widgets
             GLib.Timeout.add (interval, () => {
 //              nap.callback ();
                 main_infobar.hide ();
+                update_status();
               return false;
             }, priority);
             yield;
@@ -228,6 +237,18 @@ namespace Widgets
         }
         
         // View action handlers
+        public void on_zoom_in(SimpleAction action, Variant? parameter) {
+            main_dock.active_canvas.zoom_in();
+        }
+        
+        public void on_zoom_out(SimpleAction action, Variant? parameter) {
+            main_dock.active_canvas.zoom_out();
+        }
+        
+        public void on_normal_size(SimpleAction action, Variant? parameter) {
+            main_dock.active_canvas.zoom_level = 1.0;
+        }
+        
         public void on_toggle_toolbar(SimpleAction action, Variant? parameter) {
             var active = action.get_state ().get_boolean ();
             action.set_state (new Variant.boolean (!active));

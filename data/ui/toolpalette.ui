@@ -61,7 +61,7 @@
       <accelerator key="r" modifiers="GDK_SHIFT_MASK"/>
     </child>
   </object>
-  <object class="GtkToolPalette" id="toolpalette1">
+  <object class="GtkToolPalette" id="toolbox-toolpalette">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
@@ -73,17 +73,17 @@
         <property name="label" translatable="yes">Paint tools</property>
         <child>
           <object class="GtkRadioToolButton" id="pencil-radiotoolbutton">
+            <property name="related_action">pencil-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="related_action">pencil-action</property>
             <property name="use_underline">True</property>
           </object>
         </child>
         <child>
           <object class="GtkRadioToolButton" id="eraser-radiotoolbutton">
+            <property name="related_action">eraser-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="related_action">eraser-action</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>
@@ -93,9 +93,9 @@
         </child>
         <child>
           <object class="GtkRadioToolButton" id="fill-radiotoolbutton">
+            <property name="related_action">fill-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="related_action">fill-action</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>
@@ -105,9 +105,9 @@
         </child>
         <child>
           <object class="GtkRadioToolButton" id="color-picker-radiotoolbutton">
+            <property name="related_action">color-pick-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="related_action">color-pick-action</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>
@@ -128,9 +128,9 @@
         <property name="label" translatable="yes">Selection tools</property>
         <child>
           <object class="GtkRadioToolButton" id="rectangle_radiotoolbutton">
+            <property name="related_action">select-rectangle-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="related_action">select-rectangle-action</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>

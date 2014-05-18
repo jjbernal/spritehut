@@ -24,8 +24,9 @@ using Gtk;
 namespace Widgets {
     public class SpriteHutApp : Gtk.Application
     {
-        AboutDialog about;
-        
+        private AboutDialog about;
+        private string default_document_name = _("Untitled");
+        private static uint open_documents_in_this_session = 0;
         /* Create the application actions. */
         const GLib.ActionEntry[] actions = {
             { "new", on_new },
@@ -36,6 +37,15 @@ namespace Widgets {
             { "quit", on_quit }
         };
         
+        private Document.Document create_default_document()
+        {
+            var document = new Document.BlankDocument();
+            ++open_documents_in_this_session;
+            document.name = default_document_name + open_documents_in_this_session.to_string();
+                
+            return document;
+        }
+        
         void on_new (SimpleAction action, Variant? parameter) {
             NewDialog new_dialog = new NewDialog();
             
@@ -44,8 +54,7 @@ namespace Widgets {
             if (response == ResponseType.OK) {
                 stdout.printf("Creating New Document: \nwidth: %uheight:  mode: \n", new_dialog.width());
                 
-                var document = new Document.BlankDocument();
-                document.name = "Noname000.spritehut";
+                var document = create_default_document();
                 
                 var window = new Widgets.MainWindow(this, document);
                 
@@ -97,7 +106,8 @@ namespace Widgets {
         
         public override void activate()
         {
-            new Widgets.MainWindow(this, null).show();
+            var document = create_default_document();
+            new Widgets.MainWindow(this, document).show();
         }
         
         protected override void startup () {
@@ -121,6 +131,14 @@ namespace Widgets {
             
             about = builder.get_object ("about-dialog") as AboutDialog;
 //            this.menubar = builder.get_object ("main-menubar") as MenuModel;
+            add_accelerators();
+//            add_accelerator("<Control><Shift>s", "win.save-as", null);
+        }
+        
+        private void add_accelerators(){
+            add_accelerator("KP_Add", "win.zoom-in", null);
+            add_accelerator("KP_Subtract", "win.zoom-out", null);
+            add_accelerator("<Ctrl>0", "win.normal-size", null);
         }
         
     }

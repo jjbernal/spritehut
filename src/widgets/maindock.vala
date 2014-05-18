@@ -26,6 +26,7 @@ namespace Widgets
         private DockMaster master;
         private DockLayout layout;
         private MainWindow window;
+        public weak Widgets.Canvas active_canvas;
         
         public MainDock(MainWindow main_window)
         {
@@ -47,15 +48,18 @@ namespace Widgets
             var canvas_dockitem = new DockItem.with_stock("canvas-dockitem", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NO_GRIP |
                                               DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED | DockItemBehavior.CANT_DOCK_CENTER);
             var canvas = new Canvas();
+            active_canvas = canvas;//set as the active canvas so other widgets can control its zoom etc.
 //            canvas.set_size_request(1000,800);
             var canvas_viewport = new Viewport(null, null);
             var scrolled_window = new ScrolledWindow(null, null);
-//            widget.set_size_request(500,300);
+//            canvas.set_size_request(400,400);
             scrolled_window.add(canvas_viewport);
             canvas_viewport.add(canvas);
             
             dock.add_item (canvas_dockitem, DockPlacement.TOP);
-            canvas_dockitem.set_size_request(540,300);
+            canvas_dockitem.set_size_request(300,300);
+            canvas_dockitem.expand = true;
+//            canvas_dockitem.fill = true;
             canvas_dockitem.add(scrolled_window);
             canvas_dockitem.show();
 
@@ -69,7 +73,7 @@ namespace Widgets
             
             /* Tool box */
             var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), new TreeView(), canvas_dockitem,
-            DockPlacement.LEFT, 50, 50);
+            DockPlacement.LEFT, 50, 100);
 
             /* the color_picker dock */
             var color_picker = add_dock_item(dock, "color_picker", _("Color Picker"), new HSV(), toolbox,
