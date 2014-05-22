@@ -31,7 +31,7 @@ namespace Document
             height = 64;
             
             TreeIter iter;
-            iter = add((IDocumentElement) new Sprite(), null);
+            iter = add(new Sprite(), null);
             iter = add(new Animation(), iter);
             iter = add(new Frame(), iter);
             iter = add(new Layer(), iter);

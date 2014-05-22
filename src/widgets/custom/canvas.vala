@@ -54,6 +54,7 @@ namespace Widgets
         }
         public bool enable_pixel_grid{get;set;default=true;}
         public double minimum_margin{get;set;default=100;}
+        public signal void mouse_over_canvas(int x, int y);
 
         public Canvas () {
             add_events(Gdk.EventMask.BUTTON_PRESS_MASK |
@@ -273,7 +274,8 @@ namespace Widgets
                 widget_to_image_x < canvas_surface.get_width() &&
                 widget_to_image_y >= 0 &&
                 widget_to_image_y < canvas_surface.get_height()) {
-                print ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
+//                print ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
+                mouse_over_canvas(widget_to_image_x, widget_to_image_y);
             }
             
             return true;

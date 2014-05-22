@@ -18,3 +18,4 @@ src/fileio/freeimagereader.vala
 [type: gettext/glade]data/ui/aboutdialog.ui
 [type: gettext/glade]data/ui/toolpalette.ui
 [type: gettext/glade]data/ui/newdocumentdialog.ui
+[type: gettext/glade]data/ui/maindockwidgets.ui

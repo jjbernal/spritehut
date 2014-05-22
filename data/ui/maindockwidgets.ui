@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkBox" id="canvas-box">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkScrolledWindow" id="canvas-scrolledwindow">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkViewport" id="canvas-viewport">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolbar" id="canvas-toolbar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkMenuToolButton" id="canvas-zoom-toolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.zoom-in</property>
+            <property name="use_underline">True</property>
+            <property name="stock_id">gtk-zoom-in</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="homogeneous">True</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="pack_type">end</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+  </object>
+  <object class="GtkBox" id="document-box">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkToolbar" id="document-toolbar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkToolButton" id="document-add-toolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.document-add</property>
+            <property name="use_underline">True</property>
+            <property name="stock_id">gtk-new</property>
+            <style>
+              <class name="linked"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="homogeneous">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolButton" id="document-duplicate-toolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.document-duplicate</property>
+            <property name="use_underline">True</property>
+            <property name="stock_id">gtk-copy</property>
+            <style>
+              <class name="linked"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="homogeneous">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolButton" id="document-raise-toolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.document-raise</property>
+            <property name="use_underline">True</property>
+            <property name="stock_id">gtk-go-up</property>
+            <style>
+              <class name="linked"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="homogeneous">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolButton" id="document-lower-toolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.document-lower</property>
+            <property name="use_underline">True</property>
+            <property name="stock_id">gtk-go-down</property>
+            <style>
+              <class name="linked"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="homogeneous">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolButton" id="document-remove-toolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.document-remove</property>
+            <property name="use_underline">True</property>
+            <property name="stock_id">gtk-delete</property>
+            <style>
+              <class name="linked"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="homogeneous">True</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="pack_type">end</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
+  <object class="GtkBox" id="frames-box">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkIconView" id="frames-iconview">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="selection_mode">multiple</property>
+        <property name="item_orientation">horizontal</property>
+        <property name="reorderable">True</property>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+  <object class="GtkToolPalette" id="toolbox-toolpalette">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkToolItemGroup" id="paint-toolitemgroup">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip_markup" translatable="yes">Painting tools</property>
+        <property name="tooltip_text" translatable="yes">Painting tools</property>
+        <property name="label" translatable="yes">Paint</property>
+        <child>
+          <object class="GtkRadioToolButton" id="pencil-radiotoolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.paint-pencil</property>
+            <property name="label" translatable="yes">Pencil(_p)</property>
+            <property name="use_underline">True</property>
+            <property name="icon_name">draw-freehand</property>
+            <property name="active">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioToolButton" id="eraser-radiotoolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.paint-eraser</property>
+            <property name="label" translatable="yes">Eraser(e)</property>
+            <property name="use_underline">True</property>
+            <property name="icon_name">draw-eraser</property>
+            <property name="active">True</property>
+            <property name="group">pencil-radiotoolbutton</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioToolButton" id="fill-radiotoolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.paint-bucket</property>
+            <property name="label" translatable="yes">Bucket Fill(f)</property>
+            <property name="use_underline">True</property>
+            <property name="icon_name">color-fill</property>
+            <property name="active">True</property>
+            <property name="group">pencil-radiotoolbutton</property>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioToolButton" id="color-picker-radiotoolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.paint-color-picker</property>
+            <property name="label" translatable="yes">Color Picker(c)</property>
+            <property name="use_underline">True</property>
+            <property name="icon_name">color-picker</property>
+            <property name="active">True</property>
+            <property name="group">pencil-radiotoolbutton</property>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolItemGroup" id="selection-toolitemgroup">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip_markup" translatable="yes">Tools for selecting sprite elements</property>
+        <property name="tooltip_text" translatable="yes">Tools for selecting sprite elements</property>
+        <property name="label" translatable="yes">Selection</property>
+        <child>
+          <object class="GtkRadioToolButton" id="rectangle_radiotoolbutton">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="action_name">win.select-rectangular</property>
+            <property name="label" translatable="yes">Rectangular Selection(Shift+R)</property>
+            <property name="use_underline">True</property>
+            <property name="icon_name">select-rectangular</property>
+            <property name="active">True</property>
+            <property name="group">pencil-radiotoolbutton</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+      </packing>
+    </child>
+  </object>
+</interface>

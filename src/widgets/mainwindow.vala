@@ -50,7 +50,17 @@ namespace Widgets
             { "zoom-out", on_zoom_out},
             { "normal-size", on_normal_size},
             { "toggle-toolbar", on_toggle_toolbar, null, "true" },
-            { "toggle-statusbar", on_toggle_statusbar, null, "true" }
+            { "toggle-statusbar", on_toggle_statusbar, null, "true" },
+            { "paint-pencil", on_paint_pencil},
+            { "paint-eraser", on_paint_eraser},
+            { "paint-bucket", on_paint_pencil},
+            { "paint-color-picker", on_paint_pencil},
+            { "select-rectangular", on_paint_pencil},
+            { "document-add", on_document_add},
+            { "document-remove", on_document_remove},
+            { "document-duplicate", on_document_duplicate},
+            { "document-raise", on_document_raise},
+            { "document-lower", on_document_lower},
         };
         
         public MainWindow (Gtk.Application app, Document.Document? doc)
@@ -58,7 +68,8 @@ namespace Widgets
             Object (application: app, title: _("Sprite Hut") , type: Gtk.WindowType.TOPLEVEL);
             
             this.set_default_size (800, 600);
-            this.icon_name = "spritehut";
+//            this.icon_name = "spritehut";
+            set_default_icon_name("spritehut");
             
             try
             {
@@ -90,6 +101,7 @@ namespace Widgets
                 }
                 
                 this.delete_event.connect(on_window_delete); // redirect delete_event
+                main_dock.active_canvas.mouse_over_canvas.connect(on_mouse_over_canvas);
                 
                 update_status();
                 this.show_all ();
@@ -118,6 +130,13 @@ namespace Widgets
                 ((SimpleAction) this.lookup_action("zoom-in")).set_enabled(true);
                 ((SimpleAction) this.lookup_action("zoom-out")).set_enabled(true);
                 ((SimpleAction) this.lookup_action("normal-size")).set_enabled(true);
+                
+                ((SimpleAction) this.lookup_action("document-add")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("document-remove")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("document-duplicate")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("document-raise")).set_enabled(true);
+                ((SimpleAction) this.lookup_action("document-lower")).set_enabled(true);
+                
             }
             else // no document loaded
             {
@@ -166,7 +185,7 @@ namespace Widgets
         }
         
         public void on_save_as(SimpleAction action, Variant? parameter) {
-            FileChooserDialog fcd = new FileChooserDialog(null, null, FileChooserAction.SAVE, Stock.CANCEL, ResponseType.CANCEL,
+            FileChooserDialog fcd = new FileChooserDialog(_("Save as"), null, FileChooserAction.SAVE, Stock.CANCEL, ResponseType.CANCEL,
                                       Stock.SAVE_AS, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
 //                open_file (file_chooser.get_filename ());
@@ -245,6 +264,10 @@ namespace Widgets
             main_dock.active_canvas.zoom_out();
         }
         
+        public void on_mouse_over_canvas(int x, int y) {
+            main_statusbar.push(0, "(" + x.to_string() + ", " + y.to_string() + ")");
+        }
+        
         public void on_normal_size(SimpleAction action, Variant? parameter) {
             main_dock.active_canvas.zoom_level = 1.0;
         }
@@ -253,14 +276,41 @@ namespace Widgets
             var active = action.get_state ().get_boolean ();
             action.set_state (new Variant.boolean (!active));
             main_toolbar.visible = !active;
-            print("Toggled toolbar\n");
         }
         
         public void on_toggle_statusbar(SimpleAction action, Variant? parameter) {
             var active = action.get_state ().get_boolean ();
             action.set_state (new Variant.boolean (!active));
             main_statusbar.visible = !active;
-            print("Toggled status bar \n");
+        }
+        
+//        paint tools
+        public void on_paint_pencil(SimpleAction action, Variant? parameter) {
+            stdout.printf("Selected pencil\n");
+        }
+        
+        public void on_paint_eraser(SimpleAction action, Variant? parameter) {
+            stdout.printf("Selected eraser\n");
+        }
+        
+        public void on_document_add(SimpleAction action, Variant? parameter) {
+            stdout.printf("Document add\n");
+        }
+        
+        public void on_document_remove(SimpleAction action, Variant? parameter) {
+            stdout.printf("Document remove\n");
+        }
+        
+        public void on_document_duplicate(SimpleAction action, Variant? parameter) {
+            stdout.printf("Document duplicate\n");
+        }
+        
+        public void on_document_raise(SimpleAction action, Variant? parameter) {
+            stdout.printf("Document raise\n");
+        }
+        
+        public void on_document_lower(SimpleAction action, Variant? parameter) {
+            stdout.printf("Document lower\n");
         }
     }
 }

@@ -76,14 +76,17 @@
             <property name="related_action">pencil-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="action_name">win.paint-pencil</property>
             <property name="use_underline">True</property>
           </object>
         </child>
         <child>
           <object class="GtkRadioToolButton" id="eraser-radiotoolbutton">
+            <property name="use_action_appearance">False</property>
             <property name="related_action">eraser-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="action_name">win.paint-eraser</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>
@@ -96,6 +99,7 @@
             <property name="related_action">fill-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="action_name">win.paint-bucket</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>
@@ -108,6 +112,7 @@
             <property name="related_action">color-pick-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="action_name">win.paint-color-picker</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>
@@ -131,6 +136,7 @@
             <property name="related_action">select-rectangle-action</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="action_name">win.select-rectangle</property>
             <property name="use_underline">True</property>
             <property name="group">pencil-radiotoolbutton</property>
           </object>

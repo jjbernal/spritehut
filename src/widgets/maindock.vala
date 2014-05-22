@@ -26,11 +26,30 @@ namespace Widgets
         private DockMaster master;
         private DockLayout layout;
         private MainWindow window;
+        private DocumentTree document_treeview;
         public weak Widgets.Canvas active_canvas;
+        public Gtk.Builder builder;
         
         public MainDock(MainWindow main_window)
         {
+            string main_dock_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
+                                             "maindockwidgets.ui", null );
+            builder = new Builder ();
+            builder.add_from_file (main_dock_path);
+            
+            var toolbox_toolpalette = builder.get_object("toolbox-toolpalette") as ToolPalette;
+            var frames_box = builder.get_object("frames-box") as Box;
+            var document_box = builder.get_object("document-box") as Box;
+            
+            document_treeview = new DocumentTree(main_window);
+            document_box.pack_start(document_treeview);
+            document_box.show_all();
+            
+            var canvas_box = builder.get_object("canvas-box") as Box;
+            var canvas_viewport = builder.get_object("canvas-viewport") as Viewport;
+            
             window = main_window;
+            
             Gdl.Dock dock = new Gdl.Dock();
             this.master = dock.master;
 
@@ -48,19 +67,14 @@ namespace Widgets
             var canvas_dockitem = new DockItem.with_stock("canvas-dockitem", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NO_GRIP |
                                               DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED | DockItemBehavior.CANT_DOCK_CENTER);
             var canvas = new Canvas();
-            active_canvas = canvas;//set as the active canvas so other widgets can control its zoom etc.
-//            canvas.set_size_request(1000,800);
-            var canvas_viewport = new Viewport(null, null);
-            var scrolled_window = new ScrolledWindow(null, null);
-//            canvas.set_size_request(400,400);
-            scrolled_window.add(canvas_viewport);
             canvas_viewport.add(canvas);
+            active_canvas = canvas;//set as the active canvas so other widgets can control its zoom etc.
             
             dock.add_item (canvas_dockitem, DockPlacement.TOP);
-            canvas_dockitem.set_size_request(300,300);
+            canvas_dockitem.set_size_request(400, 400);
             canvas_dockitem.expand = true;
 //            canvas_dockitem.fill = true;
-            canvas_dockitem.add(scrolled_window);
+            canvas_dockitem.add(canvas_box);
             canvas_dockitem.show();
 
             /* preview */
@@ -69,27 +83,29 @@ namespace Widgets
 
             // Palette
             var palette = add_dock_item(dock, "palette", _("Palette"), new TreeView(), preview,
-            DockPlacement.BOTTOM, 100, 100);
+            DockPlacement.BOTTOM, 50, 100);
             
             /* Tool box */
-            var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), new TreeView(), canvas_dockitem,
-            DockPlacement.LEFT, 50, 100);
+            var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), toolbox_toolpalette, canvas_dockitem,
+            DockPlacement.LEFT, 50, 300);
+            toolbox.resize = false;
 
             /* the color_picker dock */
             var color_picker = add_dock_item(dock, "color_picker", _("Color Picker"), new HSV(), toolbox,
             DockPlacement.BOTTOM, 50, 50);
             
-            /* log me*/
-            var document_treeview = new DocumentTree (window);
-            
             // Document Tree
-            var document_tree = add_dock_item(dock, "animations", _("Document Tree"), document_treeview, palette,
-            DockPlacement.BOTTOM, 100, 100);
-            
+            var document_tree = add_dock_item(dock, "document-tree", _("Document Tree"), document_box, palette,
+            DockPlacement.BOTTOM, 180, 150);
             // Frames
-            var frames = add_dock_item(dock, "frames", _("Frames"), new TreeView(), canvas_dockitem,
-            DockPlacement.BOTTOM, 200, 100);
+            var frames = add_dock_item(dock, "frames", _("Frames"), frames_box, canvas_dockitem,
+            DockPlacement.BOTTOM, 400, 100);
+            
+            if (window.document != null) {
+//                attach_model(window.document);
+            }
         }
+        
         
         private DockItem add_dock_item(Dock dock, string name, string id, Gtk.Widget? widget=null,
          DockItem? target=null, DockPlacement dock_placement=DockPlacement.NONE, 

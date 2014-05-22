@@ -65,7 +65,7 @@ namespace Widgets {
         }
         
         void on_open(SimpleAction action, Variant? parameter) {
-            FileChooserDialog fcd = new FileChooserDialog(null, null, FileChooserAction.OPEN,Stock.CANCEL, ResponseType.CANCEL,
+            FileChooserDialog fcd = new FileChooserDialog(_("Open"), null, FileChooserAction.OPEN,Stock.CANCEL, ResponseType.CANCEL,
                                       Stock.OPEN, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
     //                open_file (file_chooser.get_filename ());
@@ -132,10 +132,10 @@ namespace Widgets {
             about = builder.get_object ("about-dialog") as AboutDialog;
 //            this.menubar = builder.get_object ("main-menubar") as MenuModel;
             add_accelerators();
-//            add_accelerator("<Control><Shift>s", "win.save-as", null);
         }
         
         private void add_accelerators(){
+            add_accelerator("<Control><Shift>s", "win.save-as", null);
             add_accelerator("KP_Add", "win.zoom-in", null);
             add_accelerator("KP_Subtract", "win.zoom-out", null);
             add_accelerator("<Ctrl>0", "win.normal-size", null);

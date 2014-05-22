@@ -121,7 +121,7 @@ msgstr "ツールバー"
 
 #: ../data/ui/mainwindow.ui.h:15
 msgid "_View"
-msgstr "表示"
+msgstr "表示(_V)"
 
 #: ../data/ui/aboutdialog.ui.h:1
 msgid "A GTK+ sprite editor with a twist"

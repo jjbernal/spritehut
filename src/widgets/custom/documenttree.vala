@@ -18,10 +18,11 @@
 */
 
 using Gtk;
+using Document;
 
 namespace Widgets
 {
-    public class DocumentTree : Gtk.Box {
+    public class DocumentTree : Box {
         public TreeView treeview {get;set;}
         public Toolbar toolbar {get;set;}
         public MainWindow window {get;set;}
@@ -34,7 +35,6 @@ namespace Widgets
             
             treeview = new TreeView();
             treeview.headers_visible = false;
-            
             treeview.reorderable = true;
 
             var renderer = new DocumentElementCellRenderer ();
@@ -44,31 +44,46 @@ namespace Widgets
 
             treeview.append_column (col);
             
-            string ui_info =
-                "<ui>
-                  <toolbar name='document-tree-toolbar'>
-                    <toolitem action='add-action'/>
-                    <toolitem action='remove-action'/>
-                    <toolitem action='raise-action'/>
-                    <toolitem action='lower-action'/>
-                  </toolbar>
-                </ui>";
-            
-            
-//            window.ui_manager.add_ui_from_string(ui_info, ui_info.length);
-//            toolbar = window.ui_manager.get_widget("/document-tree-toolbar") as Toolbar;
             this.pack_start(treeview, true, true, 0);
-            this.pack_end(toolbar, false, true, 0);
+            
+            var selection = treeview.get_selection ();
+            selection.changed.connect (this.on_changed);
         }
         
-        private void update_treemodel(Object sender, ParamSpec pspec)
-        {
+        private void update_treemodel(Object sender, ParamSpec pspec) {
             treeview.set_model (window.document.treemodel);
         }
         
-        private void on_destroy(Object sender)
-        {
+        private void on_destroy(Object sender) {
             treeview.set_model (null);
+        }
+        
+        private void on_changed (Gtk.TreeSelection selection) {
+            Gtk.TreeModel model;
+            Gtk.TreeIter iter;
+
+            if (selection.get_selected (out model, out iter)) {
+                IDocumentElement el;
+                model.get(iter, 0, out el);
+                print("Selected row: %s\n", el.name);
+                if (el.get_type().is_a(typeof(Document.Layer))) {
+//                    print("%s\n is a Layer", el.name);
+                    window.document.active_layer = (Document.Layer) el;
+                }
+                else if (el.get_type().is_a(typeof(Document.Frame))) {
+                    window.document.active_frame = (Document.Frame) el;
+                }
+                else if (el.get_type().is_a(typeof(Document.Animation))) {
+                    window.document.active_animation = (Document.Animation) el;
+                }
+                else if (el.get_type().is_a(typeof(Document.Sprite))) {
+                    window.document.active_sprite = (Document.Sprite) el;
+                }
+                print("Active sprite: %s\n", ((window.document.active_sprite != null) ? window.document.active_sprite.name : "None"));
+                print("Active animation: %s\n", ((window.document.active_animation != null) ? window.document.active_animation.name : "None"));
+                print("Active frame: %s\n", ((window.document.active_frame != null) ? window.document.active_frame.name : "None"));
+                print("Active layer: %s\n", ((window.document.active_layer != null) ? window.document.active_layer.name : "None"));
+            }
         }
     }
 }
