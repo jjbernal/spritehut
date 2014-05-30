@@ -92,19 +92,23 @@ namespace Widgets
                 main_statusbar.push(0, _("Ready"));
 
                 main_dock = new MainDock(this);
+                
                 box.pack_start(main_dock, true, true, 0);
                 
-                document = doc;
-                if (document != null)
-                {
-                    document.notify.connect(update_status);
-                }
+                
                 
                 this.delete_event.connect(on_window_delete); // redirect delete_event
                 main_dock.active_canvas.mouse_over_canvas.connect(on_mouse_over_canvas);
                 
+                
+                this.show_all ();document = doc;
+                if (document != null)
+                {
+                    document.notify.connect(update_status);
+//                    document.undo_history.notify.connect(update_status);
+                }
+                main_dock.attach_model(document);
                 update_status();
-                this.show_all ();
 
             } catch (Error e) {
                 stderr.printf ("Could not load UI: %s\n", e.message);
@@ -113,7 +117,7 @@ namespace Widgets
         
         //Window Statuses
         public void update_status(){
-        
+            this.sensitive = true;
             if (document != null)
             {
                 this.set_title((document.modified ? "*" : "" ) + document.name + " - " + default_title);
@@ -144,9 +148,11 @@ namespace Widgets
                 disable_all_actions();
             }
             
-            //always on
+            // always on
             ((SimpleAction) this.lookup_action("toggle-toolbar")).set_enabled(true);
             ((SimpleAction) this.lookup_action("toggle-statusbar")).set_enabled(true);
+            // Refresh the window and widgets
+            this.queue_draw();
         }
 
         private void disable_all_actions() {
@@ -157,8 +163,8 @@ namespace Widgets
         }
         
         public void set_busy_status(){
-//        TODO disable all actions while doing long tasks e.g. loading or saving and inform the user
-            disable_all_actions();
+//            disable_all_actions();
+            this.sensitive = false;
             main_infobar.show();
             
             //FIXME calling this async method breaks the app on file-quit if there are more than one main window
@@ -228,11 +234,15 @@ namespace Widgets
         
         // Edit action handlers
         public void on_undo(SimpleAction action, Variant? parameter) {
-            stdout.printf("Undo Stub\n");
+            document.undo_history.undo();
+//            nap(100);
+            update_status();
         }
         
         public void on_redo(SimpleAction action, Variant? parameter) {
-            stdout.printf("Redo Stub\n");
+            document.undo_history.redo();
+//            nap(100);
+            update_status();
         }
         
         public void on_cut(SimpleAction action, Variant? parameter) {

@@ -54,6 +54,18 @@ namespace Widgets
         }
         public bool enable_pixel_grid{get;set;default=true;}
         public double minimum_margin{get;set;default=100;}
+        public Gdk.Cursor cursor{get {
+            return _cursor;
+        }
+        set {
+            var window = get_window ();
+            _cursor = value;
+            window.set_cursor(_cursor);
+        }
+        }
+        private Gdk.Cursor _cursor;
+        private Gdk.Cursor default_cursor;
+        private Gdk.Cursor cursor_on_canvas;
         public signal void mouse_over_canvas(int x, int y);
 
         public Canvas () {
@@ -61,6 +73,21 @@ namespace Widgets
 //                        Gdk.EventMask.BUTTON_MOTION_MASK |
                         Gdk.EventMask.BUTTON_RELEASE_MASK |
                         Gdk.EventMask.POINTER_MOTION_MASK);
+            
+        }
+        public override void realize(){
+            base.realize();
+            
+            //            Paint the surface to white
+//            canvas_surface ;
+            Cairo.Context cr = new Cairo.Context (canvas_surface);
+            cr.set_source_rgba (1, 1, 1, 0.5); // pure white
+//            cr.rectangle(0, 0, canvas_surface.get_width(), canvas_surface.get_height());
+            cr.paint();
+//            cr.fill();
+            prepare_pixel_grid();
+            update_size_request();
+            
             var window = get_window ();
 
             if (null == window) {
@@ -74,6 +101,12 @@ namespace Widgets
             window.invalidate_region (region, true);
             window.process_updates (true);
             
+            
+            // setup cursors for this widget
+            default_cursor = window.get_cursor();
+            cursor = default_cursor;
+            
+            cursor_on_canvas = new Cursor(Gdk.CursorType.CROSSHAIR);
         }
         
         public void zoom_in()
@@ -106,20 +139,6 @@ namespace Widgets
             }
             var window = get_window();
             window.invalidate_rect(null, false); // ask for a redraw
-            prepare_pixel_grid();
-            update_size_request();
-        }
-        
-        public override void realize(){
-            base.realize();
-            
-            //            Paint the surface to white
-//            canvas_surface ;
-            Cairo.Context cr = new Cairo.Context (canvas_surface);
-            cr.set_source_rgba (1, 1, 1, 0.5); // pure white
-//            cr.rectangle(0, 0, canvas_surface.get_width(), canvas_surface.get_height());
-            cr.paint();
-//            cr.fill();
             prepare_pixel_grid();
             update_size_request();
         }
@@ -157,7 +176,7 @@ namespace Widgets
 //            var window = get_window();
 //            window.invalidate_rect(null, false); // ask for a redraw
             
-            return false;
+            return true;
         }
          
         public override bool draw (Cairo.Context cr) {
@@ -268,7 +287,7 @@ namespace Widgets
                 paintbrush_at(event.x, event.y, color);
             }
             
-            int widget_to_image_x = (int)((event.x - img_left)/zoom_level);
+            int widget_to_image_x = (int)((event.x - img_left)/zoom_level); // TODO look for a reason for the incorrect coordinates in the upper left corner
             int widget_to_image_y = (int)((event.y - img_top) / zoom_level);
             if (widget_to_image_x >= 0 &&
                 widget_to_image_x < canvas_surface.get_width() &&
@@ -276,6 +295,11 @@ namespace Widgets
                 widget_to_image_y < canvas_surface.get_height()) {
 //                print ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
                 mouse_over_canvas(widget_to_image_x, widget_to_image_y);
+                cursor = cursor_on_canvas;
+            }
+            else {
+//                change to default cursor when not exactly over canvas
+                cursor = default_cursor;
             }
             
             return true;

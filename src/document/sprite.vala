@@ -21,7 +21,9 @@ namespace Document
 {
     public class Sprite : GLib.Object, IDocumentElement
     {
+        //        IDocumentElement properties
         public string name {get;set;default=_("Sprite1");}
+        public Gdk.Pixbuf thumbnail {get;set;}
     }
 }
 

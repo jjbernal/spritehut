@@ -24,13 +24,20 @@ namespace Document
 {
     public class Document : GLib.Object, IDocumentElement
     {
+//        IDocumentElement properties
+        public string name {get;set;}
+        public Gdk.Pixbuf thumbnail {get;set;}
+        
         private TreeStore _treemodel;
         private UndoHistory _undo_history;
-        
+        public enum ColumnType {
+            IDOCUMENTELEMENT,
+            N_COLUMNS
+        }
         public uint32 last_id {get;set;default=0;}
         public string? filename {get;set;default=null;}
         public bool modified {get;set;default=false;}
-        public string name {get;set;}
+        
         public Gtk.TreeStore treemodel
         {
             get
@@ -60,7 +67,7 @@ namespace Document
         public Document ()
         {
             _treemodel = new TreeStore (1, typeof (IDocumentElement));
-            this.treemodel.row_changed.connect(on_modified);
+            this.treemodel.row_changed.connect(on_row_changed);
             this.treemodel.row_deleted.connect(on_modified);
             this.treemodel.row_inserted.connect(on_modified);
             this.treemodel.rows_reordered.connect(on_modified);
@@ -80,6 +87,15 @@ namespace Document
         public void on_modified()
         {
             this.modified = true;
+        }
+        
+        public void on_row_changed(TreePath path, TreeIter iter)
+        {
+            this.modified = true;
+            IDocumentElement element;
+            treemodel.get(iter, ColumnType.IDOCUMENTELEMENT, out element);
+            print ("changed %s\n", element.name);
+            
         }
     }
 }

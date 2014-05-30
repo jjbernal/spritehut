@@ -31,10 +31,24 @@ namespace Document
             height = 64;
             
             TreeIter iter;
-            iter = add(new Sprite(), null);
-            iter = add(new Animation(), iter);
-            iter = add(new Frame(), iter);
-            iter = add(new Layer(), iter);
+            
+//            FIXME Loading the icon just to show some pixbuf on the iconview
+            string image_path = GLib.Path.build_filename( GLib.Path.DIR_SEPARATOR_S, "usr", "local", "share", "icons", "hicolor", "32x32",
+                                             "apps", "spritehut.png", null );
+            
+            var sprite = new Sprite();
+            sprite.thumbnail = new Gdk.Pixbuf.from_file(image_path);
+            var animation = new Animation ();
+            animation.thumbnail = new Gdk.Pixbuf.from_file(image_path);
+            var frame = new Frame();
+            frame.thumbnail = new Gdk.Pixbuf.from_file(image_path);
+            var layer = new Layer();
+            layer.thumbnail = new Gdk.Pixbuf.from_file(image_path);
+            
+            iter = add(sprite, null);
+            iter = add(animation, iter);
+            iter = add(frame, iter);
+            iter = add(layer, iter);
             
             modified = false;
         }

@@ -24,5 +24,6 @@ namespace Document
     public interface IDocumentElement : GLib.Object
     {
         public abstract string name {get;set;}
+        public abstract Pixbuf thumbnail {get;set;}
     }
 }

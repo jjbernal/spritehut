@@ -22,7 +22,10 @@ namespace Document
 {
     public class Layer : GLib.Object, IDocumentElement
     {
+//        IDocumentElement properties
         public string name {get;set;default=_("Layer1");}
+        public Gdk.Pixbuf thumbnail {get;set;}
+        
         public bool locked {get;set;default=false;}
         public bool visible {get;set;default=true;}
         private double _opacity;

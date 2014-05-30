@@ -21,6 +21,10 @@ namespace Document
 {
     public class Animation : GLib.Object, IDocumentElement
     {
+//        IDocumentElement properties
+        public string name {get;set;default=_("Animation1");}
+        public Gdk.Pixbuf thumbnail {get;set;}
+        
         public enum Mirror {
             NONE,
             HORIZONTAL,
@@ -37,7 +41,8 @@ namespace Document
         
         private double _fps;
         
-        public string name {get;set;default=_("Animation1");}
+
+        
         public double fps
         {
             get

@@ -27,6 +27,7 @@ namespace Widgets
         private DockLayout layout;
         private MainWindow window;
         private DocumentTree document_treeview;
+        private IconView frames_iconview;
         public weak Widgets.Canvas active_canvas;
         public Gtk.Builder builder;
         
@@ -39,10 +40,12 @@ namespace Widgets
             
             var toolbox_toolpalette = builder.get_object("toolbox-toolpalette") as ToolPalette;
             var frames_box = builder.get_object("frames-box") as Box;
+            frames_iconview = builder.get_object("frames-iconview") as IconView;
+            
             var document_box = builder.get_object("document-box") as Box;
             
             document_treeview = new DocumentTree(main_window);
-            document_box.pack_start(document_treeview);
+            document_box.pack_start(document_treeview.treeview);
             document_box.show_all();
             
             var canvas_box = builder.get_object("canvas-box") as Box;
@@ -101,11 +104,22 @@ namespace Widgets
             var frames = add_dock_item(dock, "frames", _("Frames"), frames_box, canvas_dockitem,
             DockPlacement.BOTTOM, 400, 100);
             
-            if (window.document != null) {
-//                attach_model(window.document);
-            }
         }
         
+        
+        public void attach_model(Document.Document document) {
+            document_treeview.attach_model(document.treemodel);
+            // TODO modify Document to set iter for active elements
+            var path = new Gtk.TreePath.from_string("0:0");
+            var active_animation_model = new TreeModelFilter (document.treemodel, null);
+            frames_iconview.set_model(active_animation_model);
+            
+            var pixbuf_renderer = new CellRendererPixbuf();
+            frames_iconview.pack_start(document_treeview.pixbuf_renderer, true);
+            frames_iconview.set_cell_data_func(document_treeview.pixbuf_renderer, (CellLayoutDataFunc)document_treeview.pixbuf_cell_data_func);
+//            document.notify.connect(document_treeview.attach_model);
+//            frames_iconview.queue_draw();
+        }
         
         private DockItem add_dock_item(Dock dock, string name, string id, Gtk.Widget? widget=null,
          DockItem? target=null, DockPlacement dock_placement=DockPlacement.NONE, 

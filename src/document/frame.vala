@@ -21,6 +21,10 @@ namespace Document
 {
     public class Frame : GLib.Object, IDocumentElement
     {
+//        IDocumentElement properties
+        public string name {get;set;default=_("Frame1");}
+        public Gdk.Pixbuf thumbnail {get;set;}
+        
         private uint _delay;
         
         public uint delay {
@@ -40,7 +44,8 @@ namespace Document
                 }
             }
         }
-        public string name {get;set;default=_("Frame1");}
+
+        
         public int delta_x {get;set;default=0;}
         public int delta_y {get;set;default=0;}
     }
