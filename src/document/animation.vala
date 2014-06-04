@@ -24,6 +24,9 @@ namespace Document
 //        IDocumentElement properties
         public string name {get;set;default=_("Animation1");}
         public Gdk.Pixbuf thumbnail {get;set;}
+        public bool visible {get;set;default=true;}
+        public bool locked {get;set;default=false;}
+//        public Gtk.TreeIter iter {get;set;}
         
         public enum Mirror {
             NONE,
@@ -69,6 +72,8 @@ namespace Document
         public Animation ()
         {
             fps = Animation.default_fps;
+//            FIXME Loading the icon just to show some pixbuf on the iconview
+            this.thumbnail = Gtk.IconTheme.get_default().load_icon("video-x-generic", 32, 0);
         }
     }
 }

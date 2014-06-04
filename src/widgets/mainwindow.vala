@@ -95,8 +95,6 @@ namespace Widgets
                 
                 box.pack_start(main_dock, true, true, 0);
                 
-                
-                
                 this.delete_event.connect(on_window_delete); // redirect delete_event
                 main_dock.active_canvas.mouse_over_canvas.connect(on_mouse_over_canvas);
                 
@@ -305,6 +303,43 @@ namespace Widgets
         
         public void on_document_add(SimpleAction action, Variant? parameter) {
             stdout.printf("Document add\n");
+            
+            if (document.active_element is Document.Layer) {
+//            add a sibling Layer at the same level
+                var layer = new Document.Layer();
+                document.add_sibling(layer, document.active_element_iter);
+            }
+            else if (document.active_element is Document.Frame) {
+//            add a sibling Layer at the same level
+                var frame = new Document.Frame();
+                var frame_iter = document.add_sibling(frame, document.active_element_iter);
+//                then some children
+                var layer = new Document.Layer();
+                document.add(layer, frame_iter);
+            }
+            else if (document.active_element is Document.Animation) {
+                var anim = new Document.Animation();
+                var iter = document.add_sibling(anim, document.active_element_iter);
+                
+                var frame = new Document.Frame();
+                iter = document.add(frame, iter);
+                
+                var layer = new Document.Layer();
+                document.add(layer, iter);
+            }
+            else if (document.active_element is Document.Sprite) {
+                var sprite = new Document.Sprite();
+                var iter = document.add_sibling(sprite, document.active_element_iter);
+                
+                var anim = new Document.Animation();
+                iter = document.add(anim, iter);
+                
+                var frame = new Document.Frame();
+                iter = document.add(frame, iter);
+                
+                var layer = new Document.Layer();
+                document.add(layer, iter);
+            }
         }
         
         public void on_document_remove(SimpleAction action, Variant? parameter) {

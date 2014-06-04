@@ -17,6 +17,7 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using Gtk;
 using Gdk;
 
 namespace Document
@@ -25,5 +26,8 @@ namespace Document
     {
         public abstract string name {get;set;}
         public abstract Pixbuf thumbnail {get;set;}
+        public abstract bool visible {get;set;default=true;}
+        public abstract bool locked {get;set;default=false;}
+//        public abstract TreeIter iter {get;set;} //TODO Change to TreePath
     }
 }

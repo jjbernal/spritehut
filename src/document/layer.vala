@@ -25,9 +25,10 @@ namespace Document
 //        IDocumentElement properties
         public string name {get;set;default=_("Layer1");}
         public Gdk.Pixbuf thumbnail {get;set;}
-        
         public bool locked {get;set;default=false;}
         public bool visible {get;set;default=true;}
+//        public Gtk.TreeIter iter {get;set;}
+        
         private double _opacity;
         public Image image; //TODO create Image class
         
@@ -54,6 +55,9 @@ namespace Document
         {
             opacity = 1;
             //image = TODO: initialize/link image here
+            
+//            FIXME Loading the icon just to show some pixbuf on the iconview
+            this.thumbnail = Gtk.IconTheme.get_default().load_icon("select-rectangular", 32, 0);
         }
     }
 }

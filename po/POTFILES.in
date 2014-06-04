@@ -8,7 +8,6 @@ src/document/frame.vala
 src/document/idocumentelement.vala
 src/document/layer.vala
 src/document/sprite.vala
-src/widgets/custom/documentelementcellrenderer.vala
 src/widgets/maindock.vala
 src/widgets/mainwindow.vala
 src/document/animation.vala

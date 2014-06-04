@@ -24,6 +24,14 @@ namespace Document
         //        IDocumentElement properties
         public string name {get;set;default=_("Sprite1");}
         public Gdk.Pixbuf thumbnail {get;set;}
+        public bool visible {get;set;default=true;}
+        public bool locked {get;set;default=false;}
+//        public Gtk.TreeIter iter {get;set;}
+        
+        public Sprite() {
+//            FIXME Loading the icon just to show some pixbuf on the iconview
+            this.thumbnail = Gtk.IconTheme.get_default().load_icon("spritehut", 32, 0);
+        }
     }
 }
 

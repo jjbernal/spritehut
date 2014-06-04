@@ -66,8 +66,11 @@ libwidgets_la_SOURCES = \
     widgets/mainwindow.vala \
     widgets/maindock.vala \
     widgets/newdialog.vala \
+    widgets/framesiconview.vala \
     widgets/custom/documenttree.vala \
-    widgets/custom/canvas.vala 
+    widgets/custom/canvas.vala \
+    widgets/custom/treedragdesttreemodelfilter.vala \
+    widgets/custom/cellrendererhelper.vala
 
 libwidgets_la_VALAFLAGS = \
     imaging.vapi document.vapi --library widgets -H widgets.h \

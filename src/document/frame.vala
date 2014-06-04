@@ -24,6 +24,9 @@ namespace Document
 //        IDocumentElement properties
         public string name {get;set;default=_("Frame1");}
         public Gdk.Pixbuf thumbnail {get;set;}
+        public bool visible {get;set;default=true;}
+        public bool locked {get;set;default=false;}
+//        public Gtk.TreeIter iter {get;set;}
         
         private uint _delay;
         
@@ -44,10 +47,15 @@ namespace Document
                 }
             }
         }
-
         
         public int delta_x {get;set;default=0;}
         public int delta_y {get;set;default=0;}
+        
+        public Frame() {
+//            FIXME Loading the icon just to show some pixbuf on the iconview
+            this.thumbnail = Gtk.IconTheme.get_default().load_icon("draw-eraser", 32, 0);
+        }
+        
     }
 }
 

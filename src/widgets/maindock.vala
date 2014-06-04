@@ -27,12 +27,14 @@ namespace Widgets
         private DockLayout layout;
         private MainWindow window;
         private DocumentTree document_treeview;
-        private IconView frames_iconview;
+        private FramesIconViewController frames_controller;
+        
         public weak Widgets.Canvas active_canvas;
         public Gtk.Builder builder;
         
         public MainDock(MainWindow main_window)
-        {
+        { 
+            window = main_window;
             string main_dock_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
                                              "maindockwidgets.ui", null );
             builder = new Builder ();
@@ -40,18 +42,19 @@ namespace Widgets
             
             var toolbox_toolpalette = builder.get_object("toolbox-toolpalette") as ToolPalette;
             var frames_box = builder.get_object("frames-box") as Box;
-            frames_iconview = builder.get_object("frames-iconview") as IconView;
+//            var frames_iconview = builder.get_object("frames-iconview") as IconView;
+            frames_controller = new FramesIconViewController(main_window, builder);
+//            frames_box.pack_start(frames_controller.iconview);
             
             var document_box = builder.get_object("document-box") as Box;
+            var document_scrolledwindow = builder.get_object("document-scrolledwindow") as ScrolledWindow;
             
-            document_treeview = new DocumentTree(main_window);
-            document_box.pack_start(document_treeview.treeview);
+            document_treeview = new DocumentTree(main_window, builder);
+            document_scrolledwindow.add(document_treeview.treeview);
             document_box.show_all();
             
             var canvas_box = builder.get_object("canvas-box") as Box;
             var canvas_viewport = builder.get_object("canvas-viewport") as Viewport;
-            
-            window = main_window;
             
             Gdl.Dock dock = new Gdl.Dock();
             this.master = dock.master;
@@ -85,12 +88,12 @@ namespace Widgets
             DockPlacement.RIGHT, 100, 100);
 
             // Palette
-            var palette = add_dock_item(dock, "palette", _("Palette"), new TreeView(), preview,
+            var palette = add_dock_item(dock, "palette", _("Palette"), new ColorChooserWidget(), preview,
             DockPlacement.BOTTOM, 50, 100);
             
             /* Tool box */
             var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), toolbox_toolpalette, canvas_dockitem,
-            DockPlacement.LEFT, 50, 300);
+            DockPlacement.LEFT, 50, 150);
             toolbox.resize = false;
 
             /* the color_picker dock */
@@ -110,15 +113,9 @@ namespace Widgets
         public void attach_model(Document.Document document) {
             document_treeview.attach_model(document.treemodel);
             // TODO modify Document to set iter for active elements
-            var path = new Gtk.TreePath.from_string("0:0");
-            var active_animation_model = new TreeModelFilter (document.treemodel, null);
-            frames_iconview.set_model(active_animation_model);
-            
-            var pixbuf_renderer = new CellRendererPixbuf();
-            frames_iconview.pack_start(document_treeview.pixbuf_renderer, true);
-            frames_iconview.set_cell_data_func(document_treeview.pixbuf_renderer, (CellLayoutDataFunc)document_treeview.pixbuf_cell_data_func);
+            frames_controller.attach_model(document.treemodel);
 //            document.notify.connect(document_treeview.attach_model);
-//            frames_iconview.queue_draw();
+            document.notify.connect(frames_controller.update);
         }
         
         private DockItem add_dock_item(Dock dock, string name, string id, Gtk.Widget? widget=null,

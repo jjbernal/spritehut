@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -26,44 +26,59 @@ namespace Widgets
         public TreeView treeview {get;set;}
         public Toolbar toolbar {get;set;}
         public MainWindow window {get;set;}
-        public CellRendererPixbuf pixbuf_renderer = new CellRendererPixbuf();
-    
-        public DocumentTree (MainWindow main_window) {
+        
+        public DocumentTree (MainWindow main_window, Builder builder) {
             window = main_window;
-            // subscribe to main document changes
-//            window.notify["document"].connect(update);
-//            this.destroy.connect(on_destroy);
             
             treeview = new TreeView();
             treeview.headers_visible = false;
             treeview.reorderable = true;
-
-//            var renderer = new DocumentElementCellRenderer ();
-            var renderer = new CellRendererText();
-            renderer.editable = true;
-//            renderer.treemodel = treeview.model;
-            renderer.edited.connect(on_edited);
-//            renderer.render.connect(on_render);
+            treeview.can_focus = true; 
+            
+            var add_menu = builder.get_object("document-add-menu") as Gtk.Menu;
+            var add_toolbutton = builder.get_object("document-add-toolbutton") as MenuToolButton;
+            add_toolbutton.set_menu (add_menu);
+            
+//            get the instance from the CellRenderer helper
+            var cellrh = CellRendererHelper.get_instance();
+            
+            var name_renderer = new CellRendererText();
+            name_renderer.edited.connect(on_edited);
+            name_renderer.editable = true;
+            
             var col = new TreeViewColumn ();
+            col.set_cell_data_func(name_renderer, (CellLayoutDataFunc)cellrh.name_cell_data_func);
+            col.pack_end (name_renderer, false);
             
+            var thumbnail_renderer = new CellRendererPixbuf();
+//            col.add_attribute (thumbnail_renderer, "thumbnail", 0);
+//            var thumbnail_col = new TreeViewColumn ();
+//            thumbnail_col.pack_end (thumbnail_renderer, false);
             
-            col.set_cell_data_func(renderer, (CellLayoutDataFunc)text_cell_data_func);
-            col.pack_end (renderer, true);
-//            pixbuf_renderer = new CellRendererPixbuf();
-            col.add_attribute (pixbuf_renderer, "pixbuf", 0);
-//            var pixbuf_col = new TreeViewColumn ();
-//            pixbuf_col.pack_start (pixbuf_renderer, true);
+            col.set_cell_data_func(thumbnail_renderer, (CellLayoutDataFunc)cellrh.thumbnail_cell_data_func);
+            col.pack_end (thumbnail_renderer, false);
             
-            col.set_cell_data_func(pixbuf_renderer, (CellLayoutDataFunc)pixbuf_cell_data_func);
-            col.pack_start (pixbuf_renderer, true);
-//            treeview.append_column (pixbuf_col);
+            var visible_renderer = new CellRendererToggle();
+            visible_renderer.toggled.connect(on_visible_toggled);
+//            col.add_attribute (visible_renderer, "active", 0);
+            
+            col.set_cell_data_func(visible_renderer, (CellLayoutDataFunc)cellrh.visible_cell_data_func);
+            col.pack_start (visible_renderer, false);
+            
+            var locked_renderer = new CellRendererToggle();
+            locked_renderer.toggled.connect(on_locked_toggled);
+//            col.add_attribute (locked_renderer, "active", 0);
+            
+            col.set_cell_data_func(locked_renderer, (CellLayoutDataFunc)cellrh.locked_cell_data_func);
+            col.pack_start (locked_renderer, false);
+            
+//            treeview.append_column (thumbnail_col);
             treeview.append_column (col);
             treeview.set_rules_hint( true );
             
-//            this.pack_start(treeview, true, true, 0);
             var selection = treeview.get_selection ();
             selection.changed.connect (this.on_changed);
-            
+            selection.set_mode(SelectionMode.MULTIPLE);
         }
         
         private void update(ParamSpec? pspec) {
@@ -78,11 +93,27 @@ namespace Widgets
 //            treemodel.notify.connect(treeview.columns_autosize);
         }
         
-//        private void on_destroy(Object sender) {
-//            treeview.set_model (null);
-//        }
+        private void on_visible_toggled (string path) {
+            TreeIter iter;
+            IDocumentElement element;
+            
+            treeview.model.get_iter_from_string(out iter, path);
+            treeview.model.get(iter, 0, out element);
+            
+            element.visible = !element.visible;
+        }
+        
+        private void on_locked_toggled (string path) {
+            TreeIter iter;
+            IDocumentElement element;
+            
+            treeview.model.get_iter_from_string(out iter, path);
+            treeview.model.get(iter, 0, out element);
+            
+            element.locked = !element.locked;
+        }
+        
         private void on_edited (string path, string new_text) {
-//            base.edited(path, new_text);
             TreeIter iter;
             IDocumentElement element;
             treeview.model.get_iter_from_string(out iter, path);
@@ -94,51 +125,47 @@ namespace Widgets
 //            element.name = new_text;
             window.document.modified = true;
         }
-//        TODO move to common class for widgets that depend on TreeModel
-        public void text_cell_data_func (CellRenderer cell, TreeModel tree_model, TreeIter iter) {
-            IDocumentElement el;
-            tree_model.get(iter, 0, out el);
-            ((CellRendererText) cell).text = el.name;
-        }
-//        TODO move to common class for widgets that depend on TreeModel
-        public void pixbuf_cell_data_func (CellRenderer cell, TreeModel tree_model, TreeIter iter) {
-            IDocumentElement el;
-            tree_model.get(iter, 0, out el);
-            ((CellRendererPixbuf) cell).pixbuf = el.thumbnail;
-        }
-//        public override void render (Context ctx, Widget widget,
-//                                     Gdk.Rectangle background_area,
-//                                     Gdk.Rectangle cell_area,
-//                                     CellRendererState flags)
-//        {
-//            CellRendererText.render(ctx, widget, background_area, cell_area, flags);
-//            this.text = element.name;
-//        }
         
         private void on_changed (Gtk.TreeSelection selection) {
             Gtk.TreeModel model;
-            Gtk.TreeIter iter;
-
-            if (selection.get_selected (out model, out iter)) {
-                IDocumentElement el;
-                model.get(iter, 0, out el);
-//                print("Selected row: %s\n", el.name);
-                if (el is Document.Layer) {
-                    window.document.active_layer = (Document.Layer) el;
-                }
-                else if (el is Document.Frame) {
-                    window.document.active_frame = (Document.Frame) el;
-                }
-                else if (el is Document.Animation) {
-                    window.document.active_animation = (Document.Animation) el;
-                }
-                else if (el is Document.Sprite) {
-                    window.document.active_sprite = (Document.Sprite) el;
-                }
+            
+            GLib.List row_list = selection.get_selected_rows(out model);
+            
+            if (row_list.length() > 0) {
+                IDocumentElement el = null;
+                
+                row_list.foreach ((path) => {
+                    Gtk.TreeIter iter = TreeIter();
+                    
+                    model.get_iter(out iter, (TreePath) path);
+                    model.get(iter, 0, out el);
+                    
+//                    update iter
+//                    el.iter = iter;
+                    print("Selected row: %s\n", el.name);
+                    print("Selected row: %s visible: %s\n", el.name, el.visible.to_string());
+                    if (el is Document.Layer) {
+                        window.document.active_layer = (Document.Layer) el;
+                        
+                    }
+                    else if (el is Document.Frame) {
+                        window.document.active_frame = (Document.Frame) el;
+                    }
+                    else if (el is Document.Animation) {
+                        window.document.active_animation = (Document.Animation) el;
+                        window.document.active_animation_iter = iter;
+                    }
+                    else if (el is Document.Sprite) {
+                        window.document.active_sprite = (Document.Sprite) el;
+                    }
+                    
+                    window.document.active_element = el;
+                    window.document.active_element_iter = iter;
 //                print("Active sprite: %s\n", ((window.document.active_sprite != null) ? window.document.active_sprite.name : "None"));
 //                print("Active animation: %s\n", ((window.document.active_animation != null) ? window.document.active_animation.name : "None"));
 //                print("Active frame: %s\n", ((window.document.active_frame != null) ? window.document.active_frame.name : "None"));
 //                print("Active layer: %s\n", ((window.document.active_layer != null) ? window.document.active_layer.name : "None"));
+                });
             }
         }
     }

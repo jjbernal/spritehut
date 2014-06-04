@@ -52,19 +52,67 @@
       </packing>
     </child>
   </object>
+  <object class="GtkMenu" id="document-add-menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="add-sprite-menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Sprite...</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="add-animation-menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Animation...</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="add-frame-menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Frame...</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="add-layer-menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Layer...</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+  </object>
   <object class="GtkBox" id="document-box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <placeholder/>
+      <object class="GtkScrolledWindow" id="document-scrolledwindow">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
     </child>
     <child>
       <object class="GtkToolbar" id="document-toolbar">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkToolButton" id="document-add-toolbutton">
+          <object class="GtkMenuToolButton" id="document-add-toolbutton">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="action_name">win.document-add</property>
@@ -157,12 +205,18 @@
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkIconView" id="frames-iconview">
+      <object class="GtkScrolledWindow" id="frames-scrolledwindow">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="selection_mode">multiple</property>
-        <property name="item_orientation">horizontal</property>
-        <property name="reorderable">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkIconView" id="frames-iconview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="selection_mode">multiple</property>
+            <property name="reorderable">True</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="expand">True</property>

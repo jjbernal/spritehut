@@ -48,7 +48,7 @@ namespace FileIO
             writer.write_comment(" Created with Sprite Hut ");
             writer.start_element ("spritehut");
             writer.write_attribute ("version", "0.1");
-            write_element(writer, document);
+//            write_element(writer, document);
             
             TreeIter? iter;
             
