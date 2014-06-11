@@ -54,12 +54,12 @@ namespace Imaging
             }
         }
         public abstract Mode mode {
-        get{
-            return (bpp <= 8) ? Image.Mode.INDEXED : (has_alpha) ? Image.Mode.RGBA : Image.Mode.RGB;
+            get{
+                return (bpp <= 8) ? Image.Mode.INDEXED : (has_alpha) ? Image.Mode.RGBA : Image.Mode.RGB;
+            }
         }
         
-        }
-        public Palette palette {get;set;}
+        public Cairo.ImageSurface cairo_surface{get; set;}
         
         public Image(uint width, uint height, uint bpp)
         {

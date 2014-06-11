@@ -43,7 +43,7 @@ public class TestDocument : Object {
         var animation = new Animation();
         animation.name = "Animation1";
         var frame = new Frame();
-        var layer = new Layer();
+        var layer = new Layer(64, 64, Imaging.Image.Mode.INDEXED);
         layer.name = "レイヤー１";
         
         Gtk.TreeIter iter;
@@ -52,11 +52,24 @@ public class TestDocument : Object {
         iter = document.add (frame, iter);
         iter = document.add (layer, iter);
     }
+    
+    public static void test_image_mode () {
+        var document = new Document.Document();
+        document.mode = Imaging.Image.Mode.INDEXED;
+        assert (document.mode == Imaging.Image.Mode.INDEXED);
+        
+        document.mode = Imaging.Image.Mode.RGB;
+        assert (document.mode == Imaging.Image.Mode.RGB);
+        
+        document.mode = Imaging.Image.Mode.RGBA;
+        assert (document.mode == Imaging.Image.Mode.RGBA);
+    }
 
     public static void add_tests()  {
         Test.add_func ("/document/document.filename default", test_filename_default);
         Test.add_func ("/document/document.filename set", test_filename_set);
         Test.add_func ("/document/document.treemodel is Gtk.TreeModel", test_treemodel_default);
         Test.add_func ("/document/document.add", test_add);
+        Test.add_func ("/document/document.mode", test_image_mode);
     }
 }

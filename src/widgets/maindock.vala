@@ -28,6 +28,7 @@ namespace Widgets
         private MainWindow window;
         private DocumentTree document_treeview;
         private FramesIconViewController frames_controller;
+        private CanvasController canvas_controller;
         
         public weak Widgets.Canvas active_canvas;
         public Gtk.Builder builder;
@@ -56,6 +57,13 @@ namespace Widgets
             var canvas_box = builder.get_object("canvas-box") as Box;
             var canvas_viewport = builder.get_object("canvas-viewport") as Viewport;
             
+            ColorChooserWidget palette_colorchooser = new ColorChooserWidget();
+            Gdk.RGBA[] colors = new Gdk.RGBA[3];
+            colors[0] = {0, 0, 0, 0};
+            colors[1] = {0, 0, 0, 1};
+            colors[2] = {1, 1, 1, 1};
+            palette_colorchooser.add_palette(Orientation.VERTICAL, 6, colors) ;
+            
             Gdl.Dock dock = new Gdl.Dock();
             this.master = dock.master;
 
@@ -72,9 +80,10 @@ namespace Widgets
             /* the canvas dock */
             var canvas_dockitem = new DockItem.with_stock("canvas-dockitem", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NO_GRIP |
                                               DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED | DockItemBehavior.CANT_DOCK_CENTER);
-            var canvas = new Canvas();
-            canvas_viewport.add(canvas);
-            active_canvas = canvas;//set as the active canvas so other widgets can control its zoom etc.
+            canvas_controller = new CanvasController(window, builder);
+            
+            canvas_viewport.add(canvas_controller.canvas);
+            active_canvas = canvas_controller.canvas;//set as the active canvas so other widgets can control its zoom etc.
             
             dock.add_item (canvas_dockitem, DockPlacement.TOP);
             canvas_dockitem.set_size_request(400, 400);
@@ -88,7 +97,7 @@ namespace Widgets
             DockPlacement.RIGHT, 100, 100);
 
             // Palette
-            var palette = add_dock_item(dock, "palette", _("Palette"), new ColorChooserWidget(), preview,
+            var palette = add_dock_item(dock, "palette", _("Palette"), palette_colorchooser, preview,
             DockPlacement.BOTTOM, 50, 100);
             
             /* Tool box */
@@ -116,6 +125,7 @@ namespace Widgets
             frames_controller.attach_model(document.treemodel);
 //            document.notify.connect(document_treeview.attach_model);
             document.notify.connect(frames_controller.update);
+            document.notify.connect(canvas_controller.update);
         }
         
         private DockItem add_dock_item(Dock dock, string name, string id, Gtk.Widget? widget=null,

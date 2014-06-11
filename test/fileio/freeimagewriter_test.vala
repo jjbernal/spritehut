@@ -27,7 +27,7 @@ public class TestFreeImageWriter : Object {
         uint8[] pixel_array = new uint8[6] {0, 1,
                                               1, 0,
                                               0, 1};
-        Image image = new IndexedImage.from_pixel_data(2, 3, 8, pixel_array);
+        IndexedImage image = new IndexedImage.from_pixel_data(2, 3, 8, pixel_array);
         
         // create and initialize palette
         image.palette = new Palette();
@@ -49,7 +49,7 @@ public class TestFreeImageWriter : Object {
         uint8[] pixel_array = new uint8[6] {0, 1,
                                               2, 3,
                                               4, 5};
-        Image image = new IndexedImage.from_pixel_data(2, 3, 8, pixel_array);
+        IndexedImage image = new IndexedImage.from_pixel_data(2, 3, 8, pixel_array);
         
         // create and initialize palette
         image.palette = new Palette();
@@ -74,7 +74,7 @@ public class TestFreeImageWriter : Object {
         uint8[] pixel_array = new uint8[6] {0, 1,
                                               2, 3,
                                               4, 5};
-        Image image = new IndexedImage.from_pixel_data(2, 3, 8, pixel_array);
+        IndexedImage image = new IndexedImage.from_pixel_data(2, 3, 8, pixel_array);
         
         // create and initialize palette
         image.palette = new Palette();

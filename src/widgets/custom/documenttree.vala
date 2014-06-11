@@ -142,8 +142,8 @@ namespace Widgets
                     
 //                    update iter
 //                    el.iter = iter;
-                    print("Selected row: %s\n", el.name);
-                    print("Selected row: %s visible: %s\n", el.name, el.visible.to_string());
+//                    print("Selected row: %s\n", el.name);
+//                    print("Selected row: %s visible: %s\n", el.name, el.visible.to_string());
                     if (el is Document.Layer) {
                         window.document.active_layer = (Document.Layer) el;
                         

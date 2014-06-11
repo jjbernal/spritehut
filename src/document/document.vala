@@ -54,6 +54,7 @@ namespace Document
         }
         public uint width {get;set;}
         public uint height {get;set;}
+        public Imaging.Image.Mode mode;
         public Sprite active_sprite {get;set;}
         public Animation active_animation {get;set;}
         public Frame active_frame {get;set;}
@@ -116,16 +117,16 @@ namespace Document
             active_element_iter = iter;
 //            element.iter = iter;
 //            print ("changed %s with iter.stamp %d in %s with iter.stamp %d \n", element.name, element.iter.stamp, path.to_string(), iter.stamp);
-            print ("Changed %s in %s\n", element.name, path.to_string());
+//            print ("Changed %s in %s\n", element.name, path.to_string());
         }
         
         public void on_row_deleted(TreePath path)
         {
             this.modified = true;
-            IDocumentElement element;
+//            IDocumentElement element;
 //            treemodel.get(iter, ColumnType.IDOCUMENTELEMENT, out element);
 
-            print ("deleted in %s\n", path.to_string());
+//            print ("deleted in %s\n", path.to_string());
             
         }
         
@@ -137,7 +138,7 @@ namespace Document
 //            active_element_iter = iter;
 //            element.iter = iter;
 //            print ("Inserted %s in \n", element.name);
-            print ("inserted an element in %s with iter.stamp %d \n", path.to_string(), iter.stamp);
+//            print ("inserted an element in %s with iter.stamp %d \n", path.to_string(), iter.stamp);
             
         }
         
@@ -147,7 +148,7 @@ namespace Document
             IDocumentElement element;
             treemodel.get(iter, ColumnType.IDOCUMENTELEMENT, out element);
 //            element.iter = iter;
-            print ("reordered %s in \n", element.name);
+//            print ("reordered %s in \n", element.name);
             
         }
     }

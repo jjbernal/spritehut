@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -18,6 +18,7 @@
 */
 
 using Gdk;
+using Cairo;
 
 namespace Imaging
 {
@@ -35,7 +36,26 @@ namespace Imaging
                 return Image.Mode.INDEXED;
             }
         }
-
+        
+        public Palette palette {get;set;}
+        
+        private Cairo.ImageSurface _cairo_surface = null;
+        public Cairo.ImageSurface cairo_surface{
+            get {
+                if (_cairo_surface == null) {
+                    to_cairo_surface_RGBA();
+                    return _cairo_surface;
+                }
+                else {
+                    return _cairo_surface;
+                }
+            }
+            set {
+                _cairo_surface = value;
+            }
+        }
+        
+        
         public IndexedImage (uint width, uint height, uint bpp=8)
         {
             base(width, height, bpp);
@@ -67,6 +87,32 @@ namespace Imaging
         public override uint8 get_index(int x, int y)
         {
             return pixel_data[width*y+x];
+        }
+        
+        private void to_cairo_surface_RGBA() {
+            int stride = (int) width*4;
+
+            uint8 *indexed_data = pixel_data;
+            uint8 *colored_data = new uint8[width*height*4];
+            
+            int i = 0;
+            int j = 0;
+            
+            for (i=0; i<width*height; i++)
+            {
+                colored_data[j] = (uint8) palette.color_list [indexed_data[i]].blue * 255;
+                colored_data[j+1] = (uint8) palette.color_list[indexed_data[i]].green * 255;
+                colored_data[j+2] = (uint8) palette.color_list[indexed_data[i]].red * 255;
+                colored_data[j+3] = (uint8) palette.color_list[indexed_data[i]].alpha * 255;
+                j=i*4;
+            }
+//            debug("Index at the end:%d", i);
+//            debug("Color al final:%d", indexed_data[i]);
+            
+//            Image rgba32_image = new CairoImage(width, height, 32);
+            _cairo_surface = new ImageSurface.for_data((uchar[]) colored_data, Format.ARGB32, (int) width, (int) height, stride);
+            
+//            return rgba32_image;
         }
     }
 }

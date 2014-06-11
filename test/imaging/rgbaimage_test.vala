@@ -36,7 +36,7 @@ public class TestRGBAImage : Object {
         
         Image image = new RGBAImage.from_pixel_data(2, 2, 32, pixel_array);
         
-        // we don't need a palette'
+        // we don't need a palette
         Gdk.RGBA red = image.get_pixel_color(0,0);
         Gdk.RGBA green = image.get_pixel_color(1,0);
         Gdk.RGBA blue = image.get_pixel_color(0,1);

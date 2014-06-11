@@ -20,14 +20,9 @@ using Imaging;
 
 namespace Document
 {
-    public class Layer : GLib.Object, IDocumentElement
+    public class Layer : IDocumentElement
     {
-//        IDocumentElement properties
-        public string name {get;set;default=_("Layer1");}
-        public Gdk.Pixbuf thumbnail {get;set;}
-        public bool locked {get;set;default=false;}
-        public bool visible {get;set;default=true;}
-//        public Gtk.TreeIter iter {get;set;}
+        static uint stamp = 1;
         
         private double _opacity;
         public Image image; //TODO create Image class
@@ -51,13 +46,22 @@ namespace Document
             }
         }
         
-        public Layer ()
+        public Layer (uint width, uint height, Image.Mode mode)
         {
             opacity = 1;
+            this.name = stamp_name(_("Layer"), ref stamp);
             //image = TODO: initialize/link image here
-            
-//            FIXME Loading the icon just to show some pixbuf on the iconview
-            this.thumbnail = Gtk.IconTheme.get_default().load_icon("select-rectangular", 32, 0);
+            switch (mode) {
+                case Image.Mode.INDEXED:
+                    image = new IndexedImage(width, height, 8);
+                    break;
+                case Image.Mode.RGBA:
+                    image = new RGBAImage(width, height, 32);
+                    break;
+                default:
+                    image = new RGBAImage(width, height, 32);
+                    break;
+            }
         }
     }
 }

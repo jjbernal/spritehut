@@ -67,6 +67,7 @@ libwidgets_la_SOURCES = \
     widgets/maindock.vala \
     widgets/newdialog.vala \
     widgets/framesiconview.vala \
+    widgets/canvascontroller.vala \
     widgets/custom/documenttree.vala \
     widgets/custom/canvas.vala \
     widgets/custom/treedragdesttreemodelfilter.vala \

@@ -39,18 +39,18 @@ public class TestXmlDocumentWriter : Object {
             TreeIter anim1 = doc.add((IDocumentElement) new Animation(){name="An animation of a sprite"}, sprite);
                 TreeIter frame10 = doc.add((IDocumentElement) new Document.Frame(){name="0"}, anim1);
                 TreeIter frame11 = doc.add((IDocumentElement) new Document.Frame(){name="1"}, anim1);
-                    TreeIter layer1 = doc.add((IDocumentElement) new Layer(){name="Armor"}, frame11);
-                    TreeIter layer2 = doc.add((IDocumentElement) new Layer(){name="Body"}, frame11);
+                    TreeIter layer1 = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Armor"}, frame11);
+                    TreeIter layer2 = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Body"}, frame11);
             TreeIter anim2 = doc.add((IDocumentElement) new Animation(){name="Another animation of a sprite"}, sprite);
                 TreeIter frame20 = doc.add((IDocumentElement) new Document.Frame(){name="0"}, anim2);
                 TreeIter frame21 = doc.add((IDocumentElement) new Document.Frame(){name="1"}, anim2);
-                    TreeIter layer = doc.add((IDocumentElement) new Layer(){name="Hair"}, frame21);
-                    layer = doc.add((IDocumentElement) new Layer(){name="Head"}, frame21);
+                    TreeIter layer = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Hair"}, frame21);
+                    layer = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Head"}, frame21);
         TreeIter sprite2;
         sprite2 = doc.add((IDocumentElement) new Sprite(){name="Another sprite"}, null);
             TreeIter s2anim = doc.add((IDocumentElement) new Animation(){name="An animation of another sprite"}, sprite2);
                 TreeIter frame0 = doc.add((IDocumentElement) new Document.Frame(){name="0"}, s2anim);
-                    TreeIter layer0 = doc.add((IDocumentElement) new Layer(){name="A layer"}, frame0);
+                    TreeIter layer0 = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="A layer"}, frame0);
         
         writer.save(doc, "fileio/testfiles/xmltest_complex.xml");
         

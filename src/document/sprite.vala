@@ -19,18 +19,12 @@
 
 namespace Document
 {
-    public class Sprite : GLib.Object, IDocumentElement
-    {
-        //        IDocumentElement properties
-        public string name {get;set;default=_("Sprite1");}
-        public Gdk.Pixbuf thumbnail {get;set;}
-        public bool visible {get;set;default=true;}
-        public bool locked {get;set;default=false;}
-//        public Gtk.TreeIter iter {get;set;}
+    public class Sprite : IDocumentElement
+    {   
+        static uint stamp = 1;
         
         public Sprite() {
-//            FIXME Loading the icon just to show some pixbuf on the iconview
-            this.thumbnail = Gtk.IconTheme.get_default().load_icon("spritehut", 32, 0);
+            this.name = stamp_name(_("Sprite"), ref stamp);
         }
     }
 }

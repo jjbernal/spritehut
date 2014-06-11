@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -27,15 +27,16 @@ namespace Document
         {
             base();
             
-            width = 64;
-            height = 64;
+            width = 32;
+            height = 32;
             
+            mode = Imaging.Image.Mode.INDEXED;
             TreeIter iter;
             
             var sprite = new Sprite();
             var animation = new Animation ();
             var frame = new Frame();
-            var layer = new Layer();
+            var layer = new Layer(width, height, mode);
             
             iter = add(sprite, null);
             iter = add(animation, iter);

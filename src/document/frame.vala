@@ -19,14 +19,9 @@
 
 namespace Document
 {
-    public class Frame : GLib.Object, IDocumentElement
+    public class Frame : IDocumentElement
     {
-//        IDocumentElement properties
-        public string name {get;set;default=_("Frame1");}
-        public Gdk.Pixbuf thumbnail {get;set;}
-        public bool visible {get;set;default=true;}
-        public bool locked {get;set;default=false;}
-//        public Gtk.TreeIter iter {get;set;}
+        static uint stamp = 1;
         
         private uint _delay;
         
@@ -52,8 +47,7 @@ namespace Document
         public int delta_y {get;set;default=0;}
         
         public Frame() {
-//            FIXME Loading the icon just to show some pixbuf on the iconview
-            this.thumbnail = Gtk.IconTheme.get_default().load_icon("draw-eraser", 32, 0);
+            this.name = stamp_name(_("Frame"), ref stamp);
         }
         
     }

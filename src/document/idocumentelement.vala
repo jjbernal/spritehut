@@ -22,12 +22,18 @@ using Gdk;
 
 namespace Document
 {
-    public interface IDocumentElement : GLib.Object
+    public abstract class IDocumentElement : GLib.Object
     {
-        public abstract string name {get;set;}
-        public abstract Pixbuf thumbnail {get;set;}
-        public abstract bool visible {get;set;default=true;}
-        public abstract bool locked {get;set;default=false;}
-//        public abstract TreeIter iter {get;set;} //TODO Change to TreePath
+        public string name {get;set;}
+        public Pixbuf thumbnail {get;set;}
+        public bool visible {get;set;default=true;}
+        public bool locked {get;set;default=false;}
+        
+        protected string stamp_name (string name, ref uint stamp) {
+            string stamp_name = name + stamp.to_string();
+            ++stamp;
+            
+            return stamp_name;
+        }
     }
 }

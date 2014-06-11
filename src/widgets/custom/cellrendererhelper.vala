@@ -18,6 +18,7 @@
 */
 
 using Gtk;
+using Gdk;
 using Document;
 
 namespace Widgets
@@ -25,11 +26,34 @@ namespace Widgets
     public class CellRendererHelper: Object {
         public CellRendererPixbuf pixbuf_renderer;
         public CellRendererText text_renderer;
+        private static Pixbuf layer_icon;
+        private static Pixbuf frame_icon;
+        private static Pixbuf animation_icon;
+        private static Pixbuf sprite_icon;
         
         construct {
             pixbuf_renderer = new CellRendererPixbuf();
             text_renderer = new CellRendererText();
+            var icon_size = 24;
             
+            layer_icon = try_load_icon_from_theme("select-rectangular", icon_size);
+            frame_icon = try_load_icon_from_theme("draw-eraser", icon_size);
+            animation_icon = try_load_icon_from_theme("video-x-generic", icon_size);
+            sprite_icon = try_load_icon_from_theme("spritehut", icon_size);
+            
+        }
+        
+        private Pixbuf try_load_icon_from_theme(string icon_name, int icon_size) {
+            Pixbuf icon = null;
+            
+            try {
+                icon = Gtk.IconTheme.get_default().load_icon(icon_name, icon_size, 0);
+            }
+            catch (Error e) {
+                print (_("Error loading icon: %s\n"), e.message);
+            }
+            
+            return icon;
         }
         
         private static CellRendererHelper instance_;
@@ -52,7 +76,19 @@ namespace Widgets
         public void thumbnail_cell_data_func (CellRenderer cell, TreeModel tree_model, TreeIter iter) {
             IDocumentElement el;
             tree_model.get(iter, 0, out el);
-            ((CellRendererPixbuf) cell).pixbuf = el.thumbnail;
+            var cell_pixbuf = (CellRendererPixbuf) cell;
+            if (el is Document.Layer) {
+                cell_pixbuf.pixbuf = layer_icon;
+            }
+            else if (el is Document.Frame) {
+                cell_pixbuf.pixbuf = frame_icon;
+            }
+            else if (el is Document.Animation) {
+                cell_pixbuf.pixbuf = animation_icon;
+            }
+            else if (el is Document.Sprite) {
+                cell_pixbuf.pixbuf = sprite_icon;
+            }
         }
         
         public void visible_cell_data_func (CellRenderer cell, TreeModel tree_model, TreeIter iter) {

@@ -38,11 +38,12 @@ namespace FileIO
             Bitmap? bitmap = FreeImage.convert_from_raw_bits(image.pixel_data, (int) image.width, (int)image.height, pitch, (int)image.bpp, 0, 0, 0, true);
             
             if (image is IndexedImage) {
-                uint8[] transparency_table = new uint8[image.palette.color_list.size];
+                var indexed_image = (IndexedImage) image; 
+                uint8[] transparency_table = new uint8[indexed_image.palette.color_list.size];
                 
                 RgbQuad *pal = bitmap.get_palette();
                 int i = 0;
-                foreach (RGBA color in image.palette.color_list)
+                foreach (RGBA color in indexed_image.palette.color_list)
                 {
                     pal[i].rgbRed = (uint8) (color.red * 255);
                     pal[i].rgbGreen = (uint8) (color.green * 255);
@@ -52,7 +53,7 @@ namespace FileIO
                     i++;
                 }
                 
-                bitmap.set_transparency_table(transparency_table, image.palette.color_list.size);
+                bitmap.set_transparency_table(transparency_table, indexed_image.palette.color_list.size);
                 bitmap.set_transparent(true);
             }
             else if (image is RGBAImage) {

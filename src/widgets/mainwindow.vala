@@ -31,6 +31,7 @@ namespace Widgets
 
         private string default_title = _("Sprite Hut");
         private InfoBar main_infobar;
+        private ProgressBar main_progressbar;
         private MainDock main_dock;
 
         public const GLib.ActionEntry[] actions = {
@@ -80,6 +81,7 @@ namespace Widgets
                 
 //                builder.get_object ("main-window") as Gtk.ApplicationWindow;
                 main_infobar = builder.get_object ("main-infobar") as Gtk.InfoBar;
+                main_progressbar = builder.get_object ("main-progressbar") as Gtk.ProgressBar;
                 this.add_accel_group(builder.get_object ("main-accelgroup") as Gtk.AccelGroup);
                 this.add_action_entries( actions, this);
                 
@@ -96,7 +98,6 @@ namespace Widgets
                 box.pack_start(main_dock, true, true, 0);
                 
                 this.delete_event.connect(on_window_delete); // redirect delete_event
-                main_dock.active_canvas.mouse_over_canvas.connect(on_mouse_over_canvas);
                 
                 
                 this.show_all ();document = doc;
@@ -165,13 +166,25 @@ namespace Widgets
             this.sensitive = false;
             main_infobar.show();
             
+            
             //FIXME calling this async method breaks the app on file-quit if there are more than one main window
             nap.begin(2000);
+            GLib.Timeout.add (100, fill_progressbar);
         }
         
+        bool fill_progressbar () {
+            double fraction = main_progressbar.get_fraction (); //get current progress
+            fraction += 0.05; //increase by 10% each time this function is called
+
+            main_progressbar.set_fraction (fraction);
+
+            /* This function is only called by GLib.Timeout.add while it returns true; */
+            return (fraction < 1.0);
+        }
 //      copied from  https://wiki.gnome.org/Projects/Vala/AsyncSamples to simulate a long process
         public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
             GLib.Timeout.add (interval, () => {
+                main_progressbar.fraction = 0;
 //              nap.callback ();
                 main_infobar.hide ();
                 update_status();
@@ -195,7 +208,7 @@ namespace Widgets
 //                open_file (file_chooser.get_filename ());
                 stdout.printf("Saving to %s\n", fcd.get_filename ());
                 
-                //TODO really save the document
+                //TODO actually save the document
                 document.modified = false;
             }
             
@@ -272,10 +285,6 @@ namespace Widgets
             main_dock.active_canvas.zoom_out();
         }
         
-        public void on_mouse_over_canvas(int x, int y) {
-            main_statusbar.push(0, "(" + x.to_string() + ", " + y.to_string() + ")");
-        }
-        
         public void on_normal_size(SimpleAction action, Variant? parameter) {
             main_dock.active_canvas.zoom_level = 1.0;
         }
@@ -306,7 +315,7 @@ namespace Widgets
             
             if (document.active_element is Document.Layer) {
 //            add a sibling Layer at the same level
-                var layer = new Document.Layer();
+                var layer = new Document.Layer(document.width, document.height, document.mode);
                 document.add_sibling(layer, document.active_element_iter);
             }
             else if (document.active_element is Document.Frame) {
@@ -314,7 +323,7 @@ namespace Widgets
                 var frame = new Document.Frame();
                 var frame_iter = document.add_sibling(frame, document.active_element_iter);
 //                then some children
-                var layer = new Document.Layer();
+                var layer = new Document.Layer(document.width, document.height, document.mode);
                 document.add(layer, frame_iter);
             }
             else if (document.active_element is Document.Animation) {
@@ -324,7 +333,7 @@ namespace Widgets
                 var frame = new Document.Frame();
                 iter = document.add(frame, iter);
                 
-                var layer = new Document.Layer();
+                var layer = new Document.Layer(document.width, document.height, document.mode);
                 document.add(layer, iter);
             }
             else if (document.active_element is Document.Sprite) {
@@ -337,7 +346,7 @@ namespace Widgets
                 var frame = new Document.Frame();
                 iter = document.add(frame, iter);
                 
-                var layer = new Document.Layer();
+                var layer = new Document.Layer(document.width, document.height, document.mode);
                 document.add(layer, iter);
             }
         }

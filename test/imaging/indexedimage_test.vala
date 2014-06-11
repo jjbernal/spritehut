@@ -31,7 +31,7 @@ public class TestIndexedImage : Object {
         // a dummy 2x2 32-bit BGRA image consisting formed by a red, green, blue and white pixel
         uint8* pixel_array = new uint8[4] {0, 1,
                                               2, 3};
-        Image image = new IndexedImage.from_pixel_data(2, 2, 8, pixel_array);
+        IndexedImage image = new IndexedImage.from_pixel_data(2, 2, 8, pixel_array);
         
         // create and initialize palette
         image.palette = new Palette();

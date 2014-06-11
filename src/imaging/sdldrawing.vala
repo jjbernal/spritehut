@@ -61,7 +61,8 @@ namespace Imaging
             Surface dst = new Surface.from_RGB((void*) image.pixel_data, (int) image.width, (int) image.height, (int) image.bpp, pitch, (uint32)0x00ff0000, (uint32)0x0000ff00, (uint32)0x000000ff, (uint32)0xff000000);
             
             if (image.mode == Image.Mode.INDEXED) {
-                SDL.Color[] colors = convert_to_sdl_palette(image.palette);
+                var indexed_image = (IndexedImage) image;
+                SDL.Color[] colors = convert_to_sdl_palette(indexed_image.palette);
                 dst.set_palette(PaletteFlags.LOGPAL, colors);
             }
             

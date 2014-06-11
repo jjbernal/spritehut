@@ -22,7 +22,7 @@ using Gdk;
 
 public class TestSDLDrawing : Object {
     public static void test_draw_line_indexed () {
-        Image image = new IndexedImage(64, 64, 8);
+        IndexedImage image = new IndexedImage(64, 64, 8);
         
         // create and initialize palette
         image.palette = new Palette();

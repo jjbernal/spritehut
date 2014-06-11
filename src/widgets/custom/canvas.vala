@@ -26,7 +26,7 @@ namespace Widgets
 {
     public class Canvas : DrawingArea {
         private static const double BRUSH_RADIUS = 2;
-        private Cairo.ImageSurface canvas_surface = new Cairo.ImageSurface(Format.ARGB32, 64, 64);
+        public Cairo.ImageSurface canvas_surface = new Cairo.ImageSurface(Format.ARGB32, 64, 64);
         private Cairo.ImageSurface pixel_grid_surface;
         private Cairo.Pattern pixel_grid_pattern;
         private int img_left;
@@ -38,36 +38,38 @@ namespace Widgets
         private int zoom_index = 5;
         
         private double _zoom_level = 1;
+        
         public double zoom_level{
-        get{
-            return _zoom_level;
-        }
-        set{
-            _zoom_level = value;
-            zoom_index = zoom_steps.index_of(_zoom_level);
-//            print ("Zoom index: %d\n", zoom_index);
-            prepare_pixel_grid();
-            update_size_request();
-            var window = get_window();
-            window.invalidate_rect(null, false); // ask for a redraw
-        }
+            get{
+                return _zoom_level;
+            }
+            set{
+                _zoom_level = value;
+                zoom_index = zoom_steps.index_of(_zoom_level);
+//                print ("Zoom index: %d\n", zoom_index);
+                prepare_pixel_grid();
+                update_size_request();
+                var window = get_window();
+                window.invalidate_rect(null, false); // ask for a redraw
+            }
         }
         public bool enable_pixel_grid{get;set;default=true;}
         public double minimum_margin{get;set;default=100;}
-        public Gdk.Cursor cursor{get {
-            return _cursor;
-        }
-        set {
-            var window = get_window ();
-            _cursor = value;
-            window.set_cursor(_cursor);
-        }
+        public Gdk.Cursor cursor{
+            get {
+                return _cursor;
+            }
+            set {
+                var window = get_window ();
+                _cursor = value;
+                window.set_cursor(_cursor);
+            }
         }
         private Gdk.Cursor _cursor;
         private Gdk.Cursor default_cursor;
         private Gdk.Cursor cursor_on_canvas;
         public signal void mouse_over_canvas(int x, int y);
-
+        
         public Canvas () {
             add_events(Gdk.EventMask.BUTTON_PRESS_MASK |
 //                        Gdk.EventMask.BUTTON_MOTION_MASK |
@@ -75,15 +77,16 @@ namespace Widgets
                         Gdk.EventMask.POINTER_MOTION_MASK);
             
         }
+        
         public override void realize(){
             base.realize();
             
             //            Paint the surface to white
 //            canvas_surface ;
             Cairo.Context cr = new Cairo.Context (canvas_surface);
-            cr.set_source_rgba (1, 1, 1, 0.5); // pure white
+//            cr.set_source_rgba (1, 1, 1, 0.5); // pure white
 //            cr.rectangle(0, 0, canvas_surface.get_width(), canvas_surface.get_height());
-            cr.paint();
+//            cr.paint();
 //            cr.fill();
             prepare_pixel_grid();
             update_size_request();
@@ -166,7 +169,7 @@ namespace Widgets
             }
         }
         private void update_size_request() {
-            set_size_request((int) (canvas_surface.get_width()*zoom_level + minimum_margin), (int) (canvas_surface.get_height()*zoom_level + minimum_margin));
+            set_size_request((int) (canvas_surface.get_width()*zoom_level + minimum_margin), (int) (canvas_surface.get_height() * zoom_level + minimum_margin));
         }
         
         public override bool configure_event(Gdk.EventConfigure event)

@@ -91,7 +91,7 @@ namespace FileIO
             }
             
             uint8* pixel_array = bitmap.get_bits();
-            Image image = new IndexedImage.from_pixel_data(bitmap.get_width(), bitmap.get_height(), bitmap.get_bpp(), pixel_array);
+            IndexedImage image = new IndexedImage.from_pixel_data(bitmap.get_width(), bitmap.get_height(), bitmap.get_bpp(), pixel_array);
             
             image.palette = new Palette();
             
