@@ -18,12 +18,12 @@
 */
 
 using Gtk;
-//using Cairo;
-//using Widgets;
+using Widgets;
 
-namespace Widgets {
+namespace SpriteHut.Core {
     public class SpriteHutApp : Gtk.Application
     {
+        private PreferencesManager preferences_man = new PreferencesManager();
         private AboutDialog about;
         private string default_document_name = _("Untitled");
         private static uint open_documents_in_this_session = 0;
@@ -96,7 +96,7 @@ namespace Widgets {
             {
                 ((MainWindow) window).close_intent();
             }
-//            this.quit ();  //**Bug #674090**
+//            this.quit ();
         }
         
         public SpriteHutApp (string app_id, ApplicationFlags flags)
@@ -115,8 +115,6 @@ namespace Widgets {
             
             this.add_action_entries (actions, this);
             
-//            string main_window_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
-//                                                 "mainmenubar.ui", null );
             string main_window_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
                                                  "aboutdialog.ui", null );
                                                  
@@ -130,8 +128,10 @@ namespace Widgets {
             }
             
             about = builder.get_object ("about-dialog") as AboutDialog;
-//            this.menubar = builder.get_object ("main-menubar") as MenuModel;
+
             add_accelerators();
+            
+            preferences_man.load();
         }
         
         private void add_accelerators(){

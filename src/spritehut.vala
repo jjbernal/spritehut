@@ -17,8 +17,7 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//using SpriteHut;
-using Widgets;
+using SpriteHut.Core;
 
 int main (string[] args)
 {
@@ -27,7 +26,6 @@ int main (string[] args)
 	Intl.textdomain(Config.GETTEXT_PACKAGE);
     
 	var app = new SpriteHutApp("org.gtk.Spritehut", ApplicationFlags.FLAGS_NONE);
-//    app.activate.connect(app.on_app_activate);
     int status = app.run (args);
 
     return status;

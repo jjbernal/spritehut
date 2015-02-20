@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -25,7 +25,7 @@ namespace Document
         static uint stamp = 1;
         
         private double _opacity;
-        public Image image; //TODO create Image class
+        public Image image;
         
         public double opacity
         {
@@ -50,7 +50,6 @@ namespace Document
         {
             opacity = 1;
             this.name = stamp_name(_("Layer"), ref stamp);
-            //image = TODO: initialize/link image here
             switch (mode) {
                 case Image.Mode.INDEXED:
                     image = new IndexedImage(width, height, 8);

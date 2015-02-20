@@ -7,6 +7,7 @@ src/document/sprite.c
 src/document/palette.c
 src/widgets/maindock.c
 src/widgets/mainwindow.c
+src/widgets/custom/cellrendererhelper.c
 src/imaging/palette.c
 src/fileio/freeimagereader.c
 data/ui/mainmenubar.ui

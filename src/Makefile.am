@@ -82,8 +82,10 @@ libwidgets_la_LIBADD = \
     
 
 spritehut_SOURCES = \
-	spritehut.vala \
-	spritehut-app.vala
+    spritehut.vala \
+    spritehut-app.vala \
+    core/ResourceDirHelper.vala \
+    core/PreferencesManager.vala
 
 AM_CPPFLAGS = \
 	-include config.h \

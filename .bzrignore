@@ -56,3 +56,4 @@ aclocal.m4
 src/controllers.vapi
 src/widgets.vapi
 *.h
+*.vapi

@@ -32,7 +32,7 @@ namespace Widgets
         private int img_left;
         private int img_top;
         private bool button_down = false;
-        private static ArrayList<double?> zoom_steps = new ArrayList<double?>.wrap ({0.10, 0.12, 0.14, 0.25, 0.50, 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 50, 75, 100, 180, 256},((a,b) => {
+        private static Gee.List<double?> zoom_steps = new ArrayList<double?>.wrap ({0.10, 0.12, 0.14, 0.25, 0.50, 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 50, 75, 100, 180, 256},((a,b) => {
         return a==b;
     }));
         private int zoom_index = 5;
@@ -266,7 +266,7 @@ namespace Widgets
             color = {1,0,0,1};
             paintbrush_at(event.x, event.y, color);
             button_down = true;
-            
+//            print ("Device: %s X: %f Y: %f Pressure: %f\n", event.device.name, event.x, event.y, event.axes); //TODO
             return true;
         }
 
@@ -289,6 +289,8 @@ namespace Widgets
             {
                 paintbrush_at(event.x, event.y, color);
             }
+            
+            debug ("Device: %s X: %f Y: %f Pressure: %f\n", Gtk.get_current_event_device().name, event.axes[0], event.axes[1], event.axes[2]); //TODO
             
             int widget_to_image_x = (int)((event.x - img_left)/zoom_level); // TODO look for a reason for the incorrect coordinates in the upper left corner
             int widget_to_image_y = (int)((event.y - img_top) / zoom_level);

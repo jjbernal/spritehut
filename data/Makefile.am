@@ -6,7 +6,6 @@ SUBDIRS = icons
 uidir = $(pkgdatadir)/ui
 ui_DATA = \
     ui/mainwindow.ui \
-    ui/mainmenubar.ui \
     ui/maindockwidgets.ui \
     ui/aboutdialog.ui \
     ui/newdocumentdialog.ui

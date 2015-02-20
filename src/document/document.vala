@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -24,8 +24,6 @@ namespace Document
 {
     public class Document : GLib.Object
     {
-//        IDocumentElement properties
-//        TODO It doesn't make a lot of sense for Document to implement this interface
         public string name {get;set;}
         
         private TreeStore _treemodel;
