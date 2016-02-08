@@ -75,6 +75,7 @@ namespace Widgets
 //                        Gdk.EventMask.BUTTON_MOTION_MASK |
                         Gdk.EventMask.BUTTON_RELEASE_MASK |
                         Gdk.EventMask.POINTER_MOTION_MASK);
+                        
             set_size_request(400, 400);
         }
         
@@ -115,6 +116,7 @@ namespace Widgets
         public void zoom_in()
         {
             ++zoom_index;
+            
             if (zoom_index < zoom_steps.size ) {
                 zoom_level = zoom_steps[zoom_index];
             }
@@ -282,7 +284,7 @@ namespace Widgets
 
         /* Mouse pointer moved over widget */
         public override bool motion_notify_event (Gdk.EventMotion event) {
-//            print ("Motion event %d, %d \n", (int) event.x, (int) event.y);
+            print ("Motion event %d, %d \n", (int) event.x, (int) event.y);
             Gdk.RGBA color = RGBA();
             color = {0,0,0,1};
             if (button_down)
@@ -290,15 +292,23 @@ namespace Widgets
                 paintbrush_at(event.x, event.y, color);
             }
             
-            debug ("Device: %s X: %f Y: %f Pressure: %f\n", Gtk.get_current_event_device().name, event.axes[0], event.axes[1], event.axes[2]); //TODO
+            debug ("Device: %s X: %f Y: %f Pressure: %f\n", Gtk.get_current_event_device().name, event.axes[0], event.axes[1], event.axes[2]); //TODO Graphics tablet support
             
-            int widget_to_image_x = (int)((event.x - img_left)/zoom_level); // TODO look for a reason for the incorrect coordinates in the upper left corner
+            // Calculate coordinates from widget space to image space
+            int widget_to_image_x = (int)((event.x - img_left) / zoom_level);
             int widget_to_image_y = (int)((event.y - img_top) / zoom_level);
-            if (widget_to_image_x >= 0 &&
-                widget_to_image_x < canvas_surface.get_width() &&
-                widget_to_image_y >= 0 &&
-                widget_to_image_y < canvas_surface.get_height()) {
-//                print ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
+            
+//            if (widget_to_image_x >= 0 &&
+//                widget_to_image_x < canvas_surface.get_width() &&
+//                widget_to_image_y >= 0 &&
+//                widget_to_image_y < canvas_surface.get_height()) {
+            if (event.x > img_left &&
+                event.x < (img_left + canvas_surface.get_width() * zoom_level) &&
+                event.y > img_top &&
+                event.y < (img_top + canvas_surface.get_height() * zoom_level)) {
+                
+                print ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
+                // emit signal
                 mouse_over_canvas(widget_to_image_x, widget_to_image_y);
                 cursor = cursor_on_canvas;
             }

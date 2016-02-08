@@ -10,9 +10,7 @@ src/widgets/mainwindow.c
 src/widgets/custom/cellrendererhelper.c
 src/imaging/palette.c
 src/fileio/freeimagereader.c
-data/ui/mainmenubar.ui
-data/ui/oldaboutdialog.ui
-data/ui/oldmainwindow.ui
+src/core/ResourceDirHelper.c
 data/ui/mainmenubar.ui
 data/ui/oldaboutdialog.ui
 data/ui/oldmainwindow.ui

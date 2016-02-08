@@ -14,6 +14,7 @@ src/widgets/custom/cellrendererhelper.vala
 src/document/animation.vala
 src/imaging/palette.vala
 src/fileio/freeimagereader.vala
+src/core/ResourceDirHelper.vala
 [type: gettext/glade]data/ui/mainwindow.ui
 [type: gettext/glade]data/ui/aboutdialog.ui
 [type: gettext/glade]data/ui/toolpalette.ui
