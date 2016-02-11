@@ -57,3 +57,11 @@ src/controllers.vapi
 src/widgets.vapi
 *.h
 *.vapi
+*.o
+*.trs
+compile
+test-driver
+*.pot
+*.log
+test/imaging/testimages/*
+test/*_test
