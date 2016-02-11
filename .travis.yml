@@ -8,4 +8,4 @@ before_install:
           libgee-0.8-dev libsdl1.2-dev libsdl-gfx1.2-dev libgdl-3-dev
           libxml2-dev libmagickcore-dev libmagickwand-dev libfreeimage-dev
 script:
-  - make
+  - ./autogen.sh && make
