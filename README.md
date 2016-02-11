@@ -1,7 +1,7 @@
 Sprite Hut
 ==========
 
-Just a sprite editor GNU/linux. Written in vala.
+Just a sprite editor. Written in vala.
 
 More details in the functional specification (coming soon).
 
