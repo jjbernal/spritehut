@@ -53,6 +53,10 @@ He usually uses more powerful and bigger software for his animation work, but se
 
 User interface
 --------------
+### Main Window
+
+![Current state of the main window](images/screenshot-main-window.png)
+<center><small>*Current state of the critter*</small></center>
 
 ### Canvas widget
 
