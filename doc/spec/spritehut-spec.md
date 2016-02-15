@@ -58,6 +58,24 @@ User interface
 ![Current state of the main window](images/screenshot-main-window.png)
 <center><small>*Current state of the critter*</small></center>
 
+**Notes on current implementation:**
+* Color picker widget just wastes space for now. It has to go away.
+* Needs a good, custom palette widget.
+
+#### Open Issues
+
+* **Reorganization of the Widgets in Main Window**. Motivation: GDL docks not behaving as expected (GTK+ runtime warnings, freezes, canvas widgets not expanding properly when maximized)
+    * Floating multiple utility windows, one for each subwidget (like in older GIMP versions, *MyPaint*, *Pixen*, older *Synfig*)
+        * Pros: Easy to implement. Flexible and advantageous with multiple monitor setups.
+        * Cons: People may find it clumsy. GIMP and Synfig have adopted Single window MDI some time ago, implementing their own docking widgets.
+    * Single indivisible window, with customizable side and bottom panes (like gedit).
+        * Pros: Relatively simple and flexible from a user/plugin customization point of view.
+        * Cons: Not that good for multiple monitor setups (as subwidgets can't be dragged out of the main window).
+    * Writing/adopting another, better docking widget library for GTK+.
+        * Pros: The best compromise and possible solution from a user standpoint.
+        * Cons: Time consuming and prone to bugs on the programming end.
+
+
 ### Canvas widget
 
 ### Timeline widget
