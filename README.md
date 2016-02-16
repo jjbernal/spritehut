@@ -27,14 +27,14 @@ And recent autotools and autogen versions.
 
 If you are a ubuntu user, you can add the Vala Team PPA by running:
 
-    add-apt-repository ppa:vala-team/ppa
+    sudo add-apt-repository ppa:vala-team/ppa
     sudo apt-get update
 
 Then you can install all the required packages by issuing the following command:
 
-    sudo apt-get install gnome-common libglib2.0-dev libgtk-3-dev
-        libvala-0.30-dev valac-0.30 valac-0.30-vapi gobject-introspection
-        libgee-0.8-dev libsdl1.2-dev libsdl-gfx1.2-dev libgdl-3-dev
+    sudo apt-get install gnome-common libglib2.0-dev libgtk-3-dev \
+        libvala-0.30-dev valac-0.30 valac-0.30-vapi gobject-introspection \
+        libgee-0.8-dev libsdl1.2-dev libsdl-gfx1.2-dev libgdl-3-dev \
         libxml2-dev libmagickcore-dev libmagickwand-dev libfreeimage-dev
 
  NOTE: Although the 0.20 version of the valac Vala compiler works fine, it's recommended
