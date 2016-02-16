@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkAccelGroup" id="main-accelgroup"/>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-help</property>
-    <property name="icon-size">1</property>
+    <property name="icon_size">1</property>
   </object>
+  <object class="GtkAccelGroup" id="main-accelgroup"/>
   <object class="GtkWindow" id="main-window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Sprite Hut</property>
@@ -393,9 +394,6 @@
           <object class="GtkToolbar" id="main-toolbar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <style>
-              <class name="primary-toolbar"/>
-            </style>
             <child>
               <object class="GtkToolButton" id="new-toolbutton">
                 <property name="visible">True</property>
@@ -523,6 +521,9 @@
                 <property name="homogeneous">True</property>
               </packing>
             </child>
+            <style>
+              <class name="primary-toolbar"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -534,6 +535,28 @@
           <object class="GtkInfoBar" id="main-infobar">
             <property name="can_focus">False</property>
             <property name="no_show_all">True</property>
+            <child internal-child="action_area">
+              <object class="GtkButtonBox" id="infobar-action_area1">
+                <property name="can_focus">False</property>
+                <property name="border_width">5</property>
+                <property name="spacing">6</property>
+                <property name="layout_style">end</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
             <child internal-child="content_area">
               <object class="GtkBox" id="infobar-content_area1">
                 <property name="can_focus">False</property>
@@ -559,28 +582,6 @@
                 <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
-              </packing>
-            </child>
-            <child internal-child="action_area">
-              <object class="GtkButtonBox" id="infobar-action_area1">
-                <property name="can_focus">False</property>
-                <property name="border_width">5</property>
-                <property name="spacing">6</property>
-                <property name="layout_style">end</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
               </packing>
             </child>
           </object>

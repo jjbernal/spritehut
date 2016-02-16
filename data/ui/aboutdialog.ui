@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAboutDialog" id="about-dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -9,10 +10,10 @@
     <property name="type_hint">dialog</property>
     <property name="program_name">Sprite Hut</property>
     <property name="version">0.1 alpha</property>
-    <property name="copyright" translatable="yes">Copyright © 2011-2014 Juan José Bernal Rodríguez</property>
-    <property name="comments" translatable="yes">A GTK+ sprite editor with a twist</property>
-    <property name="website">http://launchpad.net/spritehut</property>
-    <property name="website_label" translatable="yes">Visit the project at Launchpad</property>
+    <property name="copyright" translatable="yes">Copyright © 2011-2016 Juan José Bernal Rodríguez</property>
+    <property name="comments" translatable="yes">Just a sprite editor</property>
+    <property name="website">http://github.com/jjbernal/spritehut</property>
+    <property name="website_label" translatable="yes">Visit the project at GitHub</property>
     <property name="authors">Juan José Bernal Rodríguez&lt;juanjose.bernal.rodriguez@gmail.com&gt;</property>
     <property name="logo_icon_name">spritehut</property>
     <property name="license_type">gpl-3-0</property>

@@ -65,3 +65,4 @@ test-driver
 *.log
 test/imaging/testimages/*
 test/*_test
+*.*~
