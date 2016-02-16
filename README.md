@@ -27,7 +27,7 @@ And recent autotools and autogen versions.
 
 If you are a ubuntu user, you can add the Vala Team PPA by running:
 
-    add-apt-repository ppa:vala-team/ppa
+    sudo add-apt-repository ppa:vala-team/ppa
     sudo apt-get update
 
 Then you can install all the required packages by issuing the following command:
