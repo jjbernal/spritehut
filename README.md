@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/jjbernal/spritehut.svg?branch=master)](https://travis-ci.org/jjbernal/spritehut)
 [![Stories in Ready](https://badge.waffle.io/jjbernal/spritehut.png?label=ready&title=Ready)](https://waffle.io/jjbernal/spritehut)
 Sprite Hut
 ==========
@@ -6,8 +7,6 @@ Just a sprite editor. Written in vala.
 Released under the GPL v3 license. See [COPYING](COPYING) for details.
 
 [Functional specification (in progress)](doc/spec/spritehut-spec.md).
-
-[![Build Status](https://travis-ci.org/jjbernal/spritehut.svg?branch=master)](https://travis-ci.org/jjbernal/spritehut)
 
 Supported platforms
 -------------------
