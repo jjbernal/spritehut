@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/jjbernal/spritehut.png?label=ready&title=Ready)](https://waffle.io/jjbernal/spritehut)
 Sprite Hut
 ==========
 Just a sprite editor. Written in vala.
