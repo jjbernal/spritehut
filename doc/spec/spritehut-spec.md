@@ -7,7 +7,7 @@ Juan José Bernal Rodríguez
 
 **First version:** February, 13th 2016
 
-**Latest update:** See GitHub date for this file
+**Latest update:** February, 18th 2016
 
 Disclaimer
 --
@@ -32,7 +32,7 @@ User case scenarios
 
 ### Mona
 
-Mona is a very special liberal-arts degree student. She dyes her hair in *vibrant* colours (at least **three**, for good measure) and uses an extremely expensive computer that she bought by mortgaging her future grandchildrens' university funds, just like every other aspiring designer in the city. "But it *was* **totally worth it**!", she yells from the end of the corridor. Yeah, sure.
+Mona is a very special liberal-arts degree student. She dyes her hair in *vibrant* colors (at least **three**, for good measure) and uses an extremely expensive computer that she bought by mortgaging her future grandchildrens' university funds, just like every other aspiring designer in the city. "But it *was* **totally worth it**!", she yells from the end of the corridor. Yeah, sure.
 
 She's interested in pixel art as long as it is not *too mainstream*, so right now it's a little early for her to jump off the retro bandwagon, but it's certainly starting to get crowded there. She uses **Sprite Hut** once in a while when she forgets her luxurious notebook at home and she has to use a good ol' PC in school.
 
@@ -56,7 +56,7 @@ User interface
 ### Main Window
 
 ![Current state of the main window](images/screenshot-main-window.png)
-<center><small>*Current state of the critter*</small></center>
+<small>*Current state of the critter*</small>
 
 **Notes on current implementation:**
 * Color picker widget just wastes space for now. It has to go away.
@@ -71,12 +71,58 @@ User interface
     * Single indivisible window, with customizable side and bottom panes (like gedit).
         * Pros: Relatively simple and flexible from a user/plugin customization point of view.
         * Cons: Not that good for multiple monitor setups (as subwidgets can't be dragged out of the main window).
-    * Writing/adopting another, better docking widget library for GTK+.
+    * Writing/adopting another, better docking widget library for GTK+ (*GIMP* and *Synfig* have their own ones).
         * Pros: The best compromise and possible solution from a user standpoint.
         * Cons: Time consuming and prone to bugs on the programming end.
+    * Hybrid, limited docking  feature, like that in Inkscape. Only allow docking for some dialogs in a single column; all the other elements in the window are fixed.
+        * Pros: Provides some flexibility on the ui for users while not messing with the general window layout.
+        * Cons: GDL is still there.
 
 
 ### Canvas widget
+
+This is the main widget and main work area of the application.
+Features a painting area delimited by a rectangular border, a background and a pixel grid, which appears when zooming in images for pixel-perfect precision.
+>#### User-customizable settings:
+* Canvas border width (in pixels, default 2)
+* Canvas border color (default: black, #000000)
+* Background (a tileable bitmap, definable per file)(default: checkerboard)
+* Minimum zoom level to show the pixel grid (default: 4x)
+
+>#### Technical note:
+The Canvas widget itself should *not* draw anything on layers by itself, but forward coordinates
+on click/tap/mouse down events to a drawing/paint engine via a GTK+ signal. This way, the
+widget is detached from the model and we can adopt more advanced and powerful paint engines in
+the future, or alternative view modes (tiling mode ala krita).
+
+
+### Tools widget
+
+This widget sports the different tools that can be used on the canvas.
+
+* **Pencil**. Draws freehand lines.
+* **Eraser**. Erases freehand lines to transparent color.
+* **Color picker**. Sets current selected color based on a click on the canvas.
+* **Bucket fill**. Fills a closed area with current selected color.
+
+### Palette widget
+
+Shows colors that the current palette contains.
+Clicking on a color will set it as the current drawing/painting color.
+Double-clicking on a color allows to edit its components (RGB, HSV, etc.)
+Dragging and dropping a color onto another reorders colors.
+
+>#### User-customizable settings:
+* Color rectangle size.
+    * small (24x16)
+    * medium (32x24)
+    * large (64x48)
+    * custom (user-defined)
+* Show color indices by default
+
+>#### Technical note:
+Should watch the current palette property from the *document* to update its contents.
+
 
 ### Timeline widget
 
@@ -108,17 +154,10 @@ Plugin system
 
 ## Non-goals
 
-### For this milestone:
+### For this milestone (0.1):
 * Non-indexed color modes (16, 24, 32-bit, etc.)
 * GIF import/export plugin.
 * Seamless tile painting mode (like Krita).
 * Integration of MyPaint or other advanced paint engine.
 * Hyerarchycal/modular sprites support (like those in Rayman or Vectorman).
-
-### Forever (or at least officially. *Feel free to fork if you need these features!*):
-* Filters
-* Advanced photo-retouching features
-* Make-your-game-in-this-editor-with-no-coding-at-all
-* 3D modelling
-* Tweet this/Upload to facebook/whatever social media
-* Linux kernel module (just in case)
+* Support for pressure sensitive graphics tablets (may still be used, just ignoring pressure information).
