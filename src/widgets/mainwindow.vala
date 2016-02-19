@@ -195,7 +195,7 @@ namespace Widgets
 //      
         // File action handlers
         public void on_save(SimpleAction action, Variant? parameter) {
-            stdout.printf("Save Stub\n");
+            debug("Save Stub\n");
             //TODO really save the document
             document.modified = false;
             set_busy_status();
@@ -206,7 +206,7 @@ namespace Widgets
                                       Stock.SAVE_AS, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
 //                open_file (file_chooser.get_filename ());
-                stdout.printf("Saving to %s\n", fcd.get_filename ());
+                debug("Saving to %s\n", fcd.get_filename ());
                 
                 //TODO actually save the document
                 document.modified = false;
@@ -257,23 +257,23 @@ namespace Widgets
         }
         
         public void on_cut(SimpleAction action, Variant? parameter) {
-            stdout.printf("Cut Stub\n");
+            debug("Cut Stub\n");
         }
         
         public void on_copy(SimpleAction action, Variant? parameter) {
-            stdout.printf("Copy Stub\n");
+            debug("Copy Stub\n");
         }
         
         public void on_paste(SimpleAction action, Variant? parameter) {
-            stdout.printf("Paste Stub\n");
+            debug("Paste Stub\n");
         }
         
         public void on_delete(SimpleAction action, Variant? parameter) {
-            stdout.printf("Delete Stub\n");
+            debug("Delete Stub\n");
         }
         
         public void on_preferences(SimpleAction action, Variant? parameter) {
-            stdout.printf("Preferences Stub\n");
+            debug("Preferences Stub\n");
         }
         
         // View action handlers
@@ -303,15 +303,15 @@ namespace Widgets
         
 //        paint tools
         public void on_paint_pencil(SimpleAction action, Variant? parameter) {
-            stdout.printf("Selected pencil\n");
+            debug ("Selected pencil\n");
         }
         
         public void on_paint_eraser(SimpleAction action, Variant? parameter) {
-            stdout.printf("Selected eraser\n");
+            debug ("Selected eraser\n");
         }
         
         public void on_document_add(SimpleAction action, Variant? parameter) {
-            stdout.printf("Document add\n");
+            debug("Document add\n");
             
             if (document.active_element is Document.Layer) {
 //            add a sibling Layer at the same level
@@ -352,19 +352,19 @@ namespace Widgets
         }
         
         public void on_document_remove(SimpleAction action, Variant? parameter) {
-            stdout.printf("Document remove\n");
+            debug("Document remove\n");
         }
         
         public void on_document_duplicate(SimpleAction action, Variant? parameter) {
-            stdout.printf("Document duplicate\n");
+            debug("Document duplicate\n");
         }
         
         public void on_document_raise(SimpleAction action, Variant? parameter) {
-            stdout.printf("Document raise\n");
+            debug("Document raise\n");
         }
         
         public void on_document_lower(SimpleAction action, Variant? parameter) {
-            stdout.printf("Document lower\n");
+            debug("Document lower\n");
         }
     }
 }

@@ -284,7 +284,7 @@ namespace Widgets
 
         /* Mouse pointer moved over widget */
         public override bool motion_notify_event (Gdk.EventMotion event) {
-            print ("Motion event %d, %d \n", (int) event.x, (int) event.y);
+            debug ("Motion event %d, %d \n", (int) event.x, (int) event.y);
             Gdk.RGBA color = RGBA();
             color = {0,0,0,1};
             if (button_down)
@@ -307,7 +307,7 @@ namespace Widgets
                 event.y > img_top &&
                 event.y < (img_top + canvas_surface.get_height() * zoom_level)) {
                 
-                print ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
+                debug ("image coords %d, %d \n", widget_to_image_x, widget_to_image_y);
                 // emit signal
                 mouse_over_canvas(widget_to_image_x, widget_to_image_y);
                 cursor = cursor_on_canvas;

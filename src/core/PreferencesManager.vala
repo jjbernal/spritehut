@@ -25,13 +25,13 @@ namespace SpriteHut.Core
         public void load()
         {
             var res_dir_helper = ResourceDirHelper.get_instance();
-//            message (res_dir_helper.user_dir["config"]);
-//            message (res_dir_helper.user_dir["data"]);
-//            message (res_dir_helper.user_dir["autosave"]);
-//            message (res_dir_helper.user_dir["backgrounds"]);
-//            message (res_dir_helper.user_dir["brushes"]);
-//            message (res_dir_helper.user_dir["plugins"]);
-//            message (res_dir_helper.user_dir["templates"]);
+//            debug (res_dir_helper.user_dir["config"]);
+//            debug (res_dir_helper.user_dir["data"]);
+//            debug (res_dir_helper.user_dir["autosave"]);
+//            debug (res_dir_helper.user_dir["backgrounds"]);
+//            debug (res_dir_helper.user_dir["brushes"]);
+//            debug (res_dir_helper.user_dir["plugins"]);
+//            debug (res_dir_helper.user_dir["templates"]);
             res_dir_helper.make_directories_with_parents();
             
             // List xinput devices
@@ -42,12 +42,12 @@ namespace SpriteHut.Core
             
             foreach (Gdk.Device device in device_list) {
                 if (device.input_source != InputSource.KEYBOARD) {
-                    print ("%s Source: %s Mode: %s\n", device.get_name(), device.input_source.to_string(), device.get_mode().to_string());
+                    info ("%s Source: %s Mode: %s", device.get_name(), device.input_source.to_string(), device.get_mode().to_string());
                     
                     
                     int axes = device.get_n_axes();
                     for (int i = 0; i < axes; ++i) {
-                        print ("Axis #%i: %s\n", i, device.get_axis_use(i).to_string());
+                        info ("Axis #%i: %s", i, device.get_axis_use(i).to_string());
                     }
                 }
             }

@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -52,7 +52,7 @@ namespace SpriteHut.Core {
             int response = new_dialog.run();
             
             if (response == ResponseType.OK) {
-                stdout.printf("Creating New Document: \nwidth: %uheight:  mode: \n", new_dialog.width());
+                info("Creating New Document: \nwidth: %uheight:  mode: \n", new_dialog.width());
                 
                 var document = create_default_document();
                 
@@ -69,7 +69,7 @@ namespace SpriteHut.Core {
                                       Stock.OPEN, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
     //                open_file (file_chooser.get_filename ());
-                stdout.printf("Loading %s\n", fcd.get_filename ());
+                info("Loading %s\n", fcd.get_filename ());
             }
             
             fcd.destroy();
@@ -77,7 +77,7 @@ namespace SpriteHut.Core {
         
         void on_help(SimpleAction action, Variant? parameter) 
         {
-            print ("You clicked \"Help contents\"\n");
+            info ("You clicked \"Help contents\"\n");
         }
         
         void on_about(SimpleAction action, Variant? parameter) 
@@ -87,11 +87,11 @@ namespace SpriteHut.Core {
         }
         
         void on_preferences (SimpleAction action, Variant? parameter) {
-            print ("You clicked \"Preferences\"\n");
+            info ("You clicked \"Preferences\"\n");
         }
 
         void on_quit (SimpleAction action, Variant? parameter) {
-            print ("You clicked \"Quit\"\n");
+            info ("You clicked \"Quit\"\n");
             foreach (Gtk.Window window in this.get_windows())
             {
                 ((MainWindow) window).close_intent();
