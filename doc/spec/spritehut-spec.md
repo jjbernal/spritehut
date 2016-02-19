@@ -7,7 +7,7 @@ Juan José Bernal Rodríguez
 
 **First version:** February, 13th 2016
 
-**Latest update:** February, 18th 2016
+**Latest update:** February, 19th 2016
 
 Disclaimer
 --
@@ -160,4 +160,4 @@ Plugin system
 * Seamless tile painting mode (like Krita).
 * Integration of MyPaint or other advanced paint engine.
 * Hyerarchycal/modular sprites support (like those in Rayman or Vectorman).
-* Support for pressure sensitive graphics tablets (may still be used, just ignoring pressure information).
+* Support for pressure sensitive graphics tablets (they may still be used as regular pointing devices, just ignoring pressure information).
