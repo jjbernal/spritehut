@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -104,10 +104,6 @@ namespace Widgets
             var toolbox = add_dock_item(dock, "toolbox", _("Toolbox"), toolbox_toolpalette, canvas_dockitem,
             DockPlacement.LEFT, 50, 150);
             toolbox.resize = false;
-
-            /* the color_picker dock */
-            var color_picker = add_dock_item(dock, "color_picker", _("Color Picker"), new HSV(), toolbox,
-            DockPlacement.BOTTOM, 50, 50);
             
             // Document Tree
             var document_tree = add_dock_item(dock, "document-tree", _("Document Tree"), document_box, palette,
