@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -26,10 +26,10 @@ namespace Document
         private Gee.LinkedList<Change?> _undo_history;
         
         struct Change {
-            private Object target;
-            private string property_name;
-            private Value original_value;
-            private Value modified_value;
+            Object target;
+            string property_name;
+            Value original_value;
+            Value modified_value;
         }
         
         private int _now;

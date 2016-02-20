@@ -19,6 +19,7 @@
 
 using Gtk;
 using Gdl;
+using SpriteHut.AppConfig;
 
 namespace Widgets
 {
@@ -36,10 +37,19 @@ namespace Widgets
         public MainDock(MainWindow main_window)
         { 
             window = main_window;
+            
+            // set up the path
             string main_dock_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
                                              "maindockwidgets.ui", null );
             builder = new Builder ();
-            builder.add_from_file (main_dock_path);
+            
+            // load the ui file
+            try {
+                builder.add_from_file (main_dock_path);
+            }
+            catch (Error e) {
+                error (_("Unable to load ui file: %s"), e.message);
+            }
             
             var toolbox_toolpalette = builder.get_object("toolbox-toolpalette") as ToolPalette;
             var frames_box = builder.get_object("frames-box") as Box;
@@ -78,7 +88,7 @@ namespace Widgets
             this.pack_start(dock, true, true, 0);
             
             /* the canvas dock */
-            var canvas_dockitem = new DockItem.with_stock("canvas-dockitem", _("Canvas"), Gtk.Stock.STOP, DockItemBehavior.NO_GRIP |
+            var canvas_dockitem = new DockItem.with_stock("canvas-dockitem", _("Canvas"), AppConstants.GTK_STOP, DockItemBehavior.NO_GRIP |
                                               DockItemBehavior.CANT_ICONIFY | DockItemBehavior.LOCKED | DockItemBehavior.CANT_DOCK_CENTER);
             canvas_controller = new CanvasController(window, builder);
             
@@ -106,10 +116,13 @@ namespace Widgets
             toolbox.resize = false;
             
             // Document Tree
-            var document_tree = add_dock_item(dock, "document-tree", _("Document Tree"), document_box, palette,
+            DockItem document_tree;
+            document_tree = add_dock_item(dock, "document-tree", _("Document Tree"), document_box, palette,
             DockPlacement.BOTTOM, 180, 150);
+            
             // Frames
-            var frames = add_dock_item(dock, "frames", _("Frames"), frames_box, canvas_dockitem,
+            DockItem frames;
+            frames = add_dock_item(dock, "frames", _("Frames"), frames_box, canvas_dockitem,
             DockPlacement.BOTTOM, 400, 100);
             
         }

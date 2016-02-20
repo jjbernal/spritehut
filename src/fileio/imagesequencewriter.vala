@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -37,7 +37,7 @@ namespace FileIO
          * @param pattern The text pattern for the exported image files.
          */
          
-        public void save (Document.Document document, string pattern, Animation[] anims = null) throws IOError{
+        public void save (Document.Document document, string pattern, Animation[]? anims = null) throws IOError{
             //foreach anim in anims do write each frame using pattern
         }
     }

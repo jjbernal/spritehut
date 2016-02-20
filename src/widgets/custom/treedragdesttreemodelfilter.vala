@@ -1,5 +1,5 @@
 /*
-** Copyright © 2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2014, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -32,8 +32,8 @@ namespace Widgets
         public bool drag_data_received (TreePath filtered_dest_path, SelectionData selection_data) {
             var res = false;
             
-            TreeModel tree_model;
-            TreePath source_path;
+            //TreeModel tree_model;
+            //TreePath source_path;
             TreeStore treestore = (TreeStore) child_model; // we know it's a TreeStore
             var dest_path = convert_path_to_child_path(filtered_dest_path);
             
@@ -56,12 +56,12 @@ namespace Widgets
         public bool row_drop_possible (TreePath filtered_dest_path, SelectionData selection_data) {
             var res = false;
             
-            TreeModel tree_model;
-            TreePath source_path;
+            //TreeModel tree_model;
+            //TreePath source_path;
             TreeStore treestore = (TreeStore) child_model; // we know it's a TreeStore
             TreePath dest_path = convert_path_to_child_path(filtered_dest_path);
             
-            TreePath tmp = dest_path.copy();
+            //TreePath tmp = dest_path.copy();
             
             if (dest_path != null) {
                 res = treestore.row_drop_possible(dest_path, selection_data);

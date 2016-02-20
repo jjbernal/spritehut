@@ -19,6 +19,7 @@
 
 using Gtk;
 using Widgets;
+using SpriteHut.AppConfig;
 
 namespace SpriteHut.Core {
     public class SpriteHutApp : Gtk.Application
@@ -65,8 +66,8 @@ namespace SpriteHut.Core {
         }
         
         void on_open(SimpleAction action, Variant? parameter) {
-            FileChooserDialog fcd = new FileChooserDialog(_("Open"), null, FileChooserAction.OPEN,Stock.CANCEL, ResponseType.CANCEL,
-                                      Stock.OPEN, ResponseType.ACCEPT);
+            FileChooserDialog fcd = new FileChooserDialog(_("Open"), null, FileChooserAction.OPEN, AppConstants.GTK_CANCEL, ResponseType.CANCEL,
+                                      AppConstants.GTK_OPEN, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
     //                open_file (file_chooser.get_filename ());
                 debug("Loading %s\n", fcd.get_filename ());
@@ -124,7 +125,7 @@ namespace SpriteHut.Core {
                 builder.add_from_file (main_window_path);
             }
             catch (Error e) {
-                error ("Unable to load file: %s", e.message);
+                error (_("Unable to load ui file: %s"), e.message);
             }
             
             about = builder.get_object ("about-dialog") as AboutDialog;

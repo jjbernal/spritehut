@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = \
     libimaging.la \
     libdocument.la \
     libfileio.la \
+    libcore.la \
     libwidgets.la
 
 common_flags = \
@@ -18,7 +19,7 @@ libimaging_la_SOURCES = \
 
 libimaging_la_VALAFLAGS = \
     --library imaging -H imaging.h \
-    --Xcc=-I/usr/include/SDL \
+    --cc=-I/usr/include/SDL \
     --pkg sdl --pkg sdl-gfx \
     $(common_flags)
     
@@ -74,18 +75,29 @@ libwidgets_la_SOURCES = \
     widgets/custom/cellrendererhelper.vala
 
 libwidgets_la_VALAFLAGS = \
-    imaging.vapi document.vapi --library widgets -H widgets.h \
+    imaging.vapi document.vapi core.vapi --library widgets -H widgets.h \
     $(common_flags)
     
 libwidgets_la_LIBADD = \
     @LTLIBOBJS@
     
 
-spritehut_SOURCES = \
-    spritehut.vala \
-    spritehut-app.vala \
+libcore_la_SOURCES = \
+    core/AppConstants.vala \
     core/ResourceDirHelper.vala \
     core/PreferencesManager.vala
+
+libcore_la_VALAFLAGS = \
+    --library core -H core.h \
+    $(common_flags)
+    
+libcore_la_LIBADD = \
+    @LTLIBOBJS@
+
+spritehut_SOURCES = \
+    spritehut.vala \
+    spritehut-app.vala
+
 
 AM_CPPFLAGS = \
 	-include config.h \
@@ -95,14 +107,14 @@ AM_CPPFLAGS = \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
 
 spritehut_VALAFLAGS = \
-    imaging.vapi document.vapi fileio.vapi widgets.vapi \
+    core.vapi imaging.vapi document.vapi fileio.vapi widgets.vapi \
 	--vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	libwidgets.la libdocument.la libimaging.la libfileio.la $(SPRITE_HUT_LIBS)
+	libwidgets.la libdocument.la libimaging.la libfileio.la libcore.la $(SPRITE_HUT_LIBS)
 
-DIRS = document/*.c widgets/*.c imaging/*.c fileio/*.c
+DIRS = core/*.c document/*.c widgets/*.c imaging/*.c fileio/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp
 
 #valencia options

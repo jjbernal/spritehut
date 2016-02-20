@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -81,11 +81,11 @@ namespace Widgets
             selection.set_mode(SelectionMode.MULTIPLE);
         }
         
-        private void update(ParamSpec? pspec) {
+        /*private void update(ParamSpec? pspec) {
             var model = treeview.model;
             treeview.set_model (null);
             treeview.set_model (model);
-        }
+        }*/
         
         public void attach_model(TreeModel treemodel) {
             treeview.set_model (null);

@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -27,7 +27,7 @@ namespace Widgets
         private Gtk.Adjustment width_adjustment;
         private Gtk.Adjustment height_adjustment;
         private Gtk.ComboBox mode_combobox;
-        private Imaging.Image.Mode mode;
+        //private Imaging.Image.Mode mode;
     
         public NewDialog ()
         {

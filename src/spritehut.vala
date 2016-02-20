@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -17,6 +17,7 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using SpriteHut.AppConfig;
 using SpriteHut.Core;
 
 int main (string[] args)
@@ -25,7 +26,7 @@ int main (string[] args)
 	Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
 	Intl.textdomain(Config.GETTEXT_PACKAGE);
     
-	var app = new SpriteHutApp("org.gtk.Spritehut", ApplicationFlags.FLAGS_NONE);
+	var app = new SpriteHutApp(AppConstants.APP_ID, ApplicationFlags.FLAGS_NONE);
     int status = app.run (args);
 
     return status;

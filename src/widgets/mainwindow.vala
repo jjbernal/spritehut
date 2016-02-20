@@ -19,6 +19,7 @@
 
 using Gtk;
 using Document;
+using SpriteHut.AppConfig;
 
 namespace Widgets
 {
@@ -202,8 +203,9 @@ namespace Widgets
         }
         
         public void on_save_as(SimpleAction action, Variant? parameter) {
-            FileChooserDialog fcd = new FileChooserDialog(_("Save as"), null, FileChooserAction.SAVE, Stock.CANCEL, ResponseType.CANCEL,
-                                      Stock.SAVE_AS, ResponseType.ACCEPT);
+            FileChooserDialog fcd = new FileChooserDialog(_("Save as"), null, FileChooserAction.SAVE, 
+                                    AppConstants.GTK_CANCEL, ResponseType.CANCEL,
+                                    AppConstants.GTK_SAVE_AS, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
 //                open_file (file_chooser.get_filename ());
                 debug("Saving to %s\n", fcd.get_filename ());

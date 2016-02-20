@@ -82,21 +82,13 @@ namespace Widgets
         public override void realize(){
             base.realize();
             
-            //            Paint the surface to white
-//            canvas_surface ;
-            Cairo.Context cr = new Cairo.Context (canvas_surface);
-//            cr.set_source_rgba (1, 1, 1, 0.5); // pure white
-//            cr.rectangle(0, 0, canvas_surface.get_width(), canvas_surface.get_height());
-//            cr.paint();
-//            cr.fill();
             prepare_pixel_grid();
             update_size_request();
             
             var window = get_window ();
 
             if (null == window) {
-            print ("No window\n");
-                return;
+                error ("No window\n");
             }
             
 //            zoom_level = 1.5;
@@ -110,7 +102,7 @@ namespace Widgets
             default_cursor = window.get_cursor();
             cursor = default_cursor;
             
-            cursor_on_canvas = new Cursor(Gdk.CursorType.CROSSHAIR);
+            cursor_on_canvas = new Cursor.for_display (Display.get_default(), Gdk.CursorType.CROSSHAIR);
         }
         
         public void zoom_in()
@@ -251,15 +243,6 @@ namespace Widgets
             // The base method will save the allocation and move/resize the
             // widget's GDK window if the widget is already realized.
             base.size_allocate (allocation);
-            
-            int width = get_allocated_width ();
-            int height = get_allocated_height ();
-            
-            //update image upper left coordinates
-//            img_left = width / 2 - canvas_surface.get_width() / 2;
-//            img_top = height / 2 - canvas_surface.get_height() / 2;
-
-            // Move/resize other realized windows if necessary
         }
         
         /* Mouse button got pressed over widget */

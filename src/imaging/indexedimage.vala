@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2014 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2014, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -40,7 +40,7 @@ namespace Imaging
         public Palette palette {get;set;}
         
         private Cairo.ImageSurface _cairo_surface = null;
-        public Cairo.ImageSurface cairo_surface{
+        public new Cairo.ImageSurface cairo_surface{
             get {
                 if (_cairo_surface == null) {
                     to_cairo_surface_RGBA();
