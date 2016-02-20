@@ -42,12 +42,12 @@ namespace SpriteHut.Core
             
             foreach (Gdk.Device device in device_list) {
                 if (device.input_source != InputSource.KEYBOARD) {
-                    info ("%s Source: %s Mode: %s", device.get_name(), device.input_source.to_string(), device.get_mode().to_string());
+                    debug ("%s Source: %s Mode: %s", device.get_name(), device.input_source.to_string(), device.get_mode().to_string());
                     
                     
                     int axes = device.get_n_axes();
                     for (int i = 0; i < axes; ++i) {
-                        info ("Axis #%i: %s", i, device.get_axis_use(i).to_string());
+                        debug ("Axis #%i: %s", i, device.get_axis_use(i).to_string());
                     }
                 }
             }

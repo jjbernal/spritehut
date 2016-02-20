@@ -52,7 +52,7 @@ namespace SpriteHut.Core {
             int response = new_dialog.run();
             
             if (response == ResponseType.OK) {
-                info("Creating New Document: \nwidth: %uheight:  mode: \n", new_dialog.width());
+                debug("Creating New Document: \nwidth: %uheight:  mode: \n", new_dialog.width());
                 
                 var document = create_default_document();
                 
@@ -69,7 +69,7 @@ namespace SpriteHut.Core {
                                       Stock.OPEN, ResponseType.ACCEPT);
             if (fcd.run () == ResponseType.ACCEPT) {
     //                open_file (file_chooser.get_filename ());
-                info("Loading %s\n", fcd.get_filename ());
+                debug("Loading %s\n", fcd.get_filename ());
             }
             
             fcd.destroy();
@@ -77,7 +77,7 @@ namespace SpriteHut.Core {
         
         void on_help(SimpleAction action, Variant? parameter) 
         {
-            info ("You clicked \"Help contents\"\n");
+            debug ("You clicked \"Help contents\"\n");
         }
         
         void on_about(SimpleAction action, Variant? parameter) 
@@ -87,11 +87,11 @@ namespace SpriteHut.Core {
         }
         
         void on_preferences (SimpleAction action, Variant? parameter) {
-            info ("You clicked \"Preferences\"\n");
+            debug ("You clicked \"Preferences\"\n");
         }
 
         void on_quit (SimpleAction action, Variant? parameter) {
-            info ("You clicked \"Quit\"\n");
+            debug ("You clicked \"Quit\"\n");
             foreach (Gtk.Window window in this.get_windows())
             {
                 ((MainWindow) window).close_intent();
