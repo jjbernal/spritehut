@@ -63,6 +63,7 @@ compile
 test-driver
 *.pot
 *.log
-test/imaging/testimages/*
+test/testimages/output/*
+test/testfiles/output/*
 test/*_test
 *.*~

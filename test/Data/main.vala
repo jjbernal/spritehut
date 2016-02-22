@@ -17,22 +17,15 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using SpriteHut.Data;
-
-public class TestSprite : Object {
-    public static void test_name_default () {
-        var sprite = new Sprite();
-        assert (sprite.name == "Sprite1");
-    }
+public void main (string[] args) {
+    Test.init (ref args);
     
-    public static void test_name_set () {
-        var sprite = new Sprite();
-        sprite.name = "MySprite";
-        assert (sprite.name == "MySprite");
-    }
-
-    public static void add_tests()  {
-        Test.add_func ("/document/sprite.name default", test_name_default);
-        Test.add_func ("/document/sprite.name set", test_name_set);
-    }
+    TestLayer.add_tests();
+    TestFrame.add_tests();
+    TestAnimation.add_tests();
+    TestSprite.add_tests();
+    TestDocument.add_tests();
+    TestUndoHistory.add_tests();
+    
+    Test.run ();
 }

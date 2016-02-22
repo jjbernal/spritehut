@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -124,12 +124,12 @@ public class TestUndoHistory : Object {
     }
 
     public static void add_tests()  {
-        Test.add_func ("/document/document.log_change()", test_log_change);
-        Test.add_func ("/document/document.undo()", test_undo);
-        Test.add_func ("/document/document.redo()", test_redo);
-        Test.add_func ("/document/document.can_undo()", test_can_undo);
-        Test.add_func ("/document/document.can_redo()", test_can_redo);
-        Test.add_func ("/document/document.undo() multiple", test_undo_multiple);
-        Test.add_func ("/document/document.log_change() Can't redo after log_change (wipes redo history)", test_cant_redo_after_log_change);
+        Test.add_func ("/Data/UndoHistory.log_change()", test_log_change);
+        Test.add_func ("/Data/UndoHistory.undo()", test_undo);
+        Test.add_func ("/Data/UndoHistory.redo()", test_redo);
+        Test.add_func ("/Data/UndoHistory.can_undo()", test_can_undo);
+        Test.add_func ("/Data/UndoHistory.can_redo()", test_can_redo);
+        Test.add_func ("/Data/UndoHistory.undo() multiple", test_undo_multiple);
+        Test.add_func ("/Data/UndoHistory.log_change() Can't redo after log_change (wipes redo history)", test_cant_redo_after_log_change);
     }
 }

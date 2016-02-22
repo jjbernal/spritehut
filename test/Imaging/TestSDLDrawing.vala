@@ -46,7 +46,7 @@ public class TestSDLDrawing : Object {
         
         try {
             IImageWriter writer = new FreeImageWriter();
-            writer.save(image, "imaging/testimages/drawing_8bpp.png");
+            writer.save(image, "testimages/output/drawing_8bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -76,7 +76,7 @@ public class TestSDLDrawing : Object {
         
         try {
             IImageWriter writer = new FreeImageWriter();
-            writer.save(image, "imaging/testimages/drawing_32bpp.png");
+            writer.save(image, "testimages/output/drawing_32bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -84,7 +84,7 @@ public class TestSDLDrawing : Object {
     }
     
     public static void add_tests() {
-        Test.add_func ("/imaging/SDLDrawing.draw_line() indexed", test_draw_line_indexed);
-        Test.add_func ("/imaging/SDLDrawing.draw_line() indexed", test_draw_rgba);
+        Test.add_func ("/Imaging/SDLDrawing.draw_line() indexed", test_draw_line_indexed);
+        Test.add_func ("/Imaging/SDLDrawing.draw_line() indexed", test_draw_rgba);
     }
 }

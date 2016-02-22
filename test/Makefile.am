@@ -2,34 +2,34 @@ AM_CPPFLAGS = $(SPRITE_HUT_CFLAGS) -I$(top_srcdir)/src
 BUILDDIR = $(top_builddir)/src
 
 TESTS = \
-	document_test\
+	data_test\
 	imaging_test\
 	fileio_test
 
 check_PROGRAMS = $(TESTS)
 
-document_test_SOURCES = \
-    document/layer_test.vala \
-    document/frame_test.vala \
-    document/animation_test.vala \
-    document/sprite_test.vala \
-    document/document_test.vala \
-    document/undohistory_test.vala \
-    document/main.vala
+data_test_SOURCES = \
+    Data/TestAnimation.vala \
+    Data/TestDocument.vala \
+    Data/TestFrame.vala \
+    Data/TestLayer.vala \
+    Data/TestSprite.vala \
+    Data/TestUndoHistory.vala \
+    Data/main.vala
     
-document_test_LDADD = $(BUILDDIR)/libdata.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
-document_test_VALAFLAGS = $(BUILDDIR)/data.vapi \
+data_test_LDADD = $(BUILDDIR)/libdata.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
+data_test_VALAFLAGS = $(BUILDDIR)/data.vapi \
     $(BUILDDIR)/imaging.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
     @SPRITE_HUT_PACKAGES@
     
 fileio_test_SOURCES = \
-    fileio/freeimagereader_test.vala \
-    fileio/freeimagewriter_test.vala \
-    fileio/xmldocumentwriter_test.vala \
-    fileio/imagesequencewriter_test.vala \
-    fileio/fileio_main.vala
+    FileIO/TestFreeImageReader.vala \
+    FileIO/TestFreeImageWriter.vala \
+    FileIO/TestImageSequenceWriter.vala \
+    FileIO/TestXmlDocumentWriter.vala \
+    FileIO/fileio_main.vala
     
 fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdata.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
 fileio_test_VALAFLAGS = $(BUILDDIR)/data.vapi \
@@ -40,13 +40,13 @@ fileio_test_VALAFLAGS = $(BUILDDIR)/data.vapi \
     @SPRITE_HUT_PACKAGES@
     
 imaging_test_SOURCES = \
-    imaging/palette_test.vala \
-    imaging/magickwand_test.vala \
-    imaging/freeimage_test.vala \
-    imaging/indexedimage_test.vala \
-    imaging/rgbaimage_test.vala \
-    imaging/drawing_test.vala \
-    imaging/imaging_main.vala
+    Imaging/TestFreeImage.vala \
+    Imaging/TestIndexedImage.vala \
+    Imaging/TestMagickWand.vala \
+    Imaging/TestPalette.vala \
+    Imaging/TestRGBAImage.vala \
+    Imaging/TestSDLDrawing.vala \
+    Imaging/imaging_main.vala
 
 imaging_test_LDADD = \
     $(BUILDDIR)/libimaging.la \
@@ -61,5 +61,5 @@ imaging_test_VALAFLAGS = \
     --pkg config \
     @SPRITE_HUT_PACKAGES@
 
-DIRS = document/*.c imaging/*.c fileio/*.c
+DIRS = Data/*.c Imaging/*.c FileIO/*.c testfiles/output/* testimages/output/*
 CLEANFILES = $(DIRS) *.c *.stamp test-report.xml test-report.html

@@ -19,26 +19,26 @@
 
 using SpriteHut.Imaging;
 
-public class TestPalette : Object {
-    public static void test_name_default () {
-        var palette = new Palette();
-        assert (palette.name == "Palette1");
+public class TestCairoImage : Object {
+    public static void test_get_pixel_color () {
+        Image image = new CairoImage(16, 16, 8);
+        image.palette = new Palette();
+        
+        Gdk.RGBA red = image.get_pixel_color(0,0);
+        Gdk.RGBA green = image.get_pixel_color(0,15);
+        Gdk.RGBA blue = image.get_pixel_color(15,0);
+        Gdk.RGBA white = image.get_pixel_color(15,15);
+        assert (red.to_string() == "#ff0000ff");
     }
     
-    public static void test_name_set () {
-        var palette = new Palette();
-        palette.name = "MyPalette";
-        assert (palette.name == "MyPalette");
-    }
-    
-    public static void test_is_gee_list () {
-        var palette = new Palette();
-        assert (palette.color_list is Gee.List);
+    public static void test_to_rgba () {
+        Image image = new CairoImage(16, 16, 8);
+        Image rgba_copy = image.to_rgba();
+        assert (image.mode == Image.Mode.RGBA);
     }
 
     public static void add_tests()  {
-        Test.add_func ("/imaging/palette.name default", test_name_default);
-        Test.add_func ("/imaging/palette.name set", test_name_set);
-        Test.add_func ("/imaging/palette.color_list is Gee.List", test_is_gee_list);
+        Test.add_func ("/Imaging/image.get_pixel_color(x , y)", test_get_pixel_color);
+        //Test.add_func ("/Imaging/image.to_rgba", test_to_rgba);
     }
 }

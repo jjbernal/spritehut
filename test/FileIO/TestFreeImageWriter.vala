@@ -39,7 +39,7 @@ public class TestFreeImageWriter : Object {
         IImageWriter writer = new FreeImageWriter();
         
         try {
-            writer.save(image, "imaging/testimages/saved_1bpp.png");
+            writer.save(image, "testimages/output/saved_1bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -65,7 +65,7 @@ public class TestFreeImageWriter : Object {
         IImageWriter writer = new FreeImageWriter();
         
         try {
-            writer.save(image, "imaging/testimages/saved_4bpp.png");
+            writer.save(image, "testimages/output/saved_4bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -90,7 +90,7 @@ public class TestFreeImageWriter : Object {
         IImageWriter writer = new FreeImageWriter();
         
         try {
-            writer.save(image, "imaging/testimages/saved_8bpp.png");
+            writer.save(image, "testimages/output/saved_8bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -109,7 +109,7 @@ public class TestFreeImageWriter : Object {
         IImageWriter writer = new FreeImageWriter();
         
         try {
-            writer.save(image, "imaging/testimages/saved_24bpp.png");
+            writer.save(image, "testimages/output/saved_24bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -128,7 +128,7 @@ public class TestFreeImageWriter : Object {
         IImageWriter writer = new FreeImageWriter();
         
         try {
-            writer.save(image, "imaging/testimages/saved_32bpp.png");
+            writer.save(image, "testimages/output/saved_32bpp.png");
         }
         catch (Error e) {
             assert_not_reached();
@@ -157,11 +157,11 @@ public class TestFreeImageWriter : Object {
     }
 
     public static void add_tests() {
-        Test.add_func ("/fileio/FreeImageWriter.save() indexed 1-bit", test_save_indexed_1bit);
-        Test.add_func ("/fileio/FreeImageWriter.save() indexed 4-bit", test_save_indexed_4bit);
-        Test.add_func ("/fileio/FreeImageWriter.save() indexed 8-bit", test_save_indexed_8bit);
-        Test.add_func ("/fileio/FreeImageWriter.save() rgb 24-bit", test_save_rgb_24bit);
-        Test.add_func ("/fileio/FreeImageWriter.save() rgba 32-bit", test_save_rgba_32bit);
-        Test.add_func ("/fileio/FreeImageWriter.save() fail", test_save_fail);
+        Test.add_func ("/FileIO/FreeImageWriter.save() indexed 1-bit", test_save_indexed_1bit);
+        Test.add_func ("/FileIO/FreeImageWriter.save() indexed 4-bit", test_save_indexed_4bit);
+        Test.add_func ("/FileIO/FreeImageWriter.save() indexed 8-bit", test_save_indexed_8bit);
+        Test.add_func ("/FileIO/FreeImageWriter.save() rgb 24-bit", test_save_rgb_24bit);
+        Test.add_func ("/FileIO/FreeImageWriter.save() rgba 32-bit", test_save_rgba_32bit);
+        Test.add_func ("/FileIO/FreeImageWriter.save() fail", test_save_fail);
     }
 }

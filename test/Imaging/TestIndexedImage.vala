@@ -21,23 +21,26 @@ using Gdk;
 using FreeImage;
 using SpriteHut.Imaging;
 
-public class TestRGBAImage : Object {
+public class TestIndexedImage : Object {
     public static void text_header()
     {
-        stdout.printf("\nRGBAImage TESTS\n");
+        stdout.printf("\nIndexedImage TESTS\n");
         stdout.printf("====================\n");
     }
     
-    public static void test_get_pixel_color () {
+    public static void test_get_pixel_color_indexed () {
         // a dummy 2x2 32-bit BGRA image consisting formed by a red, green, blue and white pixel
-        uint8* pixel_array = new uint8[16] {0, 0, 255, 255,
-                                              0, 255, 0, 255,
-                                             255, 0, 0, 255,
-                                             255, 255, 255, 255};
+        uint8* pixel_array = new uint8[4] {0, 1,
+                                              2, 3};
+        IndexedImage image = new IndexedImage.from_pixel_data(2, 2, 8, pixel_array);
         
-        Image image = new RGBAImage.from_pixel_data(2, 2, 32, pixel_array);
+        // create and initialize palette
+        image.palette = new Palette();
+        image.palette.color_list.add({1, 0, 0, 1.0});
+        image.palette.color_list.add({0, 1, 0, 1.0});
+        image.palette.color_list.add({0, 0, 1, 1.0});
+        image.palette.color_list.add({1, 1, 1, 1.0});
         
-        // we don't need a palette
         Gdk.RGBA red = image.get_pixel_color(0,0);
         Gdk.RGBA green = image.get_pixel_color(1,0);
         Gdk.RGBA blue = image.get_pixel_color(0,1);
@@ -50,7 +53,7 @@ public class TestRGBAImage : Object {
     }
 
     public static void add_tests() {
-        Test.message("RGBAImage TESTS");
-        Test.add_func ("/imaging/RGBAImage.get_pixel_color(x , y) ", test_get_pixel_color);
+        Test.message("IndexedImage TESTS");
+        Test.add_func ("/Imaging/IndexedImage.get_pixel_color(x , y) indexed image", test_get_pixel_color_indexed);
     }
 }

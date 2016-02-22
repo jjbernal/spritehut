@@ -20,14 +20,13 @@
 using ImageMagick;
 using SpriteHut.Imaging;
 
-        
 public class TestMagickWand : Object {
     public static void test_indexed () {
         
         Wand wand = new Wand();
 //        Wand.Genesis();
         ulong width, height, num_colors;
-        assert (wand.read_image("imaging/indexed.gif") == true); //loading succesful;
+        assert (wand.read_image("Imaging/indexed.gif") == true); //loading succesful;
         wand.display_image("");
         
         width = wand.get_image_width();
@@ -114,7 +113,7 @@ public class TestMagickWand : Object {
         
         wand2.set_image_depth(8);
         wand2.set_image_type(ImageType.PALETTEMATTE);
-        wand2.write_image("imaging/indexed_mw.png");
+        wand2.write_image("Imaging/indexed_mw.png");
         wand2.display_image("");
         delete pixels;
 //        debug("Image type: %s", image_type.to_string());
@@ -128,7 +127,7 @@ public class TestMagickWand : Object {
 //    }
 
     public static void add_tests()  {
-        Test.add_func ("/imaging/Wand.get_pixel(x, y)", test_indexed);
-        //Test.add_func ("/imaging/image.to_rgba", test_to_rgba);
+        Test.add_func ("/Imaging/Wand.get_pixel(x, y)", test_indexed);
+        //Test.add_func ("/Imaging/Image.to_rgba", test_to_rgba);
     }
 }

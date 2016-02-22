@@ -79,15 +79,15 @@ public class TestLayer : Object {
     
     public static void add_tests() 
     {
-        Test.add_func ("/document/layer.name default", test_name_default);
-        Test.add_func ("/document/layer.name set", test_name_set);
-        Test.add_func ("/document/layer.visible default", test_visible_default);
-        Test.add_func ("/document/layer.visible set", test_visible_set);
-        Test.add_func ("/document/layer.locked default", test_locked_default);
-        Test.add_func ("/document/layer.locked set", test_locked_set);
-        Test.add_func ("/document/layer.opacity default", test_opacity_default);
-        Test.add_func ("/document/layer.opacity set", test_opacity_set);
-        Test.add_func ("/document/layer.opacity <= 1", test_opacity_equal_or_less_than_one);
-        Test.add_func ("/document/layer.opacity >= 0", test_opacity_equal_or_greater_than_zero);
+        Test.add_func ("/Data/Layer.name default", test_name_default);
+        Test.add_func ("/Data/Layer.name set", test_name_set);
+        Test.add_func ("/Data/Layer.visible default", test_visible_default);
+        Test.add_func ("/Data/Layer.visible set", test_visible_set);
+        Test.add_func ("/Data/Layer.locked default", test_locked_default);
+        Test.add_func ("/Data/Layer.locked set", test_locked_set);
+        Test.add_func ("/Data/Layer.opacity default", test_opacity_default);
+        Test.add_func ("/Data/Layer.opacity set", test_opacity_set);
+        Test.add_func ("/Data/Layer.opacity <= 1", test_opacity_equal_or_less_than_one);
+        Test.add_func ("/Data/Layer.opacity >= 0", test_opacity_equal_or_greater_than_zero);
     }
 }

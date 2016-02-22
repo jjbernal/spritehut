@@ -76,8 +76,8 @@ public class TestFreeImageImage : Object {
         stdout.printf("FreeImageImage TESTS\n");
         stdout.printf("====================\n");
         Test.message("FreeImageImage TESTS\n");
-        Test.add_func ("/imaging/FreeImageImage.get_pixel_color(x , y) BGRA", test_get_pixel_color_bgra);
-        Test.add_func ("/imaging/FreeImageImage.get_pixel_color(x , y) indexed image", test_get_pixel_color_indexed);
-        Test.add_func ("/imaging/FreeImageImage.to_rgba", test_to_rgba);
+        Test.add_func ("/Imaging/FreeImageImage.get_pixel_color(x , y) BGRA", test_get_pixel_color_bgra);
+        Test.add_func ("/Imaging/FreeImageImage.get_pixel_color(x , y) indexed image", test_get_pixel_color_indexed);
+        Test.add_func ("/Imaging/FreeImageImage.to_rgba", test_to_rgba);
     }
 }

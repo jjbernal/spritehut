@@ -26,7 +26,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_indexed_1bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/testimages/1bpp.png");
+        Image image = reader.load("testimages/input/1bpp.png");
         
 //        assert(image.palette.color_list != null);
         
@@ -40,7 +40,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_indexed_4bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/testimages/4bpp.png");
+        Image image = reader.load("testimages/input/4bpp.png");
         
 //        assert(image.palette.color_list != null);
         
@@ -66,7 +66,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_indexed_8bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/testimages/8bpp.png");
+        Image image = reader.load("testimages/input/8bpp.png");
         
 //        assert(image.palette.color_list != null);
         
@@ -92,7 +92,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_rgb_24bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/testimages/24bpp.png");
+        Image image = reader.load("testimages/input/24bpp.png");
         
         Gdk.RGBA red = image.get_pixel_color(0,0);
         Gdk.RGBA green = image.get_pixel_color(15,0);
@@ -110,7 +110,7 @@ public class TestFreeImageReader : Object {
     public static void test_load_rgba_32bit () {
         FreeImageReader reader = new FreeImageReader();
         
-        Image image = reader.load("imaging/testimages/32bpp.png");
+        Image image = reader.load("testimages/input/32bpp.png");
         
         Gdk.RGBA red = image.get_pixel_color(0,0);
         Gdk.RGBA green = image.get_pixel_color(15,0);
@@ -130,7 +130,7 @@ public class TestFreeImageReader : Object {
         
         try {
             // this image does not actually exist
-            Image image = reader.load("imaging/testimages/nonexistentimage.png");
+            Image image = reader.load("testimages/input/nonexistentimage.png");
         }
         catch (Error e) {
             assert(e is SpriteHut.FileIO.FileError);
@@ -138,11 +138,11 @@ public class TestFreeImageReader : Object {
     }
 
     public static void add_tests() {
-        Test.add_func ("/fileio/FreeImageReader.load() indexed 1-bit", test_load_indexed_1bit);
-        Test.add_func ("/fileio/FreeImageReader.load() indexed 4-bit", test_load_indexed_4bit);
-        Test.add_func ("/fileio/FreeImageReader.load() indexed 8-bit", test_load_indexed_8bit);
-        Test.add_func ("/fileio/FreeImageReader.load() rgb 24-bit", test_load_rgb_24bit);
-        Test.add_func ("/fileio/FreeImageReader.load() rgba 32-bit", test_load_rgba_32bit);
-        Test.add_func ("/fileio/FreeImageReader.load() fail", test_load_fail);
+        Test.add_func ("/FileIO/FreeImageReader.load() indexed 1-bit", test_load_indexed_1bit);
+        Test.add_func ("/FileIO/FreeImageReader.load() indexed 4-bit", test_load_indexed_4bit);
+        Test.add_func ("/FileIO/FreeImageReader.load() indexed 8-bit", test_load_indexed_8bit);
+        Test.add_func ("/FileIO/FreeImageReader.load() rgb 24-bit", test_load_rgb_24bit);
+        Test.add_func ("/FileIO/FreeImageReader.load() rgba 32-bit", test_load_rgba_32bit);
+        Test.add_func ("/FileIO/FreeImageReader.load() fail", test_load_fail);
     }
 }

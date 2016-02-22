@@ -17,23 +17,22 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//using Gtk;
 using SpriteHut.Data;
 using SpriteHut.FileIO;
 using SpriteHut.Imaging;
 
-public class TestImageSequenceWriter : Object {
+public class TestXmlDocumentWriter : Object {
     public static void test_default_document () {
-        var writer = new ImageSequenceWriter();
+        var writer = new XmlDocumentWriter();
         Document doc = new BlankDocument();
         
-        writer.save(doc, "fileio/testfiles/xmltest.xml");
+        writer.save(doc, "testfiles/output/xmltest.xml");
         
-        assert(FileUtils.test("fileio/testfiles/xmltest.xml", FileTest.EXISTS));
+        assert(FileUtils.test("testfiles/output/xmltest.xml", FileTest.EXISTS));
     }
     
     public static void test_complex_document () {
-        var writer = new ImageSequenceWriter();
+        var writer = new XmlDocumentWriter();
         Document doc = new Document();
         Gtk.TreeIter iter;
 
@@ -54,13 +53,13 @@ public class TestImageSequenceWriter : Object {
                 Gtk.TreeIter frame0 = doc.add((IDocumentElement) new Frame(){name="0"}, s2anim);
                     Gtk.TreeIter layer0 = doc.add((IDocumentElement) new Layer(64, 64, Image.Mode.INDEXED){name="A layer"}, frame0);
         
-        writer.save(doc, "fileio/testfiles/xmltest_complex.xml");
+        writer.save(doc, "testfiles/output/xmltest_complex.xml");
         
-        assert(FileUtils.test("fileio/testfiles/xmltest_complex.xml", FileTest.EXISTS));
+        assert(FileUtils.test("testfiles/output/xmltest_complex.xml", FileTest.EXISTS));
     }
     
     public static void add_tests() {
-        Test.add_func ("/fileio/ImageSequenceWriter save default document XML", test_default_document);
-        Test.add_func ("/fileio/ImageSequenceWriter save complex document XML", test_complex_document);
+        Test.add_func ("/FileIO/XmlDocumentWriter save default document XML", test_default_document);
+        Test.add_func ("/FileIO/XmlDocumentWriter save complex document XML", test_complex_document);
     }
 }

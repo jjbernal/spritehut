@@ -67,10 +67,10 @@ public class TestDocument : Object {
     }
 
     public static void add_tests()  {
-        Test.add_func ("/document/document.filename default", test_filename_default);
-        Test.add_func ("/document/document.filename set", test_filename_set);
-        Test.add_func ("/document/document.treemodel is Gtk.TreeModel", test_treemodel_default);
-        Test.add_func ("/document/document.add", test_add);
-        Test.add_func ("/document/document.mode", test_image_mode);
+        Test.add_func ("/Data/Document.filename default", test_filename_default);
+        Test.add_func ("/Data/Document.filename set", test_filename_set);
+        Test.add_func ("/Data/Document.treemodel is Gtk.TreeModel", test_treemodel_default);
+        Test.add_func ("/Data/Document.add", test_add);
+        Test.add_func ("/Data/Document.mode", test_image_mode);
     }
 }

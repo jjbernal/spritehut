@@ -65,13 +65,13 @@ public class TestAnimation : Object {
     }
 
     public static void add_tests()  {
-        Test.add_func ("/document/animation.name default", test_name_default);
-        Test.add_func ("/document/animation.name set", test_name_set);
-        Test.add_func ("/document/animation.fps default", test_fps_default);
-        Test.add_func ("/document/animation.fps set", test_fps_set);
-        Test.add_func ("/document/animation.mirror default", test_mirror_default);
-        Test.add_func ("/document/animation.mirror set", test_mirror_set);
-        Test.add_func ("/document/animation.loop default", test_loop_default);
-        Test.add_func ("/document/animation.loop set", test_loop_set);
+        Test.add_func ("/Data/Animation.name default", test_name_default);
+        Test.add_func ("/Data/Animation.name set", test_name_set);
+        Test.add_func ("/Data/Animation.fps default", test_fps_default);
+        Test.add_func ("/Data/Animation.fps set", test_fps_set);
+        Test.add_func ("/Data/Animation.mirror default", test_mirror_default);
+        Test.add_func ("/Data/Animation.mirror set", test_mirror_set);
+        Test.add_func ("/Data/Animation.loop default", test_loop_default);
+        Test.add_func ("/Data/Animation.loop set", test_loop_set);
     }
 }

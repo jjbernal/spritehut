@@ -60,12 +60,12 @@ public class TestFrame : Object {
     }
 
     public static void add_tests()  {
-        Test.add_func ("/document/frame.delay default", test_delay_default);
-        Test.add_func ("/document/frame.delay set", test_delay_set);
-        Test.add_func ("/document/frame.delay >= 0", test_delay_not_negative);
-        Test.add_func ("/document/frame.delta_x default", test_delta_x_default);
-        Test.add_func ("/document/frame.delta_x set", test_delta_x_set);
-        Test.add_func ("/document/frame.delta_y default", test_delta_y_default);
-        Test.add_func ("/document/frame.delta_y set", test_delta_y_set);
+        Test.add_func ("/Data/Frame.delay default", test_delay_default);
+        Test.add_func ("/Data/Frame.delay set", test_delay_set);
+        Test.add_func ("/Data/Frame.delay >= 0", test_delay_not_negative);
+        Test.add_func ("/Data/Frame.delta_x default", test_delta_x_default);
+        Test.add_func ("/Data/Frame.delta_x set", test_delta_x_set);
+        Test.add_func ("/Data/Frame.delta_y default", test_delta_y_default);
+        Test.add_func ("/Data/Frame.delta_y set", test_delta_y_set);
     }
 }
