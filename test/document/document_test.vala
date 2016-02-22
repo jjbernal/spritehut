@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -17,33 +17,34 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Document;
+using SpriteHut.Data;
+using SpriteHut.Imaging;
 
 public class TestDocument : Object {
     public static void test_filename_default () {
-        var document = new Document.Document();
+        var document = new Document();
         assert (document.filename == null);
     }
     
     public static void test_filename_set () {
-        var document = new Document.Document();
+        var document = new Document();
         document.filename = "sprite.spritehut";
         assert (document.filename == "sprite.spritehut");
     }
     
     public static void test_treemodel_default () {
-        var document = new Document.Document();
+        var document = new Document();
         assert (document.treemodel is Gtk.TreeModel);
     }
     
     public static void test_add () {
-        var document = new Document.Document();
+        var document = new Document();
         var sprite = new Sprite();
         sprite.name = "Sprite1";
         var animation = new Animation();
         animation.name = "Animation1";
         var frame = new Frame();
-        var layer = new Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.name = "レイヤー１";
         
         Gtk.TreeIter iter;
@@ -54,15 +55,15 @@ public class TestDocument : Object {
     }
     
     public static void test_image_mode () {
-        var document = new Document.Document();
-        document.mode = Imaging.Image.Mode.INDEXED;
-        assert (document.mode == Imaging.Image.Mode.INDEXED);
+        var document = new Document();
+        document.mode = Image.Mode.INDEXED;
+        assert (document.mode == Image.Mode.INDEXED);
         
-        document.mode = Imaging.Image.Mode.RGB;
-        assert (document.mode == Imaging.Image.Mode.RGB);
+        document.mode = Image.Mode.RGB;
+        assert (document.mode == Image.Mode.RGB);
         
-        document.mode = Imaging.Image.Mode.RGBA;
-        assert (document.mode == Imaging.Image.Mode.RGBA);
+        document.mode = Image.Mode.RGBA;
+        assert (document.mode == Image.Mode.RGBA);
     }
 
     public static void add_tests()  {

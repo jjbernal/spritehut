@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <!-- Created with Sprite Hut -->
 <spritehut version="0.1">
-	<sprite name="a sprite">
-		<animation name="An animation of a sprite" fps="25.000000">
-			<frame name="0"/>
-			<frame name="1">
-				<layer name="Armor" opacity="1.000000"/>
-				<layer name="Body" opacity="1.000000"/>
-			</frame>
-		</animation>
-		<animation name="Another animation of a sprite" fps="25.000000">
-			<frame name="0"/>
-			<frame name="1">
-				<layer name="Hair" opacity="1.000000"/>
-				<layer name="Head" opacity="1.000000"/>
-			</frame>
-		</animation>
-	</sprite>
-	<sprite name="Another sprite">
-		<animation name="An animation of another sprite" fps="25.000000">
-			<frame name="0">
-				<layer name="A layer" opacity="1.000000"/>
-			</frame>
-		</animation>
-	</sprite>
+	<tdatasprite name="a sprite">
+		<tdataanimation name="An animation of a sprite" fps="25.000000">
+			<tdataframe name="0"/>
+			<tdataframe name="1">
+				<tdatalayer name="Armor" opacity="1.000000"/>
+				<tdatalayer name="Body" opacity="1.000000"/>
+			</tdataframe>
+		</tdataanimation>
+		<tdataanimation name="Another animation of a sprite" fps="25.000000">
+			<tdataframe name="0"/>
+			<tdataframe name="1">
+				<tdatalayer name="Hair" opacity="1.000000"/>
+				<tdatalayer name="Head" opacity="1.000000"/>
+			</tdataframe>
+		</tdataanimation>
+	</tdatasprite>
+	<tdatasprite name="Another sprite">
+		<tdataanimation name="An animation of another sprite" fps="25.000000">
+			<tdataframe name="0">
+				<tdatalayer name="A layer" opacity="1.000000"/>
+			</tdataframe>
+		</tdataanimation>
+	</tdatasprite>
 </spritehut>

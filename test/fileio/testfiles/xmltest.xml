@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- Created with Sprite Hut -->
 <spritehut version="0.1">
-	<sprite name="Sprite1">
-		<animation name="Animation1" fps="25.000000">
-			<frame name="Frame1">
-				<layer name="Layer1" opacity="1.000000"/>
-			</frame>
-		</animation>
-	</sprite>
+	<tdatasprite name="Sprite1">
+		<tdataanimation name="Animation1" fps="25.000000">
+			<tdataframe name="Frame1">
+				<tdatalayer name="Layer1" opacity="1.000000"/>
+			</tdataframe>
+		</tdataanimation>
+	</tdatasprite>
 </spritehut>

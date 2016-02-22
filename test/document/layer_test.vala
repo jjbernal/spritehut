@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -17,61 +17,62 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Document;
+using SpriteHut.Data;
+using SpriteHut.Imaging;
 
 public class TestLayer : Object {
     public static void test_name_default () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         assert (layer.name == "Layer1");
     }
     
     public static void test_name_set () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.name = "MyLayer";
         assert (layer.name == "MyLayer");
     }
     
     public static void test_visible_default () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         assert (layer.visible == true);
     }
     
     public static void test_visible_set () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.visible = false;
         assert (layer.visible == false);
     }
     
     public static void test_locked_default () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         assert (layer.locked == false);
     }
     
     public static void test_locked_set () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.locked = true;
         assert (layer.locked == true);
     }
 
     public static void test_opacity_default () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         assert (layer.opacity == 1.0);
     }
     
     public static void test_opacity_set () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.opacity = 0.5;
         assert (layer.opacity == 0.5);
     }
     
     public static void test_opacity_equal_or_less_than_one () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.opacity = 1.1;
         assert (layer.opacity == 1.0);
     }
     
     public static void test_opacity_equal_or_greater_than_zero () {
-        var layer = new Document.Layer(64, 64, Imaging.Image.Mode.INDEXED);
+        var layer = new Layer(64, 64, Image.Mode.INDEXED);
         layer.opacity = -0.1;
         assert (layer.opacity == 0.0);
     }

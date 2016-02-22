@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -16,9 +16,10 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
-using Imaging;
+
 using Gdk;
 using FreeImage;
+using SpriteHut.Imaging;
 
 public class TestIndexedImage : Object {
     public static void text_header()

@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -16,14 +16,16 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
-using Document;
-using FileIO;
-using Gtk;
+
+//using Gtk;
+using SpriteHut.Data;
+using SpriteHut.FileIO;
+using SpriteHut.Imaging;
 
 public class TestImageSequenceWriter : Object {
     public static void test_default_document () {
         var writer = new ImageSequenceWriter();
-        Document.Document doc = new BlankDocument();
+        Document doc = new BlankDocument();
         
         writer.save(doc, "fileio/testfiles/xmltest.xml");
         
@@ -32,25 +34,25 @@ public class TestImageSequenceWriter : Object {
     
     public static void test_complex_document () {
         var writer = new ImageSequenceWriter();
-        Document.Document doc = new Document.Document();
-        TreeIter iter;
+        Document doc = new Document();
+        Gtk.TreeIter iter;
 
-        TreeIter sprite = doc.add((IDocumentElement) new Sprite(){name="a sprite"}, null);
-            TreeIter anim1 = doc.add((IDocumentElement) new Animation(){name="An animation of a sprite"}, sprite);
-                TreeIter frame10 = doc.add((IDocumentElement) new Document.Frame(){name="0"}, anim1);
-                TreeIter frame11 = doc.add((IDocumentElement) new Document.Frame(){name="1"}, anim1);
-                    TreeIter layer1 = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Armor"}, frame11);
-                    TreeIter layer2 = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Body"}, frame11);
-            TreeIter anim2 = doc.add((IDocumentElement) new Animation(){name="Another animation of a sprite"}, sprite);
-                TreeIter frame20 = doc.add((IDocumentElement) new Document.Frame(){name="0"}, anim2);
-                TreeIter frame21 = doc.add((IDocumentElement) new Document.Frame(){name="1"}, anim2);
-                    TreeIter layer = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Hair"}, frame21);
-                    layer = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="Head"}, frame21);
-        TreeIter sprite2;
+        Gtk.TreeIter sprite = doc.add((IDocumentElement) new Sprite(){name="a sprite"}, null);
+            Gtk.TreeIter anim1 = doc.add((IDocumentElement) new Animation(){name="An animation of a sprite"}, sprite);
+                Gtk.TreeIter frame10 = doc.add((IDocumentElement) new Frame(){name="0"}, anim1);
+                Gtk.TreeIter frame11 = doc.add((IDocumentElement) new Frame(){name="1"}, anim1);
+                    Gtk.TreeIter layer1 = doc.add((IDocumentElement) new Layer(64, 64, Image.Mode.INDEXED){name="Armor"}, frame11);
+                    Gtk.TreeIter layer2 = doc.add((IDocumentElement) new Layer(64, 64, Image.Mode.INDEXED){name="Body"}, frame11);
+            Gtk.TreeIter anim2 = doc.add((IDocumentElement) new Animation(){name="Another animation of a sprite"}, sprite);
+                Gtk.TreeIter frame20 = doc.add((IDocumentElement) new Frame(){name="0"}, anim2);
+                Gtk.TreeIter frame21 = doc.add((IDocumentElement) new Frame(){name="1"}, anim2);
+                    Gtk.TreeIter layer = doc.add((IDocumentElement) new Layer(64, 64, Image.Mode.INDEXED){name="Hair"}, frame21);
+                    layer = doc.add((IDocumentElement) new Layer(64, 64, Image.Mode.INDEXED){name="Head"}, frame21);
+        Gtk.TreeIter sprite2;
         sprite2 = doc.add((IDocumentElement) new Sprite(){name="Another sprite"}, null);
-            TreeIter s2anim = doc.add((IDocumentElement) new Animation(){name="An animation of another sprite"}, sprite2);
-                TreeIter frame0 = doc.add((IDocumentElement) new Document.Frame(){name="0"}, s2anim);
-                    TreeIter layer0 = doc.add((IDocumentElement) new Layer(64, 64, Imaging.Image.Mode.INDEXED){name="A layer"}, frame0);
+            Gtk.TreeIter s2anim = doc.add((IDocumentElement) new Animation(){name="An animation of another sprite"}, sprite2);
+                Gtk.TreeIter frame0 = doc.add((IDocumentElement) new Frame(){name="0"}, s2anim);
+                    Gtk.TreeIter layer0 = doc.add((IDocumentElement) new Layer(64, 64, Image.Mode.INDEXED){name="A layer"}, frame0);
         
         writer.save(doc, "fileio/testfiles/xmltest_complex.xml");
         

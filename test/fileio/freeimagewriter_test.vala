@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -16,10 +16,12 @@
 ** You should have received a copy of the GNU General Public License
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
-using Imaging;
-using FileIO;
+
 using Gdk;
 using FreeImage;
+using SpriteHut.Imaging;
+using SpriteHut.FileIO;
+
 
 public class TestFreeImageWriter : Object {
     public static void test_save_indexed_1bit () {
@@ -149,7 +151,7 @@ public class TestFreeImageWriter : Object {
             writer.save(image, "/notallowedhere.png");
         }
         catch (Error e) {
-            assert(e is FileIO.IOError);
+            assert(e is SpriteHut.FileIO.FileError);
             stdout.printf(e.message);
         }
     }

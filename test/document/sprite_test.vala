@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -17,16 +17,16 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Document;
+using SpriteHut.Data;
 
 public class TestSprite : Object {
     public static void test_name_default () {
-        var sprite = new Document.Sprite();
+        var sprite = new Sprite();
         assert (sprite.name == "Sprite1");
     }
     
     public static void test_name_set () {
-        var sprite = new Document.Sprite();
+        var sprite = new Sprite();
         sprite.name = "MySprite";
         assert (sprite.name == "MySprite");
     }

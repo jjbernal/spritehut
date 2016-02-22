@@ -1,20 +1,20 @@
 [encoding: UTF-8]
 data/spritehut.desktop.in.in
-src/spritehut.vala
-src/spritehut-app.vala
-src/document/blankdocument.vala
-src/document/document.vala
-src/document/frame.vala
-src/document/idocumentelement.vala
-src/document/layer.vala
-src/document/sprite.vala
-src/widgets/maindock.vala
-src/widgets/mainwindow.vala
-src/widgets/custom/cellrendererhelper.vala
-src/document/animation.vala
-src/imaging/palette.vala
-src/fileio/freeimagereader.vala
-src/core/ResourceDirHelper.vala
+src/main.vala
+src/Core/SpritehutApp.vala
+src/Data/BlankDocument.vala
+src/Data/Document.vala
+src/Data/Frame.vala
+src/Data/IDocumentElement.vala
+src/Data/Layer.vala
+src/Data/Sprite.vala
+src/Gui/MainDock.vala
+src/Gui/MainWindow.vala
+src/Gui/Custom/CellRendererHelper.vala
+src/Data/Animation.vala
+src/Imaging/Palette.vala
+src/FileIO/FreeImageReader.vala
+src/Utils/ResourceDirHelper.vala
 [type: gettext/glade]data/ui/mainwindow.ui
 [type: gettext/glade]data/ui/aboutdialog.ui
 [type: gettext/glade]data/ui/toolpalette.ui

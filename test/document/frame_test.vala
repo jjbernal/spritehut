@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -17,44 +17,44 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Document;
+using SpriteHut.Data;
 
 public class TestFrame : Object {
     public static void test_delay_default () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         assert (frame.delay == 0);
     }
     
     public static void test_delay_set () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         frame.delay = 1000;
         assert (frame.delay == 1000);
     }
     
     public static void test_delay_not_negative () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         frame.delay = -1;
         assert (frame.delay == 0);
     }
     
     public static void test_delta_x_default () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         assert (frame.delta_x == 0);
     }
     
     public static void test_delta_x_set () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         frame.delta_x = -1;
         assert (frame.delta_x == -1);
     }
     
     public static void test_delta_y_default () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         assert (frame.delta_y == 0);
     }
     
     public static void test_delta_y_set () {
-        var frame = new Document.Frame();
+        var frame = new Frame();
         frame.delta_y = -1;
         assert (frame.delta_y == -1);
     }

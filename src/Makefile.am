@@ -1,21 +1,22 @@
 bin_PROGRAMS = spritehut
 noinst_LTLIBRARIES = \
     libimaging.la \
-    libdocument.la \
+    libdata.la \
     libfileio.la \
-    libcore.la \
-    libwidgets.la
+    libutils.la \
+    libgui.la \
+    libcore.la
 
 common_flags = \
     --vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 libimaging_la_SOURCES = \
-    imaging/palette.vala \
-	imaging/image.vala \
-	imaging/indexedimage.vala \
-	imaging/rgbaimage.vala \
-	imaging/sdldrawing.vala
+    Imaging/Image.vala \
+    Imaging/IndexedImage.vala \
+    Imaging/RGBAImage.vala \
+    Imaging/Palette.vala \
+    Imaging/SDLDrawing.vala
 
 libimaging_la_VALAFLAGS = \
     --library imaging -H imaging.h \
@@ -27,35 +28,35 @@ libimaging_la_LDFLAGS = -lfreeimage -lSDLmain -lSDL_gfx
 libimaging_la_LIBADD = \
     @LTLIBOBJS@
     
-libdocument_la_SOURCES = \
-	document/idocumentelement.vala \
-	document/layer.vala \
-	document/frame.vala \
-	document/animation.vala \
-	document/sprite.vala \
-	document/document.vala \
-	document/undohistory.vala \
-	document/blankdocument.vala
+libdata_la_SOURCES = \
+	Data/IDocumentElement.vala \
+	Data/Layer.vala \
+	Data/Frame.vala \
+	Data/Animation.vala \
+	Data/Sprite.vala \
+	Data/Document.vala \
+	Data/UndoHistory.vala \
+	Data/BlankDocument.vala
 
-libdocument_la_VALAFLAGS = \
-    imaging.vapi --library document -H document.h \
+libdata_la_VALAFLAGS = \
+    imaging.vapi --library data -H data.h \
     $(common_flags)
     
-libdocument_la_LIBADD = \
+libdata_la_LIBADD = \
     @LTLIBOBJS@
     
 
 libfileio_la_SOURCES = \
-    fileio/freeimagereader.vala \
-    fileio/iimagereader.vala \
-    fileio/errors.vala \
-    fileio/iimagewriter.vala \
-    fileio/freeimagewriter.vala \
-    fileio/xmldocumentwriter.vala \
-    fileio/imagesequencewriter.vala
+    FileIO/FileError.vala \
+    FileIO/FreeImageReader.vala \
+    FileIO/FreeImageWriter.vala \
+    FileIO/IImageReader.vala \
+    FileIO/IImageWriter.vala \
+    FileIO/ImageSequenceWriter.vala \
+    FileIO/XmlDocumentWriter.vala
 
 libfileio_la_VALAFLAGS = \
-    imaging.vapi document.vapi --library fileio -H fileio.h \
+    imaging.vapi data.vapi --library fileio -H fileio.h \
     --pkg libxml-2.0 \
     $(common_flags)
 
@@ -63,40 +64,49 @@ libfileio_la_LDFLAGS = -lfreeimage
 libfileio_la_LIBADD = \
     @LTLIBOBJS@
     
-libwidgets_la_SOURCES = \
-    widgets/mainwindow.vala \
-    widgets/maindock.vala \
-    widgets/newdialog.vala \
-    widgets/framesiconview.vala \
-    widgets/canvascontroller.vala \
-    widgets/custom/documenttree.vala \
-    widgets/custom/canvas.vala \
-    widgets/custom/treedragdesttreemodelfilter.vala \
-    widgets/custom/cellrendererhelper.vala
+libgui_la_SOURCES = \
+    Gui/MainDock.vala \
+    Gui/MainWindow.vala \
+    Gui/Controllers/CanvasController.vala \
+    Gui/Controllers/FramesIconViewController.vala \
+    Gui/Controllers/NewDialogController.vala \
+    Gui/Custom/Canvas.vala \
+    Gui/Custom/CellRendererHelper.vala \
+    Gui/Custom/DocumentTree.vala \
+    Gui/Custom/TreeDragDestTreeModelFilter.vala
 
-libwidgets_la_VALAFLAGS = \
-    imaging.vapi document.vapi core.vapi --library widgets -H widgets.h \
+libgui_la_VALAFLAGS = \
+    imaging.vapi data.vapi utils.vapi --library gui -H gui.h \
     $(common_flags)
     
-libwidgets_la_LIBADD = \
+libgui_la_LIBADD = \
     @LTLIBOBJS@
     
 
+libutils_la_SOURCES = \
+    Utils/AppConstants.vala \
+    Utils/ResourceDirHelper.vala \
+    Utils/PreferencesManager.vala
+
+libutils_la_VALAFLAGS = \
+    --library utils -H utils.h \
+    $(common_flags)
+    
+libutils_la_LIBADD = \
+    @LTLIBOBJS@
+
 libcore_la_SOURCES = \
-    core/AppConstants.vala \
-    core/ResourceDirHelper.vala \
-    core/PreferencesManager.vala
+    Core/SpritehutApp.vala
 
 libcore_la_VALAFLAGS = \
-    --library core -H core.h \
+    gui.vapi imaging.vapi utils.vapi data.vapi --library core -H core.h \
     $(common_flags)
     
 libcore_la_LIBADD = \
     @LTLIBOBJS@
 
 spritehut_SOURCES = \
-    spritehut.vala \
-    spritehut-app.vala
+    main.vala
 
 
 AM_CPPFLAGS = \
@@ -107,14 +117,14 @@ AM_CPPFLAGS = \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
 
 spritehut_VALAFLAGS = \
-    core.vapi imaging.vapi document.vapi fileio.vapi widgets.vapi \
+    core.vapi utils.vapi imaging.vapi data.vapi fileio.vapi gui.vapi \
 	--vapidir=$(srcdir)/../vapi --pkg config \
 	@SPRITE_HUT_PACKAGES@
 
 spritehut_LDADD = \
-	libwidgets.la libdocument.la libimaging.la libfileio.la libcore.la $(SPRITE_HUT_LIBS)
+	libcore.la libgui.la libdata.la libimaging.la libfileio.la libutils.la $(SPRITE_HUT_LIBS)
 
-DIRS = core/*.c document/*.c widgets/*.c imaging/*.c fileio/*.c
+DIRS = Core/*.c Utils/*.c Data/*.c Gui/*.c Gui/Custom/*.c Gui/Controllers/*.c Imaging/*.c FileIO/*.c
 CLEANFILES = *.h *.c $(DIRS) *.vapi *.stamp
 
 #valencia options

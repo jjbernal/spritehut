@@ -17,7 +17,7 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Document;
+using SpriteHut.Data;
 
 public class TestUndoHistory : Object {
     public static void test_log_change () {

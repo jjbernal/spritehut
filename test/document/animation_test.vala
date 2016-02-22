@@ -1,5 +1,5 @@
 /*
-** Copyright © 2011-2012 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
+** Copyright © 2011-2012, 2016 Juan José Bernal Rodríguez <juanjose.bernal.rodriguez@gmail.com>
 **
 ** This file is part of Sprite Hut.
 **
@@ -17,49 +17,49 @@
 ** along with Sprite Hut.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Document;
+using SpriteHut.Data;
 
 public class TestAnimation : Object {
     public static void test_name_default () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         assert (anim.name == "Animation1");
     }
     
     public static void test_name_set () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         anim.name = "Animation1";
         assert (anim.name == "Animation1");
     }
     
     public static void test_fps_default () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         assert (anim.fps == Animation.default_fps);
     }
     
     public static void test_fps_set () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         anim.fps = -1;
         assert (anim.fps == 0);
     }
     
     public static void test_mirror_default () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         assert (anim.mirror == Animation.Mirror.NONE);
     }
     
     public static void test_mirror_set () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         anim.mirror = Animation.Mirror.VERTICAL;
         assert (anim.mirror == Animation.Mirror.VERTICAL);
     }
     
     public static void test_loop_default () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         assert (anim.loop == Animation.Loop.NONE);
     }
     
     public static void test_loop_set () {
-        var anim = new Document.Animation();
+        var anim = new Animation();
         anim.loop = Animation.Loop.REPEAT;
         assert (anim.loop == Animation.Loop.REPEAT);
     }

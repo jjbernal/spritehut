@@ -2,7 +2,7 @@
 
 AC_INIT([Sprite Hut],[0.1])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([src/spritehut.vala])
+AC_CONFIG_SRCDIR([src/main.vala])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([no-dist-gzip dist-bzip2])

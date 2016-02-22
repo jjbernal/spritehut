@@ -17,8 +17,8 @@ document_test_SOURCES = \
     document/undohistory_test.vala \
     document/main.vala
     
-document_test_LDADD = $(BUILDDIR)/libdocument.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
-document_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
+document_test_LDADD = $(BUILDDIR)/libdata.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
+document_test_VALAFLAGS = $(BUILDDIR)/data.vapi \
     $(BUILDDIR)/imaging.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
@@ -31,8 +31,8 @@ fileio_test_SOURCES = \
     fileio/imagesequencewriter_test.vala \
     fileio/fileio_main.vala
     
-fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdocument.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
-fileio_test_VALAFLAGS = $(BUILDDIR)/document.vapi \
+fileio_test_LDADD = $(BUILDDIR)/libfileio.la $(BUILDDIR)/libdata.la $(BUILDDIR)/libimaging.la $(SPRITE_HUT_LIBS)
+fileio_test_VALAFLAGS = $(BUILDDIR)/data.vapi \
     $(BUILDDIR)/imaging.vapi \
     $(BUILDDIR)/fileio.vapi \
     --vapidir=$(srcdir)/../vapi \
@@ -51,15 +51,15 @@ imaging_test_SOURCES = \
 imaging_test_LDADD = \
     $(BUILDDIR)/libimaging.la \
     $(BUILDDIR)/libfileio.la \
-    $(BUILDDIR)/libdocument.la \
+    $(BUILDDIR)/libdata.la \
     $(SPRITE_HUT_LIBS)
 imaging_test_VALAFLAGS = \
     $(BUILDDIR)/imaging.vapi \
     $(BUILDDIR)/fileio.vapi \
-    $(BUILDDIR)/document.vapi \
+    $(BUILDDIR)/data.vapi \
     --vapidir=$(srcdir)/../vapi \
     --pkg config \
     @SPRITE_HUT_PACKAGES@
 
-DIRS = document/*.c imaging/*.c
+DIRS = document/*.c imaging/*.c fileio/*.c
 CLEANFILES = $(DIRS) *.c *.stamp test-report.xml test-report.html
