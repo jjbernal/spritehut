@@ -218,7 +218,7 @@ namespace SpriteHut.Gui
         }
         
         public void on_close(SimpleAction action, Variant? parameter) {
-            if (close_intent()) this.destroy();
+            if (!close_intent()) this.destroy();
         }
         
         public bool on_window_delete(Gdk.EventAny? event) {
@@ -226,7 +226,7 @@ namespace SpriteHut.Gui
         }
         
         public bool close_intent() {
-            bool result = true;
+            bool result = false;
             
             if (document != null && document.modified)
             {
@@ -238,14 +238,9 @@ namespace SpriteHut.Gui
                 if (answer != ResponseType.YES) {
                     document.notify.disconnect(update_status);   // detach document from window
                     //this.destroy();
-                    result = false;
+                    result = true;
                 }
                 
-            }
-            else
-            {
-                //decrement document count here this.application.
-                //this.destroy();
             }
             
             return result;

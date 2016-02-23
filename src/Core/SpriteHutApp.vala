@@ -99,7 +99,7 @@ namespace SpriteHut.Core {
             if (this != null) {
                 foreach (unowned Gtk.Window window in this.get_windows()) {
                     if (window != null) {
-                        if (((MainWindow) window).close_intent()) {
+                        if (!((MainWindow) window).close_intent()) {
                             window.destroy();
                         }
                     }
