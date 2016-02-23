@@ -1,5 +1,5 @@
 data/spritehut.desktop.in
-src/Core/SpritehutApp.c
+src/Core/SpriteHutApp.c
 src/Data/Animation.c
 src/Data/Layer.c
 src/Data/Frame.c

@@ -26,7 +26,7 @@ namespace SpriteHut.Core {
     public class SpriteHutApp : Gtk.Application
     {
         private PreferencesManager preferences_man = new PreferencesManager();
-        private AboutDialog about;
+        //private AboutDialog about;
         private string default_document_name = _("Untitled");
         private static uint open_documents_in_this_session = 0;
         /* Create the application actions. */
@@ -59,6 +59,7 @@ namespace SpriteHut.Core {
                 var document = create_default_document();
                 
                 var window = new MainWindow(this, document);
+                this.add_window(window);
                 
                 window.show();
             }
@@ -84,8 +85,9 @@ namespace SpriteHut.Core {
         
         void on_about(SimpleAction action, Variant? parameter) 
         {
+            var about = widget_from_filename_and_name("aboutdialog.ui", "about-dialog") as AboutDialog;
             about.run();
-            about.hide();
+            about.destroy();
         }
         
         void on_preferences (SimpleAction action, Variant? parameter) {
@@ -94,9 +96,14 @@ namespace SpriteHut.Core {
 
         void on_quit (SimpleAction action, Variant? parameter) {
             debug ("You clicked \"Quit\"\n");
-            foreach (Gtk.Window window in this.get_windows())
-            {
-                ((MainWindow) window).close_intent();
+            if (this != null) {
+                foreach (unowned Gtk.Window window in this.get_windows()) {
+                    if (window != null) {
+                        if (((MainWindow) window).close_intent()) {
+                            window.destroy();
+                        }
+                    }
+                }
             }
 //            this.quit ();
         }
@@ -106,10 +113,13 @@ namespace SpriteHut.Core {
             Object (application_id: app_id, flags: flags);
         }
         
-        public override void activate()
+        protected override void activate()
         {
             var document = create_default_document();
-            new MainWindow(this, document).show();
+            ApplicationWindow window = new MainWindow(this, document);
+            
+            this.add_window(window);
+            window.show();
         }
         
         protected override void startup () {
@@ -117,8 +127,20 @@ namespace SpriteHut.Core {
             
             this.add_action_entries (actions, this);
             
+            add_accelerators();
+            
+            preferences_man.load();
+        }
+        
+        
+        /*
+        * Gtk.Builder helper method
+        * FIXME Refactor to somewhere else
+        *
+        */
+        public Gtk.Widget widget_from_filename_and_name(string filename, string widget_name) {
             string main_window_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
-                                                 "aboutdialog.ui", null );
+                                                 filename, null );
                                                  
             var builder = new Builder ();
             
@@ -129,11 +151,9 @@ namespace SpriteHut.Core {
                 error (_("Unable to load ui file: %s"), e.message);
             }
             
-            about = builder.get_object ("about-dialog") as AboutDialog;
-
-            add_accelerators();
+            var widget = builder.get_object (widget_name) as Gtk.Widget;
             
-            preferences_man.load();
+            return widget;
         }
         
         private void add_accelerators(){

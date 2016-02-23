@@ -1,7 +1,7 @@
 [encoding: UTF-8]
 data/spritehut.desktop.in.in
 src/main.vala
-src/Core/SpritehutApp.vala
+src/Core/SpriteHutApp.vala
 src/Data/BlankDocument.vala
 src/Data/Document.vala
 src/Data/Frame.vala

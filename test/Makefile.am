@@ -2,12 +2,32 @@ AM_CPPFLAGS = $(SPRITE_HUT_CFLAGS) -I$(top_srcdir)/src
 BUILDDIR = $(top_builddir)/src
 
 TESTS = \
+    core_test\
 	data_test\
 	imaging_test\
 	fileio_test
 
 check_PROGRAMS = $(TESTS)
 
+core_test_SOURCES = \
+    Core/TestSpriteHutApp.vala \
+    Core/core_main.vala
+    
+core_test_LDADD = $(BUILDDIR)/libcore.la \
+     $(BUILDDIR)/libgui.la \
+     $(BUILDDIR)/libdata.la \
+     $(BUILDDIR)/libimaging.la \
+     $(BUILDDIR)/libutils.la \
+     $(SPRITE_HUT_LIBS)
+core_test_VALAFLAGS = $(BUILDDIR)/core.vapi \
+    $(BUILDDIR)/gui.vapi \
+    $(BUILDDIR)/data.vapi \
+    $(BUILDDIR)/imaging.vapi \
+    $(BUILDDIR)/utils.vapi \
+    --vapidir=$(srcdir)/../vapi \
+    --pkg config \
+    @SPRITE_HUT_PACKAGES@
+    
 data_test_SOURCES = \
     Data/TestAnimation.vala \
     Data/TestDocument.vala \
@@ -61,5 +81,5 @@ imaging_test_VALAFLAGS = \
     --pkg config \
     @SPRITE_HUT_PACKAGES@
 
-DIRS = Data/*.c Imaging/*.c FileIO/*.c testfiles/output/* testimages/output/*
+DIRS = Core/*.c Data/*.c Imaging/*.c FileIO/*.c testfiles/output/* testimages/output/*
 CLEANFILES = $(DIRS) *.c *.stamp test-report.xml test-report.html

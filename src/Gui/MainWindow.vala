@@ -175,7 +175,7 @@ namespace SpriteHut.Gui
         
         bool fill_progressbar () {
             double fraction = main_progressbar.get_fraction (); //get current progress
-            fraction += 0.05; //increase by 10% each time this function is called
+            fraction += 0.01; //increase by 10% each time this function is called
 
             main_progressbar.set_fraction (fraction);
 
@@ -218,31 +218,37 @@ namespace SpriteHut.Gui
         }
         
         public void on_close(SimpleAction action, Variant? parameter) {
-
-            close_intent();
+            if (close_intent()) this.destroy();
         }
         
         public bool on_window_delete(Gdk.EventAny? event) {
-            close_intent();
-            
-            return true;
+            return close_intent();
         }
         
-        public void close_intent() {
+        public bool close_intent() {
+            bool result = true;
+            
             if (document != null && document.modified)
             {
                 MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,MessageType.WARNING,ButtonsType.YES_NO,
                 _("There are unsaved changes in this project. Close the window anyway?"));
-                if (md.run() == ResponseType.YES) {
-                    document.notify.disconnect(update_status);   // detach document from window
-                    this.destroy();
-                }
+                var answer = md.run();
                 md.destroy();
+                
+                if (answer != ResponseType.YES) {
+                    document.notify.disconnect(update_status);   // detach document from window
+                    //this.destroy();
+                    result = false;
+                }
+                
             }
             else
             {
-                this.destroy();
+                //decrement document count here this.application.
+                //this.destroy();
             }
+            
+            return result;
         }
         
         // Edit action handlers

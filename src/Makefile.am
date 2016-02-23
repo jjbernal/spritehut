@@ -96,7 +96,7 @@ libutils_la_LIBADD = \
     @LTLIBOBJS@
 
 libcore_la_SOURCES = \
-    Core/SpritehutApp.vala
+    Core/SpriteHutApp.vala
 
 libcore_la_VALAFLAGS = \
     gui.vapi imaging.vapi utils.vapi data.vapi --library core -H core.h \
