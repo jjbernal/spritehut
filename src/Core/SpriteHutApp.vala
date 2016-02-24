@@ -88,9 +88,6 @@ namespace SpriteHut.Core {
         {
             var about = GtkHelper.widget_from_filename_and_name("aboutdialog.ui", "about-dialog") as AboutDialog;
             GtkHelper.run_dialog(about, this.active_window);
-//            about.set_transient_for(this.active_window);
-//            about.run();
-//            about.destroy();
         }
         
         void on_preferences (SimpleAction action, Variant? parameter) {
