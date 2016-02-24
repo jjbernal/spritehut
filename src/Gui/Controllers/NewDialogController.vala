@@ -23,7 +23,7 @@ namespace SpriteHut.Gui
 {
     public class NewDialogController : Object
     {
-        private Gtk.Dialog window;
+        public Gtk.Dialog window;
         private Gtk.Adjustment width_adjustment;
         private Gtk.Adjustment height_adjustment;
         private Gtk.ComboBox mode_combobox;

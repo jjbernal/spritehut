@@ -26,9 +26,9 @@ namespace SpriteHut.Core {
     public class SpriteHutApp : Gtk.Application
     {
         private PreferencesManager preferences_man = new PreferencesManager();
-        //private AboutDialog about;
         private string default_document_name = _("Untitled");
         private static uint open_documents_in_this_session = 0;
+        
         /* Create the application actions. */
         const GLib.ActionEntry[] actions = {
             { "new", on_new },
@@ -51,7 +51,7 @@ namespace SpriteHut.Core {
         void on_new (SimpleAction action, Variant? parameter) {
             NewDialogController new_dialog = new NewDialogController();
             
-            int response = new_dialog.run();
+            int response = GtkHelper.run_dialog(new_dialog.window, this.active_window);
             
             if (response == ResponseType.OK) {
                 debug("Creating New Document: \nwidth: %uheight:  mode: \n", new_dialog.width());
@@ -64,18 +64,19 @@ namespace SpriteHut.Core {
                 window.show();
             }
             
-            new_dialog.destroy();
+//            new_dialog.destroy();
         }
         
         void on_open(SimpleAction action, Variant? parameter) {
             FileChooserDialog fcd = new FileChooserDialog(_("Open"), null, FileChooserAction.OPEN, AppConstants.GTK_CANCEL, ResponseType.CANCEL,
                                       AppConstants.GTK_OPEN, ResponseType.ACCEPT);
-            if (fcd.run () == ResponseType.ACCEPT) {
-    //                open_file (file_chooser.get_filename ());
+            int response = GtkHelper.run_dialog(fcd, this.active_window);
+            
+            if (response == ResponseType.ACCEPT) {
+    //                open_file (fcd.get_filename ());
                 debug("Loading %s\n", fcd.get_filename ());
             }
-            
-            fcd.destroy();
+        
         }
         
         void on_help(SimpleAction action, Variant? parameter) 
@@ -85,9 +86,11 @@ namespace SpriteHut.Core {
         
         void on_about(SimpleAction action, Variant? parameter) 
         {
-            var about = widget_from_filename_and_name("aboutdialog.ui", "about-dialog") as AboutDialog;
-            about.run();
-            about.destroy();
+            var about = GtkHelper.widget_from_filename_and_name("aboutdialog.ui", "about-dialog") as AboutDialog;
+            GtkHelper.run_dialog(about, this.active_window);
+//            about.set_transient_for(this.active_window);
+//            about.run();
+//            about.destroy();
         }
         
         void on_preferences (SimpleAction action, Variant? parameter) {
@@ -95,17 +98,13 @@ namespace SpriteHut.Core {
         }
 
         void on_quit (SimpleAction action, Variant? parameter) {
-            debug ("You clicked \"Quit\"\n");
-            if (this != null) {
-                foreach (unowned Gtk.Window window in this.get_windows()) {
-                    if (window != null) {
-                        if (!((MainWindow) window).close_intent()) {
-                            window.destroy();
-                        }
-                    }
-                }
+            bool cancel_quit = false;
+            
+            // Close all windows, asking if their documents hace unsaved changes first
+            while (this.active_window != null && !cancel_quit) {
+                cancel_quit = ((MainWindow) this.active_window).close_intent();
+                if (!cancel_quit) this.active_window.destroy();
             }
-//            this.quit ();
         }
         
         public SpriteHutApp (string app_id, ApplicationFlags flags)
@@ -130,30 +129,6 @@ namespace SpriteHut.Core {
             add_accelerators();
             
             preferences_man.load();
-        }
-        
-        
-        /*
-        * Gtk.Builder helper method
-        * FIXME Refactor to somewhere else
-        *
-        */
-        public Gtk.Widget widget_from_filename_and_name(string filename, string widget_name) {
-            string main_window_path = GLib.Path.build_filename( Config.PKGDATADIR, "ui",
-                                                 filename, null );
-                                                 
-            var builder = new Builder ();
-            
-            try {
-                builder.add_from_file (main_window_path);
-            }
-            catch (Error e) {
-                error (_("Unable to load ui file: %s"), e.message);
-            }
-            
-            var widget = builder.get_object (widget_name) as Gtk.Widget;
-            
-            return widget;
         }
         
         private void add_accelerators(){

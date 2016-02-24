@@ -226,21 +226,26 @@ namespace SpriteHut.Gui
         }
         
         public bool close_intent() {
+            // Set result as false by default to let the window be deleted
             bool result = false;
             
+            // if there are unsaved changes in the document
             if (document != null && document.modified)
             {
-                MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,MessageType.WARNING,ButtonsType.YES_NO,
+                // Ask the user whether to close the window or not
+                MessageDialog md = new MessageDialog(null, DialogFlags.MODAL,
+                                        MessageType.WARNING,ButtonsType.YES_NO,
                 _("There are unsaved changes in this project. Close the window anyway?"));
-                var answer = md.run();
-                md.destroy();
+                var answer = GtkHelper.run_dialog(md, this);
                 
                 if (answer != ResponseType.YES) {
-                    document.notify.disconnect(update_status);   // detach document from window
-                    //this.destroy();
+                    // The user doesn't want to close the window'
                     result = true;
                 }
-                
+                else {
+                    // Detach document from window
+                    document.notify.disconnect(update_status);
+                }
             }
             
             return result;

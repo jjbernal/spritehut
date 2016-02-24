@@ -10,6 +10,7 @@ src/Data/Layer.vala
 src/Data/Sprite.vala
 src/Gui/MainDock.vala
 src/Gui/MainWindow.vala
+src/Gui/GtkHelper.vala
 src/Gui/Custom/CellRendererHelper.vala
 src/Data/Animation.vala
 src/Imaging/Palette.vala

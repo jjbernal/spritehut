@@ -67,6 +67,7 @@ libfileio_la_LIBADD = \
 libgui_la_SOURCES = \
     Gui/MainDock.vala \
     Gui/MainWindow.vala \
+    Gui/GtkHelper.vala \
     Gui/Controllers/CanvasController.vala \
     Gui/Controllers/FramesIconViewController.vala \
     Gui/Controllers/NewDialogController.vala \
