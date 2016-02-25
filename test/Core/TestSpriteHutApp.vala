@@ -24,12 +24,16 @@ using Gtk;
 
 public class TestSpriteHutApp : Object {
     public static void test_quit () {
-        var app = new SpriteHutApp(SpriteHut.Utils.AppConstants.APP_ID, GLib.ApplicationFlags.FLAGS_NONE);
+        var app = new SpriteHutApp("just.testing.SpriteHut", GLib.ApplicationFlags.FLAGS_NONE);
         string[] args={"spritehut"};
-        //for (int i = 0; i < 2; ++i) {
-            int result = app.run(args);
+        
+        Idle.add( ()=> {
             app.quit();
-        //}
+            return false;
+        });
+        
+        int result = app.run();
+        assert (result == 0);
     }
 
     public static void add_tests()  {

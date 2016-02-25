@@ -21,6 +21,5 @@ public void main (string[] args) {
     Test.init (ref args);
     
     TestSpriteHutApp.add_tests();
-    
     Test.run ();
 }
