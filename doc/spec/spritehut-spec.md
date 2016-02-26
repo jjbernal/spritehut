@@ -7,7 +7,7 @@ Juan José Bernal Rodríguez
 
 **First version:** February, 13th 2016
 
-**Latest update:** February, 19th 2016
+**Latest update:** February, 26th 2016
 
 Disclaimer
 --
@@ -50,6 +50,45 @@ Tom is a professional animator. Sort of. Maybe. If you *do* consider Fl*sh users
 
 He usually uses more powerful and bigger software for his animation work, but sees in **Sprite Hut** a nice little tool to import his artwork and export sprite sheets when he has some pending comission work for video games.
 
+## Features
+
+### For this milestone (0.1)
+* Indexed color modes (8-bit, with palette)
+* Multiple animations per file
+* Multiple frames per animation
+* Multiple layers per frame
+* Multiple palettes per file
+
+### Plugins:
+* .spritehut load (builtin)
+* .spritehut save (builtin)
+* Image (frame by frame) import
+* Image (frame by frame) export
+* Sprite sheet import
+* Sprite sheet export
+
+## Non-goals for 0.1
+* Non-indexed color modes (16, 24, 32-bit, etc.)
+* Creation and management of collision boxes and other shapes.
+* GIF import/export plugin.
+* Seamless tile painting mode (like Krita).
+* Integration of MyPaint or other advanced paint engine.
+* Hyerarchycal/modular sprites support (like those in Rayman or Vectorman).
+* Support for pressure sensitive graphics tablets (they may still be used as regular pointing devices, just ignoring pressure information).
+
+### Plugins
+#### Would be nice to have plugins:
+* JSON data import
+* JSON data export
+* Open Raster (.ora) support
+
+##### Sort of ridiculous, but why not?:
+* H\*m\* beads pattern export by [*yours truly*](http://github.com/jjbernal).
+* GBDK C export by [*Alejandro Seguí*](http://github.com/alesegdia)
+
+General flowchart
+--
+![General flowchart](images/general-flowchart.png)
 
 User interface
 --------------
@@ -59,7 +98,7 @@ User interface
 <small>*Current state of the critter*</small>
 
 **Notes on current implementation:**
-* Color picker widget just wastes space for now. It has to go away.
+* -- Color picker widget just wastes space for now. It has to go away --.
 * Needs a good, custom palette widget.
 
 #### Open Issues
@@ -134,30 +173,3 @@ Plugin system
 ### Open issues:
 
 * Use libpeas or roll our own?
-
-#### Essential plugins:
-* .spritehut save (builtin)
-* .spritehut load (builtin)
-* Image (frame by frame) import
-* Image (frame by frame) export
-* Sprite sheet import
-* Sprite sheet export
-
-#### Would be nice to have plugins:
-* JSON data import
-* JSON data export
-* Open Raster (.ora) support
-
-##### Sort of ridiculous, but why not?:
-* H\*m\* beads pattern export by [*yours truly*](http://github.com/jjbernal).
-* GBDK C export by [*Alejandro Seguí*](http://github.com/alesegdia)
-
-## Non-goals
-
-### For this milestone (0.1):
-* Non-indexed color modes (16, 24, 32-bit, etc.)
-* GIF import/export plugin.
-* Seamless tile painting mode (like Krita).
-* Integration of MyPaint or other advanced paint engine.
-* Hyerarchycal/modular sprites support (like those in Rayman or Vectorman).
-* Support for pressure sensitive graphics tablets (they may still be used as regular pointing devices, just ignoring pressure information).
