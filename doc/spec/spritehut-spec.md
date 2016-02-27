@@ -53,11 +53,13 @@ He usually uses more powerful and bigger software for his animation work, but se
 ## Features
 
 ### For this milestone (0.1)
-* Indexed color modes (8-bit, with palette)
+* Indexed color mode (8-bit, with palette)
 * Multiple animations per file
 * Multiple frames per animation
 * Multiple layers per frame
 * Multiple palettes per file
+* Pixel grid
+* Zoom in & out from 0.25x to 256x factor
 
 ### Plugins:
 * .spritehut load (builtin)
