@@ -97,7 +97,10 @@ User interface
 ### Main Window
 
 ![Current state of the main window](images/screenshot-main-window.png)
-<small>*Current state of the critter*</small>
+<small>*Current state of the main window*</small>
+
+![Future state of the main window](images/main-window.png)
+<small>*Future state of the main window*</small>
 
 **Notes on current implementation:**
 * -- Color picker widget just wastes space for now. It has to go away --.
