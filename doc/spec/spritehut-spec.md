@@ -52,14 +52,17 @@ He usually uses more powerful and bigger software for his animation work, but se
 
 ## Features
 
+### Done
+* Pixel grid
+* Zoom in & out from 0.25x to 256x factor
+
 ### For this milestone (0.1)
-* Indexed color mode (8-bit, with palette)
+* Indexed color mode support (8-bit, with palette)
 * Multiple animations per file
 * Multiple frames per animation
 * Multiple layers per frame
 * Multiple palettes per file
-* Pixel grid
-* Zoom in & out from 0.25x to 256x factor
+* User-customizable grid (a * b pixels)
 
 ### Plugins:
 * .spritehut load (builtin)
@@ -70,7 +73,7 @@ He usually uses more powerful and bigger software for his animation work, but se
 * Sprite sheet export
 
 ## Non-goals for 0.1
-* Non-indexed color modes (16, 24, 32-bit, etc.)
+* Non-indexed color modes support (16, 24, 32-bit, etc.)
 * Creation and management of collision boxes and other shapes.
 * GIF import/export plugin.
 * Seamless tile painting mode (like Krita).
@@ -103,7 +106,6 @@ User interface
 <small>*Future state of the main window*</small>
 
 **Notes on current implementation:**
-* -- Color picker widget just wastes space for now. It has to go away --.
 * Needs a good, custom palette widget.
 
 #### Open Issues
@@ -126,12 +128,16 @@ User interface
 ### Canvas widget
 
 This is the main widget and main work area of the application.
-Features a painting area delimited by a rectangular border, a background and a pixel grid, which appears when zooming in images for pixel-perfect precision.
+Features a painting area delimited by a rectangular border, a background and a pixel grid, which appears when zooming in images for pixel-perfect precision. Optionally, the user can show or hide a user-defined grid.
 >#### User-customizable settings:
 * Canvas border width (in pixels, default 2)
 * Canvas border color (default: black, #000000)
 * Background (a tileable bitmap, definable per file)(default: checkerboard)
 * Minimum zoom level to show the pixel grid (default: 4x)
+* User-defined grid:
+    * Width and height
+    * Line color
+    * Visibility
 
 >#### Technical note:
 The Canvas widget itself should *not* draw anything on layers by itself, but forward coordinates
@@ -168,9 +174,28 @@ Dragging and dropping a color onto another reorders colors.
 Should watch the current palette property from the *document* to update its contents.
 
 
-### Timeline widget
+### Project widget
 
-### Animations widget
+This is the most complex widget in the main window and probably in all Sprite Hut. It actually consists in several subwidgets that contain each other, reflecting the structure of a Sprite Hut project. Namely:
+
+* **Project**: This is the root node, so to speak, of the project structure. Here, users can define project-wide parameters such as default FPS and loop types for animations, and access top level elements like Animations and Palettes.
+* **Animations**: This is the list of animations in the project. The user can create new animations, as well as duplicate, edit or remove existing ones. Animation properties are:
+    * *FPS* Short for *Frames Per Second*, this parameter sets the animation playing speed. The more FPS, the smoother and more life-like the animation becomes, but the more frames have to be drawn per second of animation. Typical cartoons for movies and TV range from 15 to 24 fps, while old and retro videogames may get away with as little as 2 or 3 fps.
+    * *Loop type*. You can choose between Straight (no loop), Repeat or Ping-pong.
+* **Layers**: This is the layer list for current animation.
+    * *Visible (Eye icon)* Show or hide the layer.
+    * *Locked (Lock icon)* Lock the layer to prevent painting on it accidentally.
+* **Timeline**: Actually more of a *time grid*, as it shows the list of frames of the current animation and the layers than conform each frame.
+
+>#### User-customizable settings:
+* Default FPS for new animations
+* Default loop type for new animations
+* (to be discussed) Global layers.
+
+>#### Technical note:
+As GTK+ TreeViews, TreeModels and related classes are incredibly powerful but also an incredible pain to implement even the most simple of models, this widget will use almost entirely Cairo or Clutter for its rendering and a simple interface to interact with the underlying document model. Some GTK+ widgets, like Entry (for editing), or Labels(for visualizing text), may be used internally, but just in cases for which they're the simplest solutions and provide the best experience for users.
+
+>Anyway, Project, Animations and Layers subwidgets will share most of their code as they share similar features to maximize code reuse. The Timeline/Timegrid part is somewhat different... we'll see.
 
 Plugin system
 --
