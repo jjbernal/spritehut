@@ -63,6 +63,7 @@ He usually uses more powerful and bigger software for his animation work, but se
 * Multiple layers per frame
 * Multiple palettes per file
 * User-customizable grid (a * b pixels)
+* Auto-save
 
 ### Plugins:
 * .spritehut load (builtin)
@@ -125,7 +126,7 @@ User interface
         * Cons: GDL is still there.
 
 
-### Canvas widget
+#### Canvas widget
 
 This is the main widget and main work area of the application.
 Features a painting area delimited by a rectangular border, a background and a pixel grid, which appears when zooming in images for pixel-perfect precision. Optionally, the user can show or hide a user-defined grid.
@@ -146,7 +147,7 @@ widget is detached from the model and we can adopt more advanced and powerful pa
 the future, or alternative view modes (tiling mode ala krita).
 
 
-### Tools widget
+#### Tools widget
 
 This widget sports the different tools that can be used on the canvas.
 
@@ -155,7 +156,7 @@ This widget sports the different tools that can be used on the canvas.
 * **Color picker**. Sets current selected color based on a click on the canvas.
 * **Bucket fill**. Fills a closed area with current selected color.
 
-### Palette widget
+#### Palette widget
 
 Shows colors that the current palette contains.
 Clicking on a color will set it as the current drawing/painting color.
@@ -174,7 +175,7 @@ Dragging and dropping a color onto another reorders colors.
 Should watch the current palette property from the *document* to update its contents.
 
 
-### Project widget
+#### Project widget
 
 This is the most complex widget in the main window and probably in all Sprite Hut. It actually consists in several subwidgets that contain each other, reflecting the structure of a Sprite Hut project. Namely:
 
@@ -196,6 +197,42 @@ This is the most complex widget in the main window and probably in all Sprite Hu
 As GTK+ TreeViews, TreeModels and related classes are incredibly powerful but also an incredible pain to implement even the most simple of models, this widget will use almost entirely Cairo or Clutter for its rendering and a simple interface to interact with the underlying document model. Some GTK+ widgets, like Entry (for editing), or Labels(for visualizing text), may be used internally, but just in cases for which they're the simplest solutions and provide the best experience for users.
 
 >Anyway, Project, Animations and Layers subwidgets will share most of their code as they share similar features to maximize code reuse. The Timeline/Timegrid part is somewhat different... we'll see.
+
+### Preferences/Settings dialog
+
+This dialog should let users change default settings to their taste.
+Settings in this Window appear throughout this document in a *User-customizable settings* section for each feature.
+
+This part should discuss the dialog structure and appearance, not every setting in the application to avoid duplicating work.
+
+[Mockup image pending]
+
+### Menus
+
+
+
+Other Features
+--
+### Auto-save
+
+There are many factors that can interrupt abruptly the execution of a program and cause data loss if the user was working on some artwork. Power outages, broken hardware, accidental shutdowns or a simple CTRL+C when running from a console under GNU/Linux. Sprite Hut itself shouldn't crash by itself, but that can't be ruled out either in all and every possible situation.
+
+That's why Sprite Hut saves a copy of currently open files to disk periodically. That way, if anything makes the application stop from working and shutting down properly and the user didn't save often their work by themselves, an autosaved copy of it can be retrieved and resume the working session.
+
+The sequence of a typical use case would be:
+
+1. The user (say, Mona) is working on something.
+2. Something bad happens and Sprite Hut stops working.
+3. Mona starts Sprite Hut again (immediately or months later, that's irrelevant) and is welcome with a dialog window that shows a list of her last session open projects and lets her choose whether she wants to restore them.
+4. Mona chooses to restore. Sprite Hut opens the autosaved copies and she keeps working on them.
+
+
+
+>#### User-customizable settings:
+* Enable/disable (default: enabled)
+* Backups/temporal directory (default: to be determined)
+* Auto-save interval (in minutes) (default: 10 minutes)
+
 
 Plugin system
 --
