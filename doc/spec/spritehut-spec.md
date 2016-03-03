@@ -233,6 +233,17 @@ The sequence of a typical use case would be:
 * Backups/temporal directory (default: to be determined)
 * Auto-save interval (in minutes) (default: 10 minutes)
 
+### Undo
+
+Just to let users undo and redo their changes to the open *projects*.
+Undoable actions include:
+* Paint/draw on canvas.
+* Create, modify and delete elements from the project.
+
+Not undoable (as they are really not *destructive* but will be saved to file for convenience):
+* Change Zoom level.
+* Change selected element(s) of the project.
+* Change window layout.
 
 Plugin system
 --
