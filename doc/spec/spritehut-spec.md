@@ -245,8 +245,28 @@ Not undoable (as they are really not *destructive* but will be saved to file for
 * Change selected element(s) of the project.
 * Change window layout.
 
+    **An idea** Using git or another Concurrent Version System could be an option.
+
+.spritehut file specification
+--
+Basically a .zip containing individual frames and document structure definition very similar to Open Raster.
+>#### Technical note:
+* Review .ora's (Open RAster) current state and viability as a format to store Sprite Hut data (Layers, frames, animations, palettes).
+(*to be written in its own document*).
+>### Open issues:
+* ¿Use XML or JSON for structure file?
+    * Both are ubiquitous
+    * JSON is less verbose
+    * Maybe XML is more eXtensible?
+    * JSON integration in vala and GObject looks great.
+    * libxml is not so
+
+
 Plugin system
 --
+This section is mostly aimed at those technically inclined users, like our friend Dave. Most users won't be able to write their own plugins for Sprite Hut, but they surely would appreciate some additional functionality bits for their sprite editor. For them, there should be a tab in the [Settings dialog](#Preferences/Settings_dialog) so they can enable/disable plugins and change their options, if any.
+
+In order to keep features manageable for this release, the only available interfaces will be those to import and export data from files other than .spritehut.
 
 ### Open issues:
 
