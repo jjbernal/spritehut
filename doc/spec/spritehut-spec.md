@@ -271,3 +271,11 @@ In order to keep features manageable for this release, the only available interf
 ### Open issues:
 
 * Use libpeas or roll our own?
+
+### Image (frame by frame) import
+
+### Image (frame by frame) export
+
+### Sprite sheet import
+
+### Sprite sheet export
