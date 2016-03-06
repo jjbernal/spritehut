@@ -7,7 +7,7 @@ Juan José Bernal Rodríguez
 
 **First version:** February, 13th 2016
 
-**Latest update:** February, 26th 2016
+**Latest update:** March, 6th 2016
 
 Disclaimer
 --
@@ -250,16 +250,14 @@ Not undoable (as they are really not *destructive* but will be saved to file for
 .spritehut file specification
 --
 Basically a .zip containing individual frames and document structure definition very similar to Open Raster.
->#### Technical note:
-* Review .ora's (Open RAster) current state and viability as a format to store Sprite Hut data (Layers, frames, animations, palettes).
 (*to be written in its own document*).
+>#### Technical note:
+~~* Review .ora's (Open RAster) current state and viability as a format to store Sprite Hut data (Layers, frames, animations, palettes).~~
+Done. It still doesn't have support for animations and palette support is a proposal.
+
 >### Open issues:
-* ¿Use XML or JSON for structure file?
-    * Both are ubiquitous
-    * JSON is less verbose
-    * Maybe XML is more eXtensible?
-    * JSON integration in vala and GObject looks great.
-    * libxml is not so
+~~* ¿Use XML or JSON for structure file?~~
+XML looks fine. Plus, you get file verification almost free (DTD or relaxNG)
 
 
 Plugin system
