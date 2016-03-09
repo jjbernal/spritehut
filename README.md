@@ -6,7 +6,7 @@ Just a sprite editor. Written in vala.
 
 Released under the GPL v3 license. See [COPYING](COPYING) for details.
 
-[Functional specification (in progress)](doc/spec/spritehut-spec.md).
+Check out the [wiki](https://github.com/jjbernal/spritehut/wiki) for more information.
 
 Supported platforms
 -------------------
